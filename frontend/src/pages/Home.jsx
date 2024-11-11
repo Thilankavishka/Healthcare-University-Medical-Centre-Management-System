@@ -1,3 +1,4 @@
+import Message from "../components/Message";
 import { Navbar } from "../components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,7 +25,7 @@ export default function Home() {
         </div>
       </div>
       {/*Time Section */}
-      <div className=" bg-indigo-200  font-25  rounded-lg shadow-lg p-4 ">
+      <div className=" bg-red-100  font-25  rounded-lg shadow-lg p-4 ">
         <div className="  mb-2">
           <h1 className=" text-pink-950 flex items-center justify-center h-30 text-4xl font-semibold ">
             Time :{currenrtime}
@@ -43,6 +44,15 @@ export default function Home() {
       </div>
 
       {/*Message Section*/}
+      <div className="sec-3 w-full h-fit bg-teal-200  pb-5">
+        <div className="department-head flex justify-center">
+          <h1 className="text-3xl font-semibold mt-1 p-5">Send Us A Message</h1>
+        </div>
+        <Message></Message>
+      </div>
+
+      {/*Footer*/}
+      <div></div>
     </>
   );
 }

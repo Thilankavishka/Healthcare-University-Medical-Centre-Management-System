@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -33,19 +35,13 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="flex">
-        <button
-          className="w-32 h-10 bg-[#76dbcf] rounded-2xl font-semibold mr-3"
-          onClick={goRegister}
-        >
+        <Button variant="info" className=" mr-3" onClick={goRegister}>
           REGISTER
-        </button>
+        </Button>
         <div>
-          <button
-            className=" realtive w-32 h-10 bg-[#76dbcf] rounded-2xl font-semibold"
-            onClick={() => setOpen((show) => !show)}
-          >
+          <Button variant="dark" onClick={() => setOpen((show) => !show)}>
             LOGIN
-          </button>
+          </Button>
           {open && (
             <div className="bg-[#76dbcf] absolute flex flex-col rounded-xl w-32 mt-3 font-semibold items-center">
               <Link to={"/login"}>Patient</Link>
