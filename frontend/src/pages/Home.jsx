@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Message from "../components/Message";
 import { Navbar } from "../components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
@@ -49,10 +50,14 @@ export default function Home() {
           <h1 className="text-3xl font-semibold mt-1 p-5">Send Us A Message</h1>
         </div>
         <Message></Message>
-      </div>
 
-      {/*Footer*/}
-      <div></div>
+        {/*Footer*/}
+
+        <div className="footer px-10 bg-gradient-to-b from-[#76dbcf]">
+          <hr className="h-px my-8 border-2 " />
+          <Footer></Footer>
+        </div>
+      </div>
     </>
   );
 }
