@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
+  const Navigate = useNavigate();
+  const goRegister = () => {
+    Navigate("/register");
+  };
   return (
     <nav className="w-full h-16 flex justify-between items-center px-5">
       <div className="logo w-12">
@@ -28,17 +35,24 @@ export const Navbar = () => {
       <div className="flex">
         <button
           className="w-32 h-10 bg-[#76dbcf] rounded-2xl font-semibold mr-3"
-          onClick={""}
+          onClick={goRegister}
         >
           REGISTER
         </button>
         <div>
           <button
             className=" realtive w-32 h-10 bg-[#76dbcf] rounded-2xl font-semibold"
-            onClick={""}
+            onClick={() => setOpen((show) => !show)}
           >
             LOGIN
           </button>
+          {open && (
+            <div className="bg-[#76dbcf] absolute flex flex-col rounded-xl w-32 mt-3 font-semibold items-center">
+              <Link to={"/login"}>Patient</Link>
+              <Link to={"/logindoc"}>Doctor</Link>
+              <Link to={"/loginadmin"}>Admin</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
