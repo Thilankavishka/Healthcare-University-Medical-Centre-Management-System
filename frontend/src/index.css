@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  font-family: "", sans-serif;
+}
+
+#statusup {
+  background-color: #76dbcf;
+  outline: none;
+}
