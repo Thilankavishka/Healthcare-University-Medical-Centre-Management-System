@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 
-export const Navbar = () => {
-  const [open, setOpen] = useState(false);
-
+export default function Navbar({ role, userId }) {
   const Navigate = useNavigate();
   const goRegister = () => {
     Navigate("/register");
+  };
+
+  const goLogin = () => {
+    Navigate("/login");
   };
   return (
     <nav className="w-full h-16 flex justify-between items-center px-5">
@@ -39,18 +41,11 @@ export const Navbar = () => {
           REGISTER
         </Button>
         <div>
-          <Button variant="dark" onClick={() => setOpen((show) => !show)}>
+          <Button variant="dark" onClick={goLogin}>
             LOGIN
           </Button>
-          {open && (
-            <div className="bg-[#76dbcf] absolute flex flex-col rounded-xl w-32 mt-3 font-semibold items-center">
-              <Link to={"/login"}>Patient</Link>
-              <Link to={"/logindoc"}>Doctor</Link>
-              <Link to={"/loginadmin"}>Admin</Link>
-            </div>
-          )}
         </div>
       </div>
     </nav>
   );
-};
+}

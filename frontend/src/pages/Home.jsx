@@ -1,16 +1,16 @@
 import Footer from "../components/Footer";
 import Message from "../components/Message";
-import { Navbar } from "../components/Navbar";
+import Navbar from "../components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Home() {
+export default function Home({ role, userId }) {
   const currenrtime = new Date().toLocaleTimeString();
   const currentDate = new Date().toLocaleDateString();
   return (
     <>
       {/*Navbar section */}
       <div className="sec-1 w-full h-fit bg-gradient-to-tl from-[#76dbcf]">
-        <Navbar></Navbar>
+        <Navbar role={role} userId={userId}></Navbar>
         <div className="hero w-full flex items-center px-10">
           <img className="w-1/2 h-[300px]" src="/uov.jpg" alt=""></img>
 
