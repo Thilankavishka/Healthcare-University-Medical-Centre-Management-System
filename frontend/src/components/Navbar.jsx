@@ -12,6 +12,14 @@ export default function Navbar({ role, userId }) {
   const goLogin = () => {
     Navigate("/login");
   };
+
+  const GoLogOut = () => {
+    Navigate("/logout");
+  };
+
+  const GoAdmindDshboard = () => {
+    Navigate("/admindashboard");
+  };
   return (
     <nav className="w-full h-16 flex justify-between items-center px-5">
       <div className="logo w-12">
@@ -37,14 +45,34 @@ export default function Navbar({ role, userId }) {
         </ul>
       </div>
       <div className="flex">
-        <Button variant="info" className=" mr-3" onClick={goRegister}>
-          REGISTER
-        </Button>
-        <div>
-          <Button variant="dark" onClick={goLogin}>
-            LOGIN
-          </Button>
-        </div>
+        {role === "admin" && (
+          <>
+            <Button onClick={GoAdmindDshboard} className=" mr-3">
+              SuperAdmindDshboard
+            </Button>
+            <Button variant="info" className=" mr-3" onClick={goRegister}>
+              REGISTER
+            </Button>
+          </>
+        )}
+        {role === "student" && <></>}
+        {role === "doctor" && <></>}
+        {role === "" ? (
+          <>
+            <Button variant="info" className=" mr-3" onClick={goRegister}>
+              REGISTER
+            </Button>
+            <Button variant="dark" onClick={goLogin}>
+              LOGIN
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="info" className=" mr-3" onClick={GoLogOut}>
+              Logout
+            </Button>
+          </>
+        )}
       </div>
     </nav>
   );

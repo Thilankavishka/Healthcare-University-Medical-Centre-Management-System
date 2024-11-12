@@ -6,7 +6,7 @@ const superadminmodel = require("../models/superadmin.js");
 const verifyAdmin = require("../security/adminauth.js");
 const router = express.Router();
 
-//login function
+//login Superadmin function
 router.post("/login", async (req, res) => {
   try {
     //username password and role request from user
@@ -72,4 +72,10 @@ router.get("/verify", verifyAdmin, (req, res) => {
   //console.log(res.json());
   //console.log(res.data.role);
 });
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  return res.json({ logout: true });
+});
+
 module.exports = router;
