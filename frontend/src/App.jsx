@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Admindashboard from "./components/Admindashboard";
 import Logout from "./components/Logout";
+import Gallery from "./pages/Gallery";
 
 function App() {
   const [role, setRole] = useState("");
@@ -48,6 +49,7 @@ function App() {
             path="/logout"
             element={<Logout setRole={setRole}></Logout>}
           ></Route>
+          <Route path="/Gallery" element={<Gallery></Gallery>}></Route>
         </Routes>
       </Router>
     </>

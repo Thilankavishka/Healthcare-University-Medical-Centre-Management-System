@@ -12,7 +12,11 @@ export default function Home({ role, userId }) {
       <div className="sec-1 w-full h-fit bg-gradient-to-tl from-[#76dbcf]">
         <Navbar role={role} userId={userId}></Navbar>
         <div className="hero w-full flex items-center px-10">
-          <img className="w-1/2 h-[300px]" src="/uov.jpg" alt=""></img>
+          <img
+            className="w-1/2 h-[300px]"
+            src="/src/assets/images/home.png"
+            alt=""
+          ></img>
 
           <div className="hero-text w-1/2 flex flex-col items-center ">
             <h1 className="font-semibold text-4xl text-blue-700">HealthCare</h1>
