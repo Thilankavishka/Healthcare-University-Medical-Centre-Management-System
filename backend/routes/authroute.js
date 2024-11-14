@@ -67,6 +67,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//SuperAdmin profile details
+router.get("/adprofile/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const profile = await superadminmodel.findOne({ username: username });
+    return res.json({ name: profile.name });
+  } catch (err) {
+    return res.json(err);
+  }
+});
 router.get("/verify", verifyAdmin, (req, res) => {
   return res.json({ login: true, role: req.role, username: req.username });
   //console.log(res.json());

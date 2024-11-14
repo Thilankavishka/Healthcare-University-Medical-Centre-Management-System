@@ -43,7 +43,7 @@ function App() {
           ></Route>
           <Route
             path="/admindashboard"
-            element={<Admindashboard></Admindashboard>}
+            element={<Admindashboard username={username}></Admindashboard>}
           ></Route>
           <Route
             path="/logout"

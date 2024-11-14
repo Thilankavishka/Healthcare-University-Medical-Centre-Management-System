@@ -14,7 +14,7 @@ export default function Message() {
     <>
       <div className="w-full px-48">
         <div className="msg-form w-full h-fit rounded-3xl bg-white my-9 py-12 px-36">
-          <form onSubmit={""}>
+          <form>
             <div className="flex justify-between mb-3">
               <input
                 className="w-96 h-10 bg-zinc-200 rounded-2xl px-4"
