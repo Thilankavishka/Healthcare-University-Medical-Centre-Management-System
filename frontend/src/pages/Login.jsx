@@ -89,12 +89,14 @@ export default function Login({ setRole2 }) {
         >
           Login
         </button>
-        <button
-          onClick={toregister}
-          className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline"
-        >
-          Don’t have an account? Register
-        </button>
+        <div className="flex flex-col items-center">
+          <button
+            onClick={toregister}
+            className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "
+          >
+            Don’t have an account? Register
+          </button>
+        </div>
       </div>
     </div>
   );

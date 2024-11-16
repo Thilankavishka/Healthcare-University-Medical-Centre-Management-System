@@ -19,6 +19,10 @@ export default function RegisterStudent() {
 
   const Navigate = useNavigate();
 
+  const tologin = () => {
+    Navigate("/login");
+  };
+
   const handlesubmit = (e) => {
     e.preventDefault();
 
@@ -56,7 +60,7 @@ export default function RegisterStudent() {
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-4xl bg-white p-8 shadow-md rounded-lg">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-            Register Student
+            Register Patient
           </h2>
           {successMessage && (
             <div className="mb-4 text-green-500 text-sm text-center">
@@ -196,6 +200,14 @@ export default function RegisterStudent() {
               </button>
             </div>
           </form>
+          <div className="flex flex-col items-center">
+            <button
+              onClick={tologin}
+              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "
+            >
+              Already have an account? Login
+            </button>
+          </div>
         </div>
       </div>
     </>
