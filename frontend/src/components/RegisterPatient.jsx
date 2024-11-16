@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export default function RegisterStudent() {
   const [regnum, setRegnum] = useState();
@@ -16,6 +17,7 @@ export default function RegisterStudent() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [image, setImage] = useState("");
 
   const Navigate = useNavigate();
 
@@ -23,7 +25,7 @@ export default function RegisterStudent() {
     Navigate("/login");
   };
 
-  const handlesubmit = (e) => {
+  const handlesubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -31,32 +33,58 @@ export default function RegisterStudent() {
       return;
     }
 
-    axios
-      .post("http://localhost:8080/patient/patientregister", {
-        regnum,
-        fullname,
-        address,
-        city,
-        course,
-        department,
-        faculty,
-        bloodgroup,
-        gender,
-        password,
-      })
-      .then((res) => {
-        if (res.data.registered) {
-          setSuccessMessage(res.data.message);
-          setErrorMessage("");
-          setTimeout(() => Navigate("/login"), 2000);
+    try {
+      // Upload image
+      const formData = new FormData();
+      formData.append("image", image[0]); // Use the first file in case of multiple selections
+
+      const uploadRes = await axios.post(
+        "http://localhost:8080/patient/upload",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
         }
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+      );
+
+      // If image upload is successful, get the file path
+      const imagePath = uploadRes.data.filePath;
+
+      // Register patient
+      const res = await axios.post(
+        "http://localhost:8080/patient/patientregister",
+        {
+          regnum,
+          fullname,
+          address,
+          city,
+          course,
+          department,
+          faculty,
+          bloodgroup,
+          gender,
+          password,
+          image: imagePath,
+        }
+      );
+
+      if (res.data.registered) {
+        setSuccessMessage(res.data.message);
+        setErrorMessage("");
+        setTimeout(() => Navigate("/login"), 2000);
+      }
+
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      setErrorMessage("An error occurred. Please try again.");
+    }
   };
 
   return (
     <>
+      <div>
+        <Navbar></Navbar>
+      </div>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-4xl bg-white p-8 shadow-md rounded-lg">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -75,6 +103,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:2020ict01"
                 value={regnum}
                 onChange={(e) => setRegnum(e.target.value)}
                 required
@@ -85,6 +114,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:A.B.C Perera"
                 value={fullname}
                 onChange={(e) => setFullName(e.target.value)}
                 required
@@ -95,6 +125,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:123/5 ABC Mawatha Colombo"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 required
@@ -105,6 +136,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:Colombo"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 required
@@ -115,6 +147,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:IT/BS/BTEC IT/AMC/CS/ENS"
                 value={course}
                 onChange={(e) => setCourse(e.target.value)}
                 required
@@ -125,6 +158,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:Physical science/Biological science"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 required
@@ -135,6 +169,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:Applied Science/Business Studies/Technology"
                 value={faculty}
                 onChange={(e) => setFaculty(e.target.value)}
                 required
@@ -145,6 +180,7 @@ export default function RegisterStudent() {
               <input
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="Ex:B-/B+"
                 value={bloodgroup}
                 onChange={(e) => setBlood(e.target.value)}
                 required
@@ -163,6 +199,16 @@ export default function RegisterStudent() {
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
               </select>
+            </div>
+            <div>
+              <label className="block text-gray-600 mb-1">
+                Select Profile Photo
+              </label>
+              <input
+                type="file"
+                name="image"
+                onChange={(e) => setImage(e.target.files)}
+              ></input>
             </div>
             <div>
               <label className="block text-gray-600 mb-1">Password</label>

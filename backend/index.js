@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 import("./mongodb.js");
 const cors = require("cors");
 const cookie = require("cookie-parser");
+const path = require("path");
 
 //import routes
 const Authroute = require("./routes/authroute.js");
@@ -26,6 +27,7 @@ dotenv.config();
 
 app.use("/auth", Authroute);
 app.use("/patient", Patientroute);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = 8080;
 app.get("/", (req, res) => {

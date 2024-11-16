@@ -9,6 +9,7 @@ import Admindashboard from "./components/Admindashboard";
 import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
 import RegisterPatient from "./components/RegisterPatient";
+import PatientDetails from "./components/PatientDetails";
 
 function App() {
   const [role, setRole] = useState("");
@@ -54,6 +55,10 @@ function App() {
           <Route
             path="/register"
             element={<RegisterPatient></RegisterPatient>}
+          ></Route>
+          <Route
+            path="PatientDetails"
+            element={<PatientDetails></PatientDetails>}
           ></Route>
         </Routes>
       </Router>
