@@ -8,6 +8,7 @@ import axios from "axios";
 import Admindashboard from "./components/Admindashboard";
 import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
+import RegisterPatient from "./components/RegisterPatient";
 
 function App() {
   const [role, setRole] = useState("");
@@ -50,6 +51,10 @@ function App() {
             element={<Logout setRole={setRole}></Logout>}
           ></Route>
           <Route path="/Gallery" element={<Gallery></Gallery>}></Route>
+          <Route
+            path="/register"
+            element={<RegisterPatient></RegisterPatient>}
+          ></Route>
         </Routes>
       </Router>
     </>

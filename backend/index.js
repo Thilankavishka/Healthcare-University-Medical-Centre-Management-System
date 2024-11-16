@@ -6,6 +6,7 @@ const cookie = require("cookie-parser");
 
 //import routes
 const Authroute = require("./routes/authroute.js");
+const Patientroute = require("./routes/patientroute.js");
 //import models
 const adminmodel = require("./models/superadmin.js");
 
@@ -24,6 +25,7 @@ app.use(cookie());
 dotenv.config();
 
 app.use("/auth", Authroute);
+app.use("/patient", Patientroute);
 
 const PORT = 8080;
 app.get("/", (req, res) => {
