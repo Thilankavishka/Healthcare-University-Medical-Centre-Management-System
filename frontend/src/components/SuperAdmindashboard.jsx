@@ -33,9 +33,10 @@ export default function SuperAdmindashboard({ username }) {
           Admin Name: <span className="text-blue-600">{username}</span>
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 md:px-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-8 md:px-20">
         <div className="flex items-center justify-center">
           <Card className="w-72 shadow-lg">
+            <Card.Img variant="top" src="/card_images/patient.jpg" />
             <Card.Body>
               <Card.Title className="font-bold text-lg text-center">
                 Patient Details
@@ -55,6 +56,7 @@ export default function SuperAdmindashboard({ username }) {
         </div>
         <div className="flex items-center justify-center">
           <Card className="w-72 shadow-lg">
+            <Card.Img variant="top" src="/card_images/doctor.jpeg" />
             <Card.Body>
               <Card.Title className="font-bold text-lg text-center">
                 Doctors Details
@@ -73,6 +75,7 @@ export default function SuperAdmindashboard({ username }) {
         </div>
         <div className="flex items-center justify-center">
           <Card className="w-72 shadow-lg">
+            <Card.Img variant="top" src="/card_images/reg.jpg" />
             <Card.Body>
               <Card.Title className="font-bold text-lg text-center">
                 Register Doctors/Admins
@@ -92,6 +95,7 @@ export default function SuperAdmindashboard({ username }) {
         </div>
         <div className="flex items-center justify-center">
           <Card className="w-72 shadow-lg">
+            <Card.Img variant="top" src="/card_images/register_patient.jpg" />
             <Card.Body>
               <Card.Title className="font-bold text-lg text-center">
                 Register Patient
