@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const verifyAdmin = async (req, res, next) => {
+const verifySuperAdmin = async (req, res, next) => {
   const token = req.cookies.token; //frontend part
   /*const authHeader = req.headers["authorization"]; //postman part
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -21,4 +21,4 @@ const verifyAdmin = async (req, res, next) => {
     });
   }
 };
-module.exports = verifyAdmin;
+module.exports = verifySuperAdmin;

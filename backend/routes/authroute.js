@@ -2,8 +2,10 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const superadminmodel = require("../models/superadmin.js");
+const patientmodel = require("../models/patient.js");
 
-const verifyAdmin = require("../security/adminauth.js");
+const verifySuperAdmin = require("../security/adminauth.js");
+const verifyPatient = require("../security/userauth.js");
 const router = express.Router();
 
 //login Superadmin function
@@ -15,7 +17,7 @@ router.post("/login", async (req, res) => {
     if (!username || !password || !role) {
       res.status(400).json({ message: "Provide all fields" });
     }
-    if (role === "admin") {
+    if (role === "superadmin") {
       const admin = await superadminmodel.findOne({ username }); //admin validation by username
       if (!admin) {
         return res.json({ message: "admin not registered" });
@@ -26,41 +28,41 @@ router.post("/login", async (req, res) => {
       }
       //asign token for admin
       const token = jwt.sign(
-        { username: admin.username, role: "admin" },
+        { username: admin.username, role: "superadmin" },
         process.env.admin_key
       );
       res.cookie("token", token, { httpOnly: true, secure: true });
       return res.json({
         login: true,
-        role: "admin",
+        role: "superadmin",
         message: "Admin Login Successfully",
         token,
       });
       //student login part
-    } else if (role === "student") {
-      /*const student = await studentmodel.findOne({ username });
-      if (!student) {
-        return res.json({ message: "Student username not registered" });
+    } else if (role === "patient") {
+      const patient = await patientmodel.findOne({ regnum: username });
+      if (!patient) {
+        return res.json({
+          message: "patient registration Number not registered",
+        });
       }
-      const validpassword = await bcrypt.compare(password, student.password);
+      const validpassword = await bcrypt.compare(password, patient.password);
       if (!validpassword) {
         return res.json({ message: "wrong Password" });
       }
       //asign token for student
       const token = jwt.sign(
-        { username: student.username, role: "student" },
-        process.env.Student_key
+        { username: patient.regnum, role: "patient" },
+        process.env.Patient_Key
       );
       res.cookie("token", token, { httpOnly: true, secure: true });
       return res.json({
         login: true,
-        role: "student",
-        message: "Student Login Successfully",
+        role: "patient",
+        message: "Patient Login Successfully",
         token,
+        username: patient.regnum,
       });
-    } else {
-    }
-    */
     }
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
@@ -77,7 +79,13 @@ router.get("/adprofile/:username", async (req, res) => {
     return res.json(err);
   }
 });
-router.get("/verify", verifyAdmin, (req, res) => {
+router.get("/verify", verifySuperAdmin, (req, res) => {
+  return res.json({ login: true, role: req.role, username: req.username });
+  //console.log(res.json());
+  //console.log(res.data.role);
+});
+
+router.get("/verifypatient", verifyPatient, (req, res) => {
   return res.json({ login: true, role: req.role, username: req.username });
   //console.log(res.json());
   //console.log(res.data.role);

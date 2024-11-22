@@ -16,8 +16,12 @@ export default function Navbar({ role, userId }) {
     Navigate("/logout");
   };
 
-  const GoAdmindDshboard = () => {
-    Navigate("/admindashboard");
+  const SuperGoAdmindDshboard = () => {
+    Navigate("/superadmindashboard");
+  };
+
+  const GopatientDashboard = () => {
+    Navigate("/patientdashboard");
   };
   return (
     <nav className="w-full h-16 flex justify-between items-center px-5">
@@ -44,9 +48,9 @@ export default function Navbar({ role, userId }) {
         </ul>
       </div>
       <div className="flex">
-        {role === "admin" && (
+        {role === "superadmin" && (
           <>
-            <Button onClick={GoAdmindDshboard} className=" mr-3">
+            <Button onClick={SuperGoAdmindDshboard} className=" mr-3">
               SuperAdmindDshboard
             </Button>
             <Button variant="info" className=" mr-3" onClick={goRegister}>
@@ -57,7 +61,16 @@ export default function Navbar({ role, userId }) {
             </Button>
           </>
         )}
-        {role === "student" && <></>}
+        {role === "patient" && (
+          <>
+            <Button onClick={GopatientDashboard} className=" mr-3">
+              Dashboard
+            </Button>{" "}
+            <Button variant="info" className=" mr-3" onClick={GoLogOut}>
+              Logout
+            </Button>
+          </>
+        )}
         {role === "doctor" && <></>}
         {role === "" && (
           <>
