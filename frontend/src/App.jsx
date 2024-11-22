@@ -13,6 +13,7 @@ import Patientdashboard from "./components/Patientdashboard";
 import SuperAdmindashboard from "./components/SuperAdmindashboard";
 import Admindashboard from "./components/Admindashboard";
 import RegisterAdmin from "./components/RegisterAdmin";
+import MorePatientDetails from "./components/Morepatientdetails";
 
 function App() {
   const [role, setRole] = useState("");
@@ -94,6 +95,10 @@ function App() {
           <Route
             path="/registeradmin"
             element={<RegisterAdmin></RegisterAdmin>}
+          ></Route>
+          <Route
+            path="/morepatientdetails"
+            element={<MorePatientDetails></MorePatientDetails>}
           ></Route>
         </Routes>
       </Router>

@@ -92,4 +92,28 @@ router.get("/getpatientdetails", async (req, res) => {
     console.log(err);
   }
 });
+
+//.......................................................Patient Details to dashboard...................................................
+router.get("/patientdetails/:regnum", async (req, res) => {
+  try {
+    const regnum = req.params.regnum;
+    // Find patient by regnum
+    const patient = await patientmodel.findOne({ regnum: regnum });
+
+    if (!patient) {
+      return res.status(404).json({
+        success: false,
+        message: "Patient not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      patdet: patient,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 module.exports = router;

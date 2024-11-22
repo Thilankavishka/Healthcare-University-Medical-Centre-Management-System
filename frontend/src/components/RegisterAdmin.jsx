@@ -111,9 +111,9 @@ export default function RegisterAdmin() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               >
                 <option value="">Select Admin Type</option>
-                <option value="superadmin">Doctor</option>
-                <option value="moderator">Nurse</option>
-                <option value="support">Other</option>
+                <option value="doctor">Doctor</option>
+                <option value="nurse">Nurse</option>
+                <option value="other">Other</option>
               </select>
             </div>
             <div className="mb-4">

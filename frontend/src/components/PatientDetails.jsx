@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PatientDetails() {
   const [patient, setPatient] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -14,43 +16,58 @@ export default function PatientDetails() {
       .catch((err) => console.log(err));
   }, []);
 
+  const goMorePatientdetails = (item) => {
+    navigate("/morepatientdetails", { state: item });
+  };
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Patient Details</h1>
       <div className="overflow-x-auto">
-        <table className="table-auto w-full bg-white rounded-lg shadow-lg">
-          <thead className="bg-gray-200">
+        <table className="min-w-full border border-gray-300 bg-white text-left text-sm text-gray-500">
+          <thead>
             <tr>
-              <th className="p-4 text-left">Registration Number</th>
-              <th className="p-4 text-left">Full Name</th>
-              <th className="p-4 text-left">Address</th>
-              <th className="p-4 text-left">City</th>
-              <th className="p-4 text-left">Course</th>
-              <th className="p-4 text-left">Department</th>
-              <th className="p-4 text-left">Faculty</th>
-              <th className="p-4 text-left">Blood Group</th>
-              <th className="p-4 text-left">Gender</th>
-              <th className="p-4 text-left">Image</th>
+              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+                Reg. Number
+              </th>
+              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+                Full Name
+              </th>
+              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+                Blood Group
+              </th>
+              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+                Gender
+              </th>
+              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {patient.map((item, key) => (
-              <tr key={key} className="even:bg-gray-100 hover:bg-gray-50">
-                <td className="p-4">{item.regnum}</td>
-                <td className="p-4">{item.fullname}</td>
-                <td className="p-4">{item.address}</td>
-                <td className="p-4">{item.city}</td>
-                <td className="p-4">{item.course}</td>
-                <td className="p-4">{item.department}</td>
-                <td className="p-4">{item.faculty}</td>
-                <td className="p-4">{item.bloodgroup}</td>
-                <td className="p-4">{item.gender}</td>
-                <td className="p-4">
-                  <img
-                    src={`http://localhost:8080${item.image}`}
-                    alt="Patient"
-                    className="w-40 h-30  object-cover border"
-                  />
+              <tr key={key} className="hover:bg-gray-100">
+                <td className="border border-gray-300 px-4 py-2">
+                  {item.regnum}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {item.fullname}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {item.bloodgroup}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {item.gender}
+                </td>
+                <td className="border border-gray-300 px-4 py-2 flex gap-2">
+                  <button
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    onClick={() => goMorePatientdetails(item)}
+                  >
+                    More
+                  </button>
+                  <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                    Update
+                  </button>
                 </td>
               </tr>
             ))}
