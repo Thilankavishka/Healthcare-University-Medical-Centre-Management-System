@@ -12,6 +12,7 @@ import PatientDetails from "./components/PatientDetails";
 import Patientdashboard from "./components/Patientdashboard";
 import SuperAdmindashboard from "./components/SuperAdmindashboard";
 import Admindashboard from "./components/Admindashboard";
+import RegisterAdmin from "./components/RegisterAdmin";
 
 function App() {
   const [role, setRole] = useState("");
@@ -89,6 +90,10 @@ function App() {
           <Route
             path="/admindashboard"
             element={<Admindashboard></Admindashboard>}
+          ></Route>
+          <Route
+            path="/registeradmin"
+            element={<RegisterAdmin></RegisterAdmin>}
           ></Route>
         </Routes>
       </Router>

@@ -53,9 +53,7 @@ export default function Navbar({ role, userId }) {
             <Button onClick={SuperGoAdmindDshboard} className=" mr-3">
               SuperAdmindDshboard
             </Button>
-            <Button variant="info" className=" mr-3" onClick={goRegister}>
-              REGISTER
-            </Button>
+
             <Button variant="info" className=" mr-3" onClick={GoLogOut}>
               Logout
             </Button>

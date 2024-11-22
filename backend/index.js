@@ -9,7 +9,7 @@ const path = require("path");
 const Authroute = require("./routes/authroute.js");
 const Patientroute = require("./routes/patientroute.js");
 //import models
-const adminmodel = require("./models/superadmin.js");
+const adminmodel = require("./models/admin.js");
 
 const seed = require("./seed.js");
 const app = express();
