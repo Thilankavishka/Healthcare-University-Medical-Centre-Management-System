@@ -5,8 +5,9 @@ const superadminmodel = require("../models/superadmin.js");
 const patientmodel = require("../models/patient.js");
 const adminmodel = require("../models/admin.js");
 
-const verifySuperAdmin = require("../security/adminauth.js");
+const verifySuperAdmin = require("../security/Superadminauth.js");
 const verifyPatient = require("../security/userauth.js");
+const verifyAdmin = require("../security/adminauth.js");
 const router = express.Router();
 
 //login Superadmin/admin/patient function............................................................................................................
@@ -65,19 +66,19 @@ router.post("/login", async (req, res) => {
         username: patient.regnum,
       });
     } else if (role === "admin") {
-      const patient = await adminmodel.findOne({ username });
-      if (!patient) {
+      const admin = await adminmodel.findOne({ username });
+      if (!admin) {
         return res.json({
           message: "admin is not registered",
         });
       }
-      const validpassword = await bcrypt.compare(password, patient.password);
+      const validpassword = await bcrypt.compare(password, admin.password);
       if (!validpassword) {
         return res.json({ message: "wrong Password" });
       }
       //asign token for student
       const token = jwt.sign(
-        { username: patient.regnum, role: "admin" },
+        { username: admin.username, role: "admin" },
         process.env.Admin_key
       );
       res.cookie("token", token, { httpOnly: true, secure: true });
@@ -86,7 +87,7 @@ router.post("/login", async (req, res) => {
         role: "admin",
         message: "admin Login Successfully",
         token,
-        username: patient.regnum,
+        username: admin.username,
       });
     }
   } catch (error) {
@@ -105,6 +106,11 @@ router.get("/adprofile/:username", async (req, res) => {
   }
 });
 router.get("/verify", verifySuperAdmin, (req, res) => {
+  return res.json({ login: true, role: req.role, username: req.username });
+  //console.log(res.json());
+  //console.log(res.data.role);
+});
+router.get("/verifyadmin", verifyAdmin, (req, res) => {
   return res.json({ login: true, role: req.role, username: req.username });
   //console.log(res.json());
   //console.log(res.data.role);
@@ -158,6 +164,32 @@ router.post("/registerAdmin", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while registering admin" });
+  }
+});
+
+//........................................Show Admin Details.............................................
+router.get("/admindetails/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const admin = await adminmodel.findOne({ username: username });
+
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      admindet: admin,
+    });
+  } catch (error) {
+    console.error("Error fetching admin details:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
   }
 });
 

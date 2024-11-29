@@ -23,6 +23,10 @@ export default function Navbar({ role, userId }) {
   const GopatientDashboard = () => {
     Navigate("/patientdashboard");
   };
+
+  const Gototadmindashboard = () => {
+    Navigate("/admindashboard");
+  };
   return (
     <nav className="w-full h-16 flex justify-between items-center px-5">
       <div className="logo w-12">
@@ -69,7 +73,16 @@ export default function Navbar({ role, userId }) {
             </Button>
           </>
         )}
-        {role === "doctor" && <></>}
+        {role === "admin" && (
+          <>
+            <Button onClick={Gototadmindashboard} className=" mr-3">
+              AdmindDshboard
+            </Button>
+            <Button variant="info" className=" mr-3" onClick={GoLogOut}>
+              Logout
+            </Button>
+          </>
+        )}
         {role === "" && (
           <>
             <Button variant="info" className=" mr-3" onClick={goRegister}>

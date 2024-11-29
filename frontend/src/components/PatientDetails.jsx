@@ -33,7 +33,7 @@ export default function PatientDetails() {
                 Full Name
               </th>
               <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
-                Blood Group
+                Faculty
               </th>
               <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
                 Gender
@@ -53,12 +53,12 @@ export default function PatientDetails() {
                   {item.fullname}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {item.bloodgroup}
+                  {item.faculty}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {item.gender}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 flex gap-2">
+                <td className="border border-gray-300 px-4 py-2 flex gap-2 justify-center items-center">
                   <button
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                     onClick={() => goMorePatientdetails(item)}
@@ -67,6 +67,9 @@ export default function PatientDetails() {
                   </button>
                   <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
                     Update
+                  </button>
+                  <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                    Delete
                   </button>
                 </td>
               </tr>

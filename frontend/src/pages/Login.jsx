@@ -27,6 +27,10 @@ export default function Login({ setRole2 }) {
           setRole2("patient");
           navigate("/patientdashboard");
           window.location.reload();
+        } else if (res.data.login && res.data.role === "admin") {
+          setRole2("admin");
+          navigate("/admindashboard");
+          window.location.reload();
         } else {
           console.log("Invalid role or login status");
         }

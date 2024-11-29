@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const verifyAdmin = async (req, res, next) => {
+const verifySuperAdmin = async (req, res, next) => {
   const token = req.cookies.token; //frontend part
   /*const authHeader = req.headers["authorization"]; //postman part
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -8,9 +8,9 @@ const verifyAdmin = async (req, res, next) => {
   }
   const token = authHeader.split(" ")[1];*/
   if (!token) {
-    return res.json({ message: "Enter Admin Token" });
+    return res.json({ message: "Enter Super Admin Token" });
   } else {
-    jwt.verify(token, process.env.Admin_key, (err, decoded) => {
+    jwt.verify(token, process.env.superadmin_key, (err, decoded) => {
       if (err) {
         return res.json({ message: "Invalid Token" });
       } else {
@@ -21,4 +21,4 @@ const verifyAdmin = async (req, res, next) => {
     });
   }
 };
-module.exports = verifyAdmin;
+module.exports = verifySuperAdmin;

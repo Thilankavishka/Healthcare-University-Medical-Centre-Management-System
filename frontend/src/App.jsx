@@ -19,38 +19,42 @@ function App() {
   const [role, setRole] = useState("");
   const [username, setUserName] = useState(null);
 
-  // Set axios to include credentials globally
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    try {
-      axios
-        .get("http://localhost:8080/auth/verify")
-        .then((res) => {
-          if (res.data.login) {
-            setRole(res.data.role);
-            setUserName(res.data.username);
-          } else {
-            axios
-              .get("http://localhost:8080/auth/verifypatient")
-              .then((res) => {
-                if (res.data.login) {
-                  setRole(res.data.role);
-                  setUserName(res.data.username);
-                } else {
-                  setRole("");
-                  setUserName(null);
-                }
-                console.log(res);
-              });
-          }
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.error("Error verifying user:", error);
-      setRole("");
-      setUserName(null); // Reset state on error
-    }
+    // Function to verify user roles and credentials
+    const verifyUser = async () => {
+      try {
+        let response = await axios.get("http://localhost:8080/auth/verify");
+        if (response.data.login) {
+          setRole(response.data.role);
+          setUserName(response.data.username);
+          return;
+        }
+
+        response = await axios.get("http://localhost:8080/auth/verifypatient");
+        if (response.data.login) {
+          setRole(response.data.role);
+          setUserName(response.data.username);
+          return;
+        }
+
+        response = await axios.get("http://localhost:8080/auth/verifyadmin");
+        if (response.data.login) {
+          setRole(response.data.role);
+          setUserName(response.data.username);
+          return;
+        }
+
+        setRole("");
+        setUserName(null);
+      } catch (error) {
+        console.error("Error verifying user:", error);
+        setRole("");
+        setUserName(null);
+      }
+    };
+
+    verifyUser();
   }, []);
 
   return (
@@ -90,7 +94,7 @@ function App() {
           ></Route>
           <Route
             path="/admindashboard"
-            element={<Admindashboard></Admindashboard>}
+            element={<Admindashboard username={username}></Admindashboard>}
           ></Route>
           <Route
             path="/registeradmin"
