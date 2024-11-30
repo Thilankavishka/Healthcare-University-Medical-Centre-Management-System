@@ -14,6 +14,9 @@ export default function Login({ setRole2 }) {
     navigate("/register");
   };
 
+  const toForgetPassword = () => {
+    navigate("/passwordrecovery");
+  };
   axios.defaults.withCredentials = true;
   const handleSubmit = () => {
     axios
@@ -102,6 +105,12 @@ export default function Login({ setRole2 }) {
             Login
           </button>
           <div className="flex flex-col items-center">
+            <button
+              onClick={toForgetPassword}
+              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "
+            >
+              Forget Password
+            </button>
             <button
               onClick={toregister}
               className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "

@@ -1,11 +1,13 @@
-import React from "react";
-
 const PasswordRecovery = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-10 bg-white shadow-md rounded-lg text-left">
-        <h1 className="text-2xl font-bold mb-6">HealthCare | Student Password Recovery</h1>
-        <h2 className="text-xl font-semibold text-blue-500 mb-4">Patient Password Recovery</h2>
+        <h1 className="text-2xl font-bold mb-6">
+          HealthCare | Student Password Recovery
+        </h1>
+        <h2 className="text-xl font-semibold text-blue-500 mb-4">
+          Patient Password Recovery
+        </h2>
         <p className="text-gray-600 text-sm mb-6">
           Please enter your Email and Full Name to recover your password.
         </p>
