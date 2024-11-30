@@ -12,21 +12,53 @@ const PasswordRecovery = () => {
         <form className="space-y-4">
           {/* Full Name Input */}
           <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-blue-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-7a2 2 0 00-2-2h-3.5a2 2 0 01-1.415-.586l-.586-.586A2 2 0 009.5 3H6a2 2 0 00-2 2v4a2 2 0 002 2h4m6 0H6"
+                />
+              </svg>
+            </span>
             <input
               type="text"
               id="fullName"
               placeholder="Registered Full Name"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full pl-10 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
           {/* Email Input */}
-          <div className="relative">
+        <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-blue-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 12h3v1a3 3 0 01-3 3h-1m-6 0H7a3 3 0 01-3-3v-1h3m6 0h6m-6 0H3a2 2 0 002 2h6m0-12h4a3 3 0 013 3v4a3 3 0 01-3 3h-4m6-7h1a2 2 0 012 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6a2 2 0 012-2h1"
+                />
+              </svg>
+            </span>
             <input
               type="email"
               id="email"
               placeholder="Registered Email"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full pl-10 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
