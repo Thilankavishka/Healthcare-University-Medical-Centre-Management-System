@@ -28,7 +28,7 @@ export default function Navbar({ role, userId }) {
     Navigate("/admindashboard");
   };
   return (
-    <nav className="w-full h-16 flex justify-between items-center px-5">
+    <nav className="w-full h-16 flex justify-between items-center px-5 bg-sky-200">
       <div className="logo w-12">
         <Link to={"/"}>
           <img className="ml-10" src="./logo.png" alt=""></img>

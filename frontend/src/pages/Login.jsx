@@ -104,16 +104,16 @@ export default function Login({ setRole2 }) {
           >
             Login
           </button>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-4">
             <button
               onClick={toForgetPassword}
-              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "
+              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline"
             >
               Forget Password
             </button>
             <button
               onClick={toregister}
-              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "
+              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline"
             >
               Don’t have an account? Register
             </button>
