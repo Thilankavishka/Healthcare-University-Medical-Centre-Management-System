@@ -52,6 +52,12 @@ export default function Home({ role, userId }) {
         </div>
       </div>
 
+      <div className="flex justify-center mt-6">
+        <button className="px-6 py-3 bg-green-500 text-white text-base sm:text-lg font-bold rounded-lg shadow-md sm:shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2 transition duration-300 w-full max-w-xs sm:max-w-sm">
+          Make Appointment
+        </button>
+      </div>
+
       {/* Message Section */}
       <div className="sec-3 w-full h-fit bg-teal-200 pb-5 mt-5">
         <div className="department-head flex justify-center">

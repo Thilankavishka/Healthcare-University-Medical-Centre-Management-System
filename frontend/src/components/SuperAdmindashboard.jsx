@@ -17,6 +17,9 @@ export default function SuperAdmindashboard({ username }) {
   const goRegisterPatient = () => {
     navigate("/register");
   };
+  const goAdminDetails = () => {
+    navigate("/admindetails");
+  };
 
   return (
     <>
@@ -59,14 +62,15 @@ export default function SuperAdmindashboard({ username }) {
             <Card.Img variant="top" src="/card_images/doctor.jpeg" />
             <Card.Body>
               <Card.Title className="font-bold text-lg text-center">
-                Doctors Details
+                Admin Details
               </Card.Title>
               <Card.Text className="text-sm text-gray-500 text-center">
-                Click Here to Show Doctors Details
+                Click Here to Show Admin/Doctors Details
               </Card.Text>
               <Button
                 variant="primary"
                 className="w-full bg-blue-500 hover:bg-blue-600"
+                onClick={goAdminDetails}
               >
                 Go Doctors Details
               </Button>

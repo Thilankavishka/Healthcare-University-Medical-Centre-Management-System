@@ -15,6 +15,7 @@ import Admindashboard from "./components/Admindashboard";
 import RegisterAdmin from "./components/RegisterAdmin";
 import MorePatientDetails from "./components/Morepatientdetails";
 import PasswordRecovery from "./components/PasswordRecovery";
+import AdminDetails from "./components/AdminDetails";
 
 function App() {
   const [role, setRole] = useState("");
@@ -108,6 +109,10 @@ function App() {
           <Route
             path="/passwordrecovery"
             element={<PasswordRecovery></PasswordRecovery>}
+          ></Route>
+          <Route
+            path="/admindetails"
+            element={<AdminDetails></AdminDetails>}
           ></Route>
         </Routes>
       </Router>

@@ -76,6 +76,11 @@ export default function MorePatientDetails() {
             </div>
           </div>
         </div>
+        <div>
+          <button className="mt-8 px-6 py-3 bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition duration-200">
+            Patient Medical History
+          </button>
+        </div>
       </div>
     </>
   );

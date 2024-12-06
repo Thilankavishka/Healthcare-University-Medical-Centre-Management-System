@@ -167,7 +167,7 @@ router.post("/registerAdmin", async (req, res) => {
   }
 });
 
-//........................................Show Admin Details.............................................
+//........................................Show Admin Details to dashboard.............................................
 router.get("/admindetails/:username", async (req, res) => {
   try {
     const username = req.params.username;
@@ -190,6 +190,16 @@ router.get("/admindetails/:username", async (req, res) => {
       success: false,
       message: "Server error",
     });
+  }
+});
+
+//..........................................................Show Patient Details to Admins.................................................
+router.get("/getadmindetails", async (req, res) => {
+  try {
+    const admins = await adminmodel.find();
+    return res.json(admins);
+  } catch (err) {
+    console.log(err);
   }
 });
 
