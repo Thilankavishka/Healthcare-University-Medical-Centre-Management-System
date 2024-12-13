@@ -116,4 +116,15 @@ router.get("/patientdetails/:regnum", async (req, res) => {
   }
 });
 
+//.....................................Count Total Number of patients..........................................
+router.get("/countpatients", async (req, res) => {
+  try {
+    const numofpatients = await patientmodel.countDocuments(); // Add await here
+    res.json({ count: numofpatients }); // Send count in JSON format
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

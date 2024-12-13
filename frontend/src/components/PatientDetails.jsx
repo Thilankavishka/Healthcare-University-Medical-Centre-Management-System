@@ -17,6 +17,29 @@ export default function PatientDetails() {
       .catch((err) => console.log(err));
   }, []);
 
+  const [patientCount, setPatientCount] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPatientCount = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/patient/countpatients`
+        ); // Adjust the endpoint if needed
+        setPatientCount(response.data.count);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching patient count:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchPatientCount();
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   //when navigate morepatient details items willnavigate to /morepatientdetails
   const goMorePatientdetails = (item) => {
     navigate("/morepatientdetails", { state: item });
@@ -35,15 +58,25 @@ export default function PatientDetails() {
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Patient Details</h1>
 
-      {/* Search Bar */}
-      <div className="mb-6 flex justify-center">
-        <input
-          type="text"
-          placeholder="Search by Reg. Number, Name, Faculty, or Gender"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-lg px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
-        />
+      {/* Search Bar and Total Number of Patients Section */}
+      <div className="mb-6 flex flex-col sm:flex-row justify-between items-center px-6 sm:px-10 py-4 bg-gray-100 rounded-lg ">
+        {/* Left side: Search Bar */}
+        <div className="w-full sm:w-2/3 mb-4 sm:mb-0">
+          <input
+            type="text"
+            placeholder="Search by Reg. Number, Name, Faculty, or Gender"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-5 py-2 border border-gray-400 rounded-lg text-gray-700 focus:outline-none focus:ring-4 focus:ring-green-400 focus:border-green-500 transition-all duration-300 ease-in-out"
+          />
+        </div>
+
+        {/* Right side: Total Number of Patients */}
+        <div className="flex justify-center items-center">
+          <h1 className="text-green-800 text-2xl sm:text-3xl font-semibold">
+            Total Patients: <span className="text-black">{patientCount}</span>
+          </h1>
+        </div>
       </div>
 
       <div className="overflow-x-auto">

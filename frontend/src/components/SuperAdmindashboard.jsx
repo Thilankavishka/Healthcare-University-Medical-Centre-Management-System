@@ -21,6 +21,10 @@ export default function SuperAdmindashboard({ username }) {
     navigate("/admindetails");
   };
 
+  const goUserMessages = () => {
+    navigate("/usermessages");
+  };
+
   return (
     <>
       <div>
@@ -113,6 +117,26 @@ export default function SuperAdmindashboard({ username }) {
                 onClick={goRegisterPatient}
               >
                 Register Patient
+              </Button>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="flex items-center justify-center">
+          <Card className="w-72 shadow-lg">
+            <Card.Img variant="top" src="/card_images/register_patient.jpg" />
+            <Card.Body>
+              <Card.Title className="font-bold text-lg text-center">
+                User Messages
+              </Card.Title>
+              <Card.Text className="text-sm text-gray-500 text-center">
+                Click Here to Show User Messages
+              </Card.Text>
+              <Button
+                variant="primary"
+                className="w-full bg-blue-500 hover:bg-blue-600"
+                onClick={goUserMessages}
+              >
+                User Messages
               </Button>
             </Card.Body>
           </Card>
