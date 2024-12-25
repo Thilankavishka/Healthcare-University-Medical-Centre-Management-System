@@ -3,9 +3,14 @@ import { FaBars, FaHome, FaListUl } from "react-icons/fa";
 
 const UserChangePassword = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!profileMenuOpen);
   };
 
   return (
@@ -32,6 +37,52 @@ const UserChangePassword = () => {
             </li>
           </ul>
         )}
+      </div>
+      {/* Main Content */}
+      <div className="flex-1">
+        {/* Header */}
+        <header className="bg-white border-b shadow-md py-4 px-6 flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-black">
+            Medical Center University of Vavuniya
+          </h1>
+          <div className="relative">
+            <button
+              className="flex items-center space-x-2 focus:outline-none"
+              onClick={toggleProfileMenu}
+            >
+              <img
+                src="https://via.placeholder.com/40"
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full"
+              />
+              <span className="font-medium">&nbsp;</span> {/* Space for name */}
+            </button>
+            {profileMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-black text-white shadow-md rounded-md z-50">
+                <ul className="text-left">
+                  <li
+                    className="py-2 px-4 hover:bg-gray-700 cursor-pointer"
+                    onClick={() => alert("My Profile")}
+                  >
+                    My Profile
+                  </li>
+                  <li
+                    className="py-2 px-4 hover:bg-gray-700 cursor-pointer"
+                    onClick={() => alert("Change Password")}
+                  >
+                    Change Password
+                  </li>
+                  <li
+                    className="py-2 px-4 hover:bg-gray-700 cursor-pointer"
+                    onClick={() => alert("Log Out")}
+                  >
+                    Log Out
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        </header>
       </div>
     </div>
   );
