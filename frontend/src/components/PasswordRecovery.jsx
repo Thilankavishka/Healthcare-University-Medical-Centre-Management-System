@@ -3,7 +3,7 @@ const PasswordRecovery = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-10 bg-white shadow-md rounded-lg text-left">
         <h1 className="text-2xl font-bold mb-6">
-          HealthCare | Student Password Recovery
+          HealthCare | Patient Password Recovery
         </h1>
         <h2 className="text-xl font-semibold text-blue-500 mb-4">
           Patient Password Recovery
