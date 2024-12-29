@@ -2,12 +2,14 @@ import Footer from "../components/Footer";
 import Message from "../components/Message";
 import Navbar from "../components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home({ role, userId }) {
+  const navigate = useNavigate();
   const currenrtime = new Date().toLocaleTimeString();
   const currentDate = new Date().toLocaleDateString();
-  const handleAppoinmentClick = () =>{
-    Navigate("/AddAppoinment");
+  const handleAppointmentClick = () =>{
+    navigate("/AddAppointment");
   }
   
   return (
@@ -54,8 +56,8 @@ export default function Home({ role, userId }) {
 
       {/* Appointment Section */}
       <div className="flex justify-center mt-6 ">
-        <button onClick={handleAppoinmentClick}
-        className="bg-[#4CAF50] text-white py-2.5 px-5 rounded cursor-pointer transition-colors duration-300">Add Appoinment</button>
+        <button onClick={handleAppointmentClick}
+        className="bg-[#4CAF50] text-white py-2.5 px-5 rounded cursor-pointer transition-colors duration-300">Add Appointment</button>
       </div>
 
       {/*Message Section*/}

@@ -10,6 +10,7 @@ import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
 import RegisterPatient from "./components/RegisterPatient";
 import PatientDetails from "./components/PatientDetails";
+import AddAppointment from "./components/AddAppoinment";
 
 function App() {
   const [role, setRole] = useState("");
@@ -59,6 +60,10 @@ function App() {
           <Route
             path="PatientDetails"
             element={<PatientDetails></PatientDetails>}
+          ></Route>
+          <Route
+            path="/AddAppointment"
+            element={<AddAppointment></AddAppointment>}
           ></Route>
         </Routes>
       </Router>
