@@ -6,7 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Home({ role, userId }) {
   const currenrtime = new Date().toLocaleTimeString();
   const currentDate = new Date().toLocaleDateString();
-
+  const handleAppoinmentClick = () =>{
+    Navigate("/AddAppoinment");
+  }
   
   return (
     <>
@@ -51,8 +53,9 @@ export default function Home({ role, userId }) {
       </div>
 
       {/* Appointment Section */}
-      <div classname="">
-        <button>Add Appoinment</button>
+      <div classname="appoinment">
+        <button onClick={handleAppoinmentClick}
+        className="addappoinment">Add Appoinment</button>
       </div>
 
       {/*Message Section*/}
