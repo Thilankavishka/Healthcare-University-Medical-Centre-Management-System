@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Home({ role, userId }) {
   const currenrtime = new Date().toLocaleTimeString();
   const currentDate = new Date().toLocaleDateString();
+
+  
   return (
     <>
       {/*Navbar section */}
@@ -46,6 +48,11 @@ export default function Home({ role, userId }) {
             Open
           </h1>
         </div>
+      </div>
+
+      {/* Appointment Section */}
+      <div classname="">
+        <button>Add Appoinment</button>
       </div>
 
       {/*Message Section*/}
