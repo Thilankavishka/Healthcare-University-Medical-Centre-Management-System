@@ -53,9 +53,9 @@ export default function Home({ role, userId }) {
       </div>
 
       {/* Appointment Section */}
-      <div classname="appoinment">
+      <div className="flex justify-center mt-6 ">
         <button onClick={handleAppoinmentClick}
-        className="addappoinment">Add Appoinment</button>
+        className="bg-[#4CAF50] text-white py-2.5 px-5 rounded cursor-pointer transition-colors duration-300">Add Appoinment</button>
       </div>
 
       {/*Message Section*/}
