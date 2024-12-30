@@ -1,7 +1,15 @@
-import { useNavigate } from 'react-router-dom'; 
-export default function AllAppointments(){
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
+export default function AllAppointments(){
+    const [searchterm,setSearchTerm] = useState("");
+    const [appointments,setAppointments] = useState([]);
     let navigate = useNavigate();
+
+    if(!appointments) return alert ('No Appointments');
+        const filteredAppointments = appointments.filter((appointments) =>{
+            return appointments.fullname.toLowerCase().includes(searchTerm.toLowerCase());
+        });
     
     return(
         <>
@@ -13,7 +21,7 @@ export default function AllAppointments(){
                         </div>
                         <br></br>
                         <div className="serach-container">
-                            <input type="text" placeholder="Search by Patient Name" value={searchterm}></input>
+                            <input type="text" placeholder="Search by Patient Name" value={searchterm} onChange={(e) => setSearchTerm(e.target.value)}></input>
                         </div>
                 <table>
                     <thead>
