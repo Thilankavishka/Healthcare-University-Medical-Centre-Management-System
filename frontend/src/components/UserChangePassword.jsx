@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaBars, FaHome, FaListUl } from "react-icons/fa";
 
 const UserChangePassword = () => {
@@ -84,77 +84,76 @@ const UserChangePassword = () => {
           </div>
         </header>
         <main className="p-6">
-  {/* Title Section */}
-  <div className="mb-6">
-    <h1 className="text-2xl font-bold text-black text-left">
-      User | Change Password
-    </h1>
-    <hr className="mt-2 border-black" />
-  </div>
+          {/* Title Section */}
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-black text-left">
+              User | Change Password
+            </h1>
+            <hr className="mt-2 border-black" />
+          </div>
 
-  {/* Change Password Section */}
-  <div className="bg-white p-8 shadow-md rounded-md max-w-4xl mx-auto">
-    <h2 className="text-xl font-bold text-black text-left mb-4">
-      Change Password
-    </h2>
-    <form>
-      <div className="mb-4">
-        <label
-          htmlFor="currentPassword"
-          className="block text-sm font-medium text-black text-left"
-        >
-          Current Password
-        </label>
-        <input
-          type="password"
-          id="currentPassword"
-          className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter Current Password"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="newPassword"
-          className="block text-sm font-medium text-black text-left"
-        >
-          New Password
-        </label>
-        <input
-          type="password"
-          id="newPassword"
-          className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="New Password"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="confirmPassword"
-          className="block text-sm font-medium text-black text-left"
-        >
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          id="confirmPassword"
-          className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Confirm Password"
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 text-center"
-        style={{
-          width: "150px",
-          display: "block",
-          marginLeft: "0",
-        }}
-      >
-        Submit
-      </button>
-    </form>
-  </div>
-</main>
-
+          {/* Change Password Section */}
+          <div className="bg-white p-8 shadow-md rounded-md max-w-4xl mx-auto">
+            <h2 className="text-xl font-bold text-black text-left mb-4">
+              Change Password
+            </h2>
+            <form>
+              <div className="mb-4">
+                <label
+                  htmlFor="currentPassword"
+                  className="block text-sm font-medium text-black text-left"
+                >
+                  Current Password
+                </label>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter Current Password"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="newPassword"
+                  className="block text-sm font-medium text-black text-left"
+                >
+                  New Password
+                </label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="New Password"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-black text-left"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Confirm Password"
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 text-center"
+                style={{
+                  width: "150px",
+                  display: "block",
+                  marginLeft: "0",
+                }}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </main>
       </div>
     </div>
   );

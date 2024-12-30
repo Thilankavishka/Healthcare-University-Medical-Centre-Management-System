@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function PatientDashboard({ regnum }) {
+  const Navigate = useNavigate();
+
+  const navigatechangepassword = () => {
+    Navigate("/changepassword");
+  };
   const [patient, setPatientDetails] = useState(null);
 
   useEffect(() => {
@@ -78,6 +84,14 @@ export default function PatientDashboard({ regnum }) {
         ) : (
           <p className="text-gray-600">Loading patient details...</p>
         )}
+        <div className="flex justify-center items-center py-4">
+          <button
+            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300"
+            onClick={navigatechangepassword}
+          >
+            Change Password
+          </button>
+        </div>
       </div>
     </div>
   );
