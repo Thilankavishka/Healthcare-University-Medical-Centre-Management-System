@@ -10,6 +10,7 @@ import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
 import RegisterPatient from "./components/RegisterPatient";
 import PatientDetails from "./components/PatientDetails";
+import AllAppointments from "./components/AllAppointments";
 import AddAppointment from "./components/AddAppoinment";
 
 function App() {
@@ -60,6 +61,10 @@ function App() {
           <Route
             path="PatientDetails"
             element={<PatientDetails></PatientDetails>}
+          ></Route>
+          <Route
+            path="/AllAppointments"
+            element={<AllAppointments></AllAppointments>}
           ></Route>
           <Route
             path="/AddAppointment"

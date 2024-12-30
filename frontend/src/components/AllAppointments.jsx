@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState , useEffect} from 'react';
 import '../styles/AllAppointments.css'
+import axios from 'axios';
 
 export default function AllAppointments(){
     const [searchTerm,setSearchTerm] = useState("");

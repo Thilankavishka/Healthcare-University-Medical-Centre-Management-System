@@ -9,7 +9,7 @@ export default function Home({ role, userId }) {
   const currenrtime = new Date().toLocaleTimeString();
   const currentDate = new Date().toLocaleDateString();
   const handleAppointmentClick = () =>{
-    navigate("/AddAppointment");
+    navigate("/AllAppointments");
   }
   
   return (

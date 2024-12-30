@@ -11,7 +11,7 @@ export default function AddAppointment(){
     const[time,setTime] = useState("");
     const[condition,setCondition] = useState("");
 
-    async function addAppointment(e){
+    async function allAppointment(e){
         e.preventDefault();
 
         const newAppointment = {
@@ -26,7 +26,7 @@ export default function AddAppointment(){
         await axios.post("http://localhost:5173/AddAppoinments",newAppointment)
         .then(() => {
             alert("Appointment Added Successfully");
-            Navigate('./appoinements');
+            Navigate('./AddAppoinement');
         })
         .catch(err =>{
             alert(err);
@@ -52,7 +52,7 @@ export default function AddAppointment(){
     return(
         <>
         <div className='container'>
-            <form className="form" onSubmit={addAppointment} >
+            <form className="form" onSubmit={allAppointment} >
                 <div className=''>
                     <label className='Form-label'>Patient Registration Number </label>
                     <input type='text' className='form-control' value={regno} id='regno' placeholder='Enter Registration no' onChange={(e) => {setRegNo(e.target.value)}}></input>
