@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
+import '../styles/AllAppointments.css'
 
 export default function AllAppointments(){
     const [searchTerm,setSearchTerm] = useState("");
@@ -9,7 +10,7 @@ export default function AllAppointments(){
     useEffect(() => {
         getData();
     }, []);
-    
+
     const getData = async () => {
         await axios.post("http://localhost:5173/appointments")
         .then((res) => {
