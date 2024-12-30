@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
 import { useNavigate } from 'react-router-dom';
 
-function Medicalhistory() {
+ export default function Medicalhistory() {
     const navigate = useNavigate();
     const [medicalData, setMedicalData] = useState([]);
 
@@ -83,4 +83,3 @@ function Medicalhistory() {
     );
 }
 
-export default Medicalhistory;
