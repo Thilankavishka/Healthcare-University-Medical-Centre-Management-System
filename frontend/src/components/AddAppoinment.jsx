@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/AddAppointment.css';
 import {useState} from 'react';
+import axios from 'axios';
 
 export default function AddAppointment(){
     const[regno,setRegNo] = useState("");
@@ -9,6 +10,28 @@ export default function AddAppointment(){
     const[date,setDate] = useState("");
     const[time,setTime] = useState("");
     const[condition,setCondition] = useState("");
+
+    async function addAppoinment(e){
+        e.preventDefault();
+
+        const newAppointment = {
+            regno,
+            pname,
+            email,
+            date,
+            time,
+            condition
+        }
+
+        await axios.post("",newAppointment)
+        .then(() => {
+            alert("Appointment Added Successfully");
+            Navigate('./appoinements');
+        })
+        .catch(err =>{
+            alert(err);
+        })
+    }
 
     const getCurrentDate = () =>{
         const currentDate = new Date();
@@ -29,7 +52,7 @@ export default function AddAppointment(){
     return(
         <>
         <div className='container'>
-            <form className="form" >
+            <form className="form" onSubmit={addAppointment} >
                 <div className=''>
                     <label className='Form-label'>Patient Registration Number </label>
                     <input type='text' className='form-control' value={regno} id='regno' placeholder='Enter Registration no' onChange={(e) => {setRegNo(e.target.value)}}></input>

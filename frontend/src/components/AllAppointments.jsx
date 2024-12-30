@@ -22,6 +22,7 @@ export default function AllAppointments(){
                     <th>Condition</th>
                 </tr>
             </thead>
+            <tbody></tbody>
         </table>
         </>
     )
