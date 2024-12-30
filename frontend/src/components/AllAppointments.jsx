@@ -6,9 +6,23 @@ export default function AllAppointments(){
     const [appointments,setAppointments] = useState([]);
     let navigate = useNavigate();
 
+    useEffect(() => {
+        getData();
+    }, []);
+    
+    const getData = async () => {
+        await axios.post("http://localhost:5173/appointments")
+        .then((res) => {
+            setAppointments(res.data)
+        })
+        .catch((err) => {
+            alert(err.message);
+        })
+    }
+
     if(!appointments) return alert ('No Appointments');
         const filteredAppointments = appointments.filter((appointments) =>{
-            return appointments.fullname.toLowerCase().includes(searchTerm.toLowerCase());
+            return appointments.pname.toLowerCase().includes(searchTerm.toLowerCase());
         });
     
     return(
@@ -40,7 +54,6 @@ export default function AllAppointments(){
                             <td>{appointment.regno}</td>
                             <td>{appointment.pname}</td>
                             <td>{appointment.email}</td>
-                            <td>{appointment.regno}</td>
                             <td>{appointment.date}</td>
                             <td>{appointment.time}</td>
                             <td>{appointment.condition}</td>
