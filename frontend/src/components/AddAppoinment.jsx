@@ -1,7 +1,14 @@
 import React from 'react';
 import '../styles/AddAppointment.css';
+import {useState} from 'react';
 
 export default function AddAppointment(){
+    const[regno,setRegNo] = useState("");
+    const[pname,setPatientName] = useState("");
+    const[email,setEmail] = useState("");
+    const[date,setDate] = useState("");
+    const[time,setTime] = useState("");
+    const[condition,setCondition] = useState("");
     return(
         <>
         <div className='container'></div>
