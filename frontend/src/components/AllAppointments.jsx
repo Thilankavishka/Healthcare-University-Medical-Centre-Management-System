@@ -1,11 +1,15 @@
+import { useNavigate } from 'react-router-dom'; 
 export default function AllAppointments(){
+
+    let navigate = useNavigate();
+    
     return(
         <>
         <div className="container">
             <h1>All Appointments</h1>
                 <div className="container">
                         <div>
-                            <button>Add Appointments</button>
+                            <button className="button-add" onClick={()=> navigate("/AddAppointment")}>Add Appointments</button>
                         </div>
                         <br></br>
                         <div className="serach-container">
