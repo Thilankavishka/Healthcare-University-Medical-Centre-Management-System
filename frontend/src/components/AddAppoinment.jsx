@@ -22,6 +22,9 @@ export default function AddAppointment(){
         return `${year}-${month}-${day}`;
     };
 
+    const handleTimeChage = (event) =>{
+        setTime(event.target.value);
+    };
     
     return(
         <>
@@ -29,27 +32,27 @@ export default function AddAppointment(){
             <form className="form" >
                 <div className=''>
                     <label className='Form-label'>Patient Registration Number </label>
-                    <input type='text' className='form-control' value={regno} id='regno' placeholder='Enter Registration no' ></input>
+                    <input type='text' className='form-control' value={regno} id='regno' placeholder='Enter Registration no' onChange={(e) => {setRegNo(e.target.value)}}></input>
                 </div>
                 <div className=''>
                     <label className='Form-label'>Patient Name </label>
-                    <input type='text' className='form-control' value={pname} id='name' placeholder='Enter name' ></input>
+                    <input type='text' className='form-control' value={pname} id='name' placeholder='Enter name' onChange={(e) => {setPatientName(e.target.value)}}></input>
                 </div>
                 <div className=''>
                     <label className='Form-label'>Email </label>
-                    <input type='email' className='form-control' value={email} id='email' placeholder='Enter email' ></input>
+                    <input type='email' className='form-control' value={email} id='email' placeholder='Enter email' onChange={(e) => {setEmail(e.target.value)}}></input>
                 </div>
                 <div className=''>
                     <label className='Form-label'>Date </label>
-                    <input type='date' className='form-control' value={date} min={getCurrentDate()} id='date' ></input>
+                    <input type='date' className='form-control' value={date} min={getCurrentDate()} id='date' onChange={(e) => {setDate(e.target.value)}}></input>
                 </div>
                 <div className=''>
                     <label className='Form-label'>Time </label>
-                    <input type='time' className='form-control' value={time} id='time' ></input>
+                    <input type='time' className='form-control' value={time} id='time' onChange={handleTimeChage}></input>
                 </div>
                 <div className=''>
                     <label className='Form-label'>Condition </label>
-                    <input type='text' className='form-control' value={condition} id='condition' placeholder='Enter condition' ></input>
+                    <textarea type='text' className='form-control' value={condition} id='condition' placeholder='Enter condition' onChange={(e) => {setCondition(e.target.value)}}></textarea>
                 </div>
                 <button type='submit'>ADD</button>
             </form>
