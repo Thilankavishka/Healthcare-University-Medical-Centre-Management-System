@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function AllAppointments(){
-    const [searchterm,setSearchTerm] = useState("");
+    const [searchTerm,setSearchTerm] = useState("");
     const [appointments,setAppointments] = useState([]);
     let navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export default function AllAppointments(){
                         </div>
                         <br></br>
                         <div className="serach-container">
-                            <input type="text" placeholder="Search by Patient Name" value={searchterm} onChange={(e) => setSearchTerm(e.target.value)}></input>
+                            <input type="text" placeholder="Search by Patient Name" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}></input>
                         </div>
                 <table>
                     <thead>
@@ -35,7 +35,7 @@ export default function AllAppointments(){
                         </tr>
                     </thead>
                     <tbody>
-                        {appoinments.map(appointment => (
+                        {filteredAppointments.map(appointment => (
                             <tr key={appointment._id}>
                             <td>{appointment.regno}</td>
                             <td>{appointment.pname}</td>
