@@ -11,7 +11,7 @@ export default function AddAppointment(){
     const[time,setTime] = useState("");
     const[condition,setCondition] = useState("");
 
-    async function addAppoinment(e){
+    async function addAppointment(e){
         e.preventDefault();
 
         const newAppointment = {
@@ -23,7 +23,7 @@ export default function AddAppointment(){
             condition
         }
 
-        await axios.post("",newAppointment)
+        await axios.post("http://localhost:5173/AddAppoinments",newAppointment)
         .then(() => {
             alert("Appointment Added Successfully");
             Navigate('./appoinements');
