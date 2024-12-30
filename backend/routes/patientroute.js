@@ -33,6 +33,7 @@ router.post("/patientregister", async (req, res) => {
     const {
       regnum,
       fullname,
+      email,
       address,
       city,
       course,
@@ -44,7 +45,7 @@ router.post("/patientregister", async (req, res) => {
       image,
     } = req.body;
 
-    if (!regnum || !fullname || !password || !gender) {
+    if (!regnum || !fullname || !password || !gender || !email) {
       return res.status(400).json({ message: "Provide all required fields" });
     }
 
@@ -61,6 +62,7 @@ router.post("/patientregister", async (req, res) => {
     const newpatient = new patientmodel({
       regnum: regnum,
       fullname,
+      email,
       address,
       city,
       course,
