@@ -37,3 +37,19 @@
 textarea.form-control {
     height: 7rem;
   }
+
+  .form button{
+    background-color: #00337C;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  .form button{
+    background-color: darkturquoise;
+  }
