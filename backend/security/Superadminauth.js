@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const verifyPatient = async (req, res, next) => {
+const verifySuperAdmin = async (req, res, next) => {
   const token = req.cookies.token; //frontend part
   /*const authHeader = req.headers["authorization"]; //postman part
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -8,11 +8,11 @@ const verifyPatient = async (req, res, next) => {
   }
   const token = authHeader.split(" ")[1];*/
   if (!token) {
-    return res.json({ message: "Enter Patient Token" });
+    return res.json({ message: "Enter Super Admin Token" });
   } else {
-    jwt.verify(token, process.env.Patient_Key, (err, decoded) => {
+    jwt.verify(token, process.env.superadmin_key, (err, decoded) => {
       if (err) {
-        return res.json({ message: "Invalid  Patient Token" });
+        return res.json({ message: "Invalid Token" });
       } else {
         req.username = decoded.username;
         req.role = decoded.role;
@@ -21,4 +21,4 @@ const verifyPatient = async (req, res, next) => {
     });
   }
 };
-module.exports = verifyPatient;
+module.exports = verifySuperAdmin;

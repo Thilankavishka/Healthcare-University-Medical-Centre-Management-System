@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 export default function RegisterStudent() {
   const [regnum, setRegnum] = useState();
   const [fullname, setFullName] = useState();
+  const [email, setEmail] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [course, setCourse] = useState();
@@ -55,6 +56,7 @@ export default function RegisterStudent() {
         {
           regnum,
           fullname,
+          email,
           address,
           city,
           course,
@@ -117,6 +119,17 @@ export default function RegisterStudent() {
                 placeholder="Ex:A.B.C Perera"
                 value={fullname}
                 onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-600 mb-1">Email</label>
+              <input
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder="user@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
