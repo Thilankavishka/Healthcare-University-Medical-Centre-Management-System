@@ -1,3 +1,5 @@
+const Appointment = require('../models/appointment');
+
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({ message: "Content cannot be empty" });
@@ -26,7 +28,7 @@ exports.create = (req, res) => {
 }
 
 exports.findAll = (req,res) => {
-    Appoitment.find()
+    Appointment.find()
     .then(appointment => {
         res.send(appointment)
     })
