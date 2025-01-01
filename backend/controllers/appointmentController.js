@@ -4,3 +4,14 @@ exports.create = (req,res)=>{
         return;
     }
 }
+
+const {regno, pname, email, date, time, condition } = req.body;
+
+const appointment = new Appointment({
+    regno,
+    pname,
+    email,
+    date,
+    time,
+    condition
+});
