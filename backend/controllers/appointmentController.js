@@ -23,7 +23,7 @@ exports.create = (req, res) => {
             res.status(201).send({ message: "Appointment Registered successfully" });
         })
         .catch(err => {
-            res.status(201).send({ message: err.message || "Error occured while registering the appointment" });
+            res.status(500).send({ message: err.message || "Error occured while registering the appointment" });
         });
 }
 

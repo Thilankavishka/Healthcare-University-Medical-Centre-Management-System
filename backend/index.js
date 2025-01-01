@@ -28,6 +28,7 @@ dotenv.config();
 app.use("/auth", Authroute);
 app.use("/patient", Patientroute);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/',require('./routes/appointmentroute.js'));
 
 const PORT = 8080;
 app.get("/", (req, res) => {
