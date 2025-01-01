@@ -8,3 +8,4 @@ router.get('./Appointments', appointmentController);
 
 router.put('/Appointments/:id',appointmentController);
 
+module.exports = router;
