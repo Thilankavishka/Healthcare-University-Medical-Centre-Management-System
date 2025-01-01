@@ -34,3 +34,24 @@ exports.findAll = (req,res) => {
         res.status(500).send({message:err.message || "Error occured while retriving appointment information"})
     })
 }
+
+
+//retrieve and return a single appointment
+exports.findOne = (req,res) => {
+    if(req.params.id){
+        const id = req.params.id;
+
+        Appointment.findById(id)
+        .then(data => {
+            if(!data){
+                res.status(404).send({message:"Appointment not found with id" + id})
+            }
+            else{
+                res.send(data)
+            }
+        })
+        .catch(err =>{
+            res.status(404).send({message:"Error retrieving appointment with id" + id})
+        })
+    }
+}
