@@ -1,4 +1,16 @@
 const PasswordRecovery = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const fullName = e.target.fullName.value;
+    const email = e.target.email.value;
+
+    try {
+      const response = await axios.post("/password-recovery", { fullName, email });
+      alert(response.data.message);
+    } catch (error) {
+      alert(error.response?.data?.message || "Something went wrong");
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-10 bg-white shadow-md rounded-lg text-left">
