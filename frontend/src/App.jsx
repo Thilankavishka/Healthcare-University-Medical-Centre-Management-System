@@ -16,6 +16,8 @@ import RegisterAdmin from "./components/RegisterAdmin";
 import MorePatientDetails from "./components/Morepatientdetails";
 import PasswordRecovery from "./components/PasswordRecovery";
 import AdminDetails from "./components/AdminDetails";
+import UserMessage from "./components/UserMessages";
+import UserChangePassword from "./components/UserChangePassword";
 
 function App() {
   const [role, setRole] = useState("");
@@ -113,6 +115,15 @@ function App() {
           <Route
             path="/admindetails"
             element={<AdminDetails></AdminDetails>}
+          ></Route>
+
+          <Route
+            path="/usermessages"
+            element={<UserMessage></UserMessage>}
+          ></Route>
+          <Route
+            path="/changepassword"
+            element={<UserChangePassword></UserChangePassword>}
           ></Route>
         </Routes>
       </Router>

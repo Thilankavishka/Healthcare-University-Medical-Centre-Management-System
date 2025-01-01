@@ -35,4 +35,25 @@ router.post("/sendmsg", async (req, res) => {
   }
 });
 
+//...........................................Show Message to superadmin............................................
+router.get("/getusermessages", async (req, res) => {
+  try {
+    const messages = await messagemodel.find(); //Fetch all messages from the database
+    res.status(200).json(messages); //Send the messages as a JSON response
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving messages", error });
+  }
+});
+
+//.....................................Count Total Number of messages..........................................
+router.get("/countmessages", async (req, res) => {
+  try {
+    const numofmessages = await messagemodel.countDocuments(); // Add await here
+    res.json({ count: numofmessages }); // Send count in JSON format
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
