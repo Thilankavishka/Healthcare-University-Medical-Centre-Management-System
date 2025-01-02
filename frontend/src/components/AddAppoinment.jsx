@@ -23,7 +23,7 @@ export default function AddAppointment(){
             condition
         }
 
-        await axios.post("http://localhost:5173/AddAppoinments",newAppointment)
+        await axios.post("http://localhost:8080/AddAppoinments",newAppointment)
         .then(() => {
             alert("Appointment Added Successfully");
             Navigate('./AddAppoinement');

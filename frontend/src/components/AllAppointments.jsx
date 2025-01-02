@@ -13,7 +13,7 @@ export default function AllAppointments(){
     }, []);
 
     const getData = async () => {
-        await axios.post("http://localhost:5173/appointments")
+        await axios.post("http://localhost:8080/appointments")
         .then((res) => {
             setAppointments(res.data)
         })
