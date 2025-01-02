@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./drugs.css";
 
 const DrugsManagement = ({ role, drugDatabase }) => {
   const [drugs, setDrugs] = useState([]);
@@ -29,33 +28,33 @@ const DrugsManagement = ({ role, drugDatabase }) => {
   };
 
   return (
-    <div className="drugs-container">
+    <div style={{ margin: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>Drugs Management</h1>
-      <table className="drugs-table">
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th>No.</th>
-            <th>Drug Number</th>
-            <th>Drug Name</th>
-            {role === "admin" && <th>Actions</th>}
+            <th style={{ border: '1px solid #ddd', padding: '8px' }}>No.</th>
+            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Drug Number</th>
+            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Drug Name</th>
+            {role === "admin" && <th style={{ border: '1px solid #ddd', padding: '8px' }}>Actions</th>}
           </tr>
         </thead>
         <tbody>
           {drugs.map((drug, index) => (
-            <tr key={drug.id} className="drugs-row">
-              <td>{index + 1}</td>
-              <td>{drug.number}</td>
-              <td>{drug.name}</td>
+            <tr key={drug.id} style={{ borderBottom: '1px solid #ddd' }}>
+              <td style={{ padding: '8px' }}>{index + 1}</td>
+              <td style={{ padding: '8px' }}>{drug.number}</td>
+              <td style={{ padding: '8px' }}>{drug.name}</td>
               {role === "admin" && (
-                <td>
+                <td style={{ padding: '8px' }}>
                   <button
-                    className="edit-button"
+                    style={{ padding: '8px 16px', backgroundColor: '#4CAF50', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
                     onClick={() => handleEditDrug(drug.id)}
                   >
                     Edit
                   </button>
                   <button
-                    className="delete-button"
+                    style={{ padding: '8px 16px', backgroundColor: '#f44336', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
                     onClick={() => handleDeleteDrug(drug.id)}
                   >
                     Delete
@@ -67,13 +66,21 @@ const DrugsManagement = ({ role, drugDatabase }) => {
         </tbody>
       </table>
       {role === "admin" && (
-        <button className="add-button" onClick={handleAddDrug}>
+        <button
+          style={{ padding: '8px 16px', backgroundColor: '#4CAF50', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+          onClick={handleAddDrug}
+        >
           Add Drug
         </button>
       )}
-      <button className="home-button" onClick={() => console.log("Go Home")}>Return to Home</button>
+      <button
+        style={{ padding: '8px 16px', backgroundColor: '#2196F3', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+        onClick={() => console.log("Go Home")}
+      >
+        Return to Home
+      </button>
     </div>
   );
 };
 
-export default DrugsManagement;
+export default drugsManagement;
