@@ -9,6 +9,8 @@ import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
 import RegisterPatient from "./components/RegisterPatient";
 import PatientDetails from "./components/PatientDetails";
+import AllAppointments from "./components/AllAppointments";
+import AddAppointment from "./components/AddAppoinment";
 import Patientdashboard from "./components/Patientdashboard";
 import SuperAdmindashboard from "./components/SuperAdmindashboard";
 import Admindashboard from "./components/Admindashboard";
@@ -89,8 +91,16 @@ function App() {
             element={<RegisterPatient></RegisterPatient>}
           ></Route>
           <Route
-            path="PatientDetails"
+            path="/patientdetails"
             element={<PatientDetails></PatientDetails>}
+          ></Route>
+          <Route
+            path="/AllAppointments"
+            element={<AllAppointments></AllAppointments>}
+          ></Route>
+          <Route
+            path="/AddAppointment"
+            element={<AddAppointment></AddAppointment>}
           ></Route>
           <Route
             path="/patientdashboard"
@@ -125,6 +135,9 @@ function App() {
             path="/changepassword"
             element={<UserChangePassword></UserChangePassword>}
           ></Route>
+
+          <Route path="drugs" element={<Drugs userRole={role}></Drugs>}></Route>
+
           <Route
             path="/setpassword"
             element={<SetPassword></SetPassword>}

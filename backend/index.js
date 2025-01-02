@@ -33,6 +33,7 @@ app.use("/patient", Patientroute);
 app.use("/message", Messageroute);
 app.use("/password-recovery",PasswordRecoveryroute);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/',require('./routes/appointmentroute.js'));
 
 const PORT = 8080;
 app.get("/", (req, res) => {
