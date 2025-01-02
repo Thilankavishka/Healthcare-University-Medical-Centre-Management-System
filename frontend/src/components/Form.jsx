@@ -25,6 +25,27 @@ export default function Form(){
     const handleFileChange = (event) => {
         setFormData({ ...formData, medicalReport: event.target.files[0] });
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formDataToSend = new FormData();
+        for (const key in formData) {
+            formDataToSend.append(key, formData[key]);
+        }
+        onSubmit(formDataToSend);
+        setFormData({
+            regNo: '',
+            bloodPressure: '',
+            bloodSugar: '',
+            weight: '',
+            temperature: '',
+            diagnosis: '',
+            prescription: '',
+            visitDate: '',
+            medicalReport: null,
+        });
+    };
+    
     
     return(
         <>
