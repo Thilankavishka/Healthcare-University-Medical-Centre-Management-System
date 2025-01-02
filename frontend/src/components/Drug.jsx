@@ -1,137 +1,86 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Assuming React Router is being used
+import { useNavigate } from "react-router-dom";
 
-const Drugs = ({ userRole }) => {
+const DrugsManagement = ({ role, drugDatabase }) => {
   const [drugs, setDrugs] = useState([]);
-  const [newDrug, setNewDrug] = useState({ name: "", quantity: "" });
-  const [editingDrug, setEditingDrug] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch drugs from the API
-    axios
-      .get("/api/drugs")
-      .then((response) => setDrugs(response.data))
-      .catch((error) => console.error("Error fetching drugs:", error));
-  }, []);
+    // Simulate fetching drug data from drugDatabase
+    setDrugs(drugDatabase);
+  }, [drugDatabase]);
 
   const handleAddDrug = () => {
-    axios
-      .post("/api/drugs", newDrug)
-      .then((response) => {
-        setDrugs([...drugs, response.data]);
-        setNewDrug({ name: "", quantity: "" });
-      })
-      .catch((error) => console.error("Error adding drug:", error));
+    navigate("/add-drug");
   };
 
   const handleEditDrug = (id) => {
-    axios
-      .put(`/api/drugs/${id}`, editingDrug)
-      .then(() => {
-        setDrugs(drugs.map((drug) => (drug.id === id ? editingDrug : drug)));
-        setEditingDrug(null);
-      })
-      .catch((error) => console.error("Error editing drug:", error));
+    navigate(`/edit-drug/${id}`);
   };
 
   const handleDeleteDrug = (id) => {
-    axios
-      .delete(`/api/drugs/${id}`)
-      .then(() => setDrugs(drugs.filter((drug) => drug.id !== id)))
-      .catch((error) => console.error("Error deleting drug:", error));
+    if (window.confirm("Are you sure you want to delete this drug?")) {
+      // Logic for deleting a drug
+      const updatedDrugs = drugs.filter((drug) => drug.id !== id);
+      setDrugs(updatedDrugs);
+      console.log(`Drug with ID: ${id} deleted.`);
+    }
   };
 
   return (
-    <div>
-      <h1>Drugs</h1>
-
-      {/* Navigation Buttons */}
-      <div style={{ marginBottom: "20px" }}>
-        <button onClick={() => navigate(-1)} style={{ marginRight: "10px" }}>
-          Back
-        </button>
-        <button onClick={() => navigate("/")} style={{ marginRight: "10px" }}>
-          Home
-        </button>
-      </div>
-
-      {/* Drugs Table */}
-      <table
-        border="1"
-        style={{ width: "100%", textAlign: "left", borderCollapse: "collapse" }}
-      >
+    <div style={{ margin: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>Drugs Management</h1>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th>No</th>
-            <th>Drug No</th>
-            <th>Drug Name</th>
-            {userRole === "superadmin" && (
-              <>
-                <th>Edit</th>
-                <th>Delete</th>
-              </>
-            )}
+            <th style={{ border: '1px solid #ddd', padding: '8px' }}>No.</th>
+            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Drug Number</th>
+            <th style={{ border: '1px solid #ddd', padding: '8px' }}>Drug Name</th>
+            {role === "admin" && <th style={{ border: '1px solid #ddd', padding: '8px' }}>Actions</th>}
           </tr>
         </thead>
         <tbody>
           {drugs.map((drug, index) => (
-            <tr key={drug.id}>
-              <td>{index + 1}</td>
-              <td>{drug.id}</td>
-              <td>{drug.name}</td>
-              {userRole === "superadmin" && (
-                <>
-                  <td>
-                    <button onClick={() => setEditingDrug(drug)}>Edit</button>
-                  </td>
-                  <td>
-                    <button onClick={() => handleDeleteDrug(drug.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </>
+            <tr key={drug.id} style={{ borderBottom: '1px solid #ddd' }}>
+              <td style={{ padding: '8px' }}>{index + 1}</td>
+              <td style={{ padding: '8px' }}>{drug.number}</td>
+              <td style={{ padding: '8px' }}>{drug.name}</td>
+              {role === "admin" && (
+                <td style={{ padding: '8px' }}>
+                  <button
+                    style={{ padding: '8px 16px', backgroundColor: '#4CAF50', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+                    onClick={() => handleEditDrug(drug.id)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    style={{ padding: '8px 16px', backgroundColor: '#f44336', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+                    onClick={() => handleDeleteDrug(drug.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               )}
             </tr>
           ))}
-          {userRole === "superadmin" && (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
-                <button onClick={handleAddDrug}>Add Drug</button>
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
-
-      {/* Edit Drug Section */}
-      {editingDrug && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Edit Drug</h2>
-          <input
-            type="text"
-            placeholder="Name"
-            value={editingDrug.name}
-            onChange={(e) =>
-              setEditingDrug({ ...editingDrug, name: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Quantity"
-            value={editingDrug.quantity}
-            onChange={(e) =>
-              setEditingDrug({ ...editingDrug, quantity: e.target.value })
-            }
-          />
-          <button onClick={() => handleEditDrug(editingDrug.id)}>
-            Save Changes
-          </button>
-        </div>
+      {role === "admin" && (
+        <button
+          style={{ padding: '8px 16px', backgroundColor: '#4CAF50', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+          onClick={handleAddDrug}
+        >
+          Add Drug
+        </button>
       )}
+      <button
+        style={{ padding: '8px 16px', backgroundColor: '#2196F3', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+        onClick={() => console.log("Go Home")}
+      >
+        Return to Home
+      </button>
     </div>
   );
 };
 
-export default Drugs;
+export default drugsManagement;
