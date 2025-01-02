@@ -35,9 +35,10 @@ export default function AllAppointments(){
                         <div>
                             <button className="button-add" onClick={()=> navigate("/AddAppointment")}>Add Appointments</button>
                         </div>
-                        <br></br>
                         <div className="serach-container">
-                            <input type="text" placeholder="Search by Patient Name" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}></input>
+                            <input type="text" 
+                            placeholder="Search by Patient Name" 
+                            value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
                 <table>
                     <thead>
