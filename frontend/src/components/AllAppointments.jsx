@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import '../styles/AllAppointments.css'
 import axios from 'axios';
+import Navbar from './Navbar';
 
 export default function AllAppointments() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -29,10 +30,11 @@ export default function AllAppointments() {
 
     return (
         <>
+        <div>
+            <Navbar></Navbar>
             <div className="container">
                 <br />
                 <h1 style={{ textAlign: 'center', fontFamily: 'cursive', fontSize: '50px' }}>All Appointments</h1>
-                <br />
                 <div className="container">
                     <div>
                         <button className="button-add"
@@ -73,6 +75,7 @@ export default function AllAppointments() {
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         </>
     )

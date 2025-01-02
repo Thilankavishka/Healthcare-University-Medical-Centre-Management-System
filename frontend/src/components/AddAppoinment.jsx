@@ -3,6 +3,7 @@ import '../styles/AddAppointment.css';
 import {useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 export default function AddAppointment(){
     let navigate = useNavigate();
@@ -54,10 +55,13 @@ export default function AddAppointment(){
     
     return(
         <>
+        <Navbar></Navbar>
         <div className='container'>
 
             <br />
             <form className="my-form" onSubmit={addAppointment} >
+            <h1 style={{ textAlign: 'center', fontFamily: 'cursive', fontSize: '30px' }}>Add Appointments</h1>
+            <br /><br />
                 <div className='mb-3'>
                     <label forHtml="regno" className='Form-label'>Patient Registration Number </label>
                     <input type='text' className='form-control' value={regno} id='regno' placeholder='Enter Registration no' onChange={(e) => {setRegNo(e.target.value)}}></input>
