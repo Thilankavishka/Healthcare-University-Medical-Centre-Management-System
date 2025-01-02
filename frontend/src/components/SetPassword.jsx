@@ -36,7 +36,8 @@ const SetPassword = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-10 bg-white shadow-md rounded-lg text-left">
         <h1 className="text-2xl font-bold mb-6">Set New Password</h1>
-        
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
         <form className="space-y-4" onSubmit={handleSubmit}>
           
           <div className="relative">
