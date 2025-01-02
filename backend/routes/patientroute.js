@@ -33,6 +33,7 @@ router.post("/patientregister", async (req, res) => {
     const {
       regnum,
       fullname,
+      email,
       address,
       city,
       course,
@@ -44,7 +45,7 @@ router.post("/patientregister", async (req, res) => {
       image,
     } = req.body;
 
-    if (!regnum || !fullname || !password || !gender) {
+    if (!regnum || !fullname || !password || !gender || !email) {
       return res.status(400).json({ message: "Provide all required fields" });
     }
 
@@ -61,6 +62,7 @@ router.post("/patientregister", async (req, res) => {
     const newpatient = new patientmodel({
       regnum: regnum,
       fullname,
+      email,
       address,
       city,
       course,
@@ -92,4 +94,39 @@ router.get("/getpatientdetails", async (req, res) => {
     console.log(err);
   }
 });
+
+//.......................................................Patient Details to dashboard...................................................
+router.get("/patientdetails/:regnum", async (req, res) => {
+  try {
+    const regnum = req.params.regnum;
+    // Find patient by regnum
+    const patient = await patientmodel.findOne({ regnum: regnum });
+
+    if (!patient) {
+      return res.status(404).json({
+        success: false,
+        message: "Patient not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      patdet: patient,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//.....................................Count Total Number of patients..........................................
+router.get("/countpatients", async (req, res) => {
+  try {
+    const numofpatients = await patientmodel.countDocuments(); // Add await here
+    res.json({ count: numofpatients }); // Send count in JSON format
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
