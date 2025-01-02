@@ -27,14 +27,18 @@ const PasswordRecovery = () => {
         <p className="text-gray-600 text-sm mb-6">
           Please enter your Email and Full Name to recover your password.
         </p>
-        <form className="space-y-4">
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Full Name Input */}
           <div className="relative">
-            <input
+          <input
               type="text"
               id="fullName"
               placeholder="Registered Full Name"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               required
             />
           </div>
@@ -45,6 +49,8 @@ const PasswordRecovery = () => {
               id="email"
               placeholder="Registered Email"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
