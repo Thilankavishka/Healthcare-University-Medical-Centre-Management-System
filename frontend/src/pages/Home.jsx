@@ -84,7 +84,7 @@ export default function Home({ role, userId }) {
             </span>
           </h1>
           <h1 className="text-green-900 text-3xl sm:text-4xl font-semibold">
-            Open
+            Closed
           </h1>
         </div>
 
