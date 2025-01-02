@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Medicalhistory() {
@@ -13,61 +12,92 @@ export default function Medicalhistory() {
   return (
     <>
       <div className="medical-history-page">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="container-fluid">
-            <a className="navbar-brand" href="#">
-              VMed
+        <nav className="bg-gradient-to-r from-teal-500 to-blue-500 shadow-lg">
+          <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+            <a href="#" className="text-3xl font-bold text-white">
+              Healthcare University of Vavuniya
             </a>
-            <div className="d-flex ms-auto align-items-center">
-              <div className="me-3">Medical Centre-UOV</div>
-              <div className="user-profile">Super Admin</div>
+            <div className="flex items-center space-x-4">
+              <div className="text-white">Medical Centre-UOV</div>
+              <div className="text-gray-200 font-semibold">Super Admin</div>
             </div>
           </div>
         </nav>
 
-        <div className="main-content">
-          <div className="sidebar">
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Dashboard
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="content">
-            <div className="page-header">USERS | MEDICAL HISTORY</div>
+        <div className="flex">
+          <div className="content flex-1 p-10">
+            <div className="text-4xl font-semibold text-gray-900 mb-6">
+              USERS | MEDICAL HISTORY
+            </div>
             <div className="table-container">
-              <h3>View Medical History</h3>
-              <table className="table table-bordered">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+                View Medical History
+              </h3>
+              <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
                 <thead>
-                  <tr>
-                    <th>Reg No</th>
-                    <th>Blood Pressure</th>
-                    <th>Blood Sugar</th>
-                    <th>Weight</th>
-                    <th>Temperature</th>
-                    <th>Diagnosis</th>
-                    <th>Medical Prescription</th>
-                    <th>Visit Date</th>
-                    <th>Medical Report</th>
+                  <tr className="bg-teal-500 text-white">
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Reg No
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Blood Pressure
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Blood Sugar
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Weight
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Temperature
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Diagnosis
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Medical Prescription
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Visit Date
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">
+                      Medical Report
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {medicalData.map((data, index) => (
-                    <tr key={index}>
-                      <td>{data.regNo}</td>
-                      <td>{data.bloodPressure}</td>
-                      <td>{data.bloodSugar}</td>
-                      <td>{data.weight}</td>
-                      <td>{data.temperature}</td>
-                      <td>{data.diagnosis}</td>
-                      <td>{data.prescription}</td>
-                      <td>{data.visitDate}</td>
-                      <td>
+                    <tr
+                      key={index}
+                      className="border-b border-gray-300 hover:bg-gray-50"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.regNo}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.bloodPressure}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.bloodSugar}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.weight}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.temperature}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.diagnosis}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.prescription}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {data.visitDate}
+                      </td>
+                      <td className="px-6 py-4 text-sm">
                         <button
-                          className="btn btn-sm btn-primary"
+                          className="bg-teal-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-teal-700 focus:outline-none"
                           onClick={handleReportClick}
                         >
                           View Report
