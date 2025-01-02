@@ -22,6 +22,9 @@ export default function Form(){
         setFormData({ ...formData, [name]: value });
     };
     
+    const handleFileChange = (event) => {
+        setFormData({ ...formData, medicalReport: event.target.files[0] });
+    };
     
     return(
         <>
