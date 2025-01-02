@@ -2,8 +2,11 @@ import React from 'react';
 import '../styles/AddAppointment.css';
 import {useState} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddAppointment(){
+    let Navigate = useNavigate();
+
     const[regno,setRegNo] = useState("");
     const[pname,setPatientName] = useState("");
     const[email,setEmail] = useState("");
