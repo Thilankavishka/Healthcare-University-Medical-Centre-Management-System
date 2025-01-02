@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddAppointment(){
-    let Navigate = useNavigate();
+    let navigate = useNavigate();
 
     const[regno,setRegNo] = useState("");
     const[pname,setPatientName] = useState("");
@@ -29,7 +29,7 @@ export default function AddAppointment(){
         await axios.post("http://localhost:8080/AddAppoinments",newAppointment)
         .then(() => {
             alert("Appointment Added Successfully");
-            Navigate('./AddAppoinement');
+            navigate('./AddAppoinement');
         })
         .catch(err =>{
             alert(err);
