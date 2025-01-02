@@ -3,7 +3,34 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 const SetPassword = () => {
-  
+    const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      await axios.post("http://localhost:8080/password-recovery/set-password", {
+        token,
+        password: newPassword,
+      });
+      setSuccess("Password successfully updated!");
+      setError("");
+      setTimeout(() => navigate("/login"), 2000); // Redirect to login after 2 seconds
+    } catch (err) {
+      setError(err.response?.data?.message || "An error occurred. Please try again.");
+      setSuccess("");
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
