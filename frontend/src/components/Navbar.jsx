@@ -16,11 +16,19 @@ export default function Navbar({ role, userId }) {
     Navigate("/logout");
   };
 
-  const GoAdmindDshboard = () => {
+  const SuperGoAdmindDshboard = () => {
+    Navigate("/superadmindashboard");
+  };
+
+  const GopatientDashboard = () => {
+    Navigate("/patientdashboard");
+  };
+
+  const Gototadmindashboard = () => {
     Navigate("/admindashboard");
   };
   return (
-    <nav className="w-full h-16 flex justify-between items-center px-5">
+    <nav className="w-full h-16 flex justify-between items-center px-5 bg-sky-200">
       <div className="logo w-12">
         <Link to={"/"}>
           <img className="ml-10" src="./logo.png" alt=""></img>
@@ -44,21 +52,37 @@ export default function Navbar({ role, userId }) {
         </ul>
       </div>
       <div className="flex">
-        {role === "admin" && (
+        {role === "superadmin" && (
           <>
-            <Button onClick={GoAdmindDshboard} className=" mr-3">
+            <Button onClick={SuperGoAdmindDshboard} className=" mr-3">
               SuperAdmindDshboard
             </Button>
-            <Button variant="info" className=" mr-3" onClick={goRegister}>
-              REGISTER
+
+            <Button variant="info" className=" mr-3" onClick={GoLogOut}>
+              Logout
+            </Button>
+          </>
+        )}
+        {role === "patient" && (
+          <>
+            <Button onClick={GopatientDashboard} className=" mr-3">
+              Dashboard
+            </Button>{" "}
+            <Button variant="info" className=" mr-3" onClick={GoLogOut}>
+              Logout
+            </Button>
+          </>
+        )}
+        {role === "admin" && (
+          <>
+            <Button onClick={Gototadmindashboard} className=" mr-3">
+              AdmindDshboard
             </Button>
             <Button variant="info" className=" mr-3" onClick={GoLogOut}>
               Logout
             </Button>
           </>
         )}
-        {role === "student" && <></>}
-        {role === "doctor" && <></>}
         {role === "" && (
           <>
             <Button variant="info" className=" mr-3" onClick={goRegister}>
