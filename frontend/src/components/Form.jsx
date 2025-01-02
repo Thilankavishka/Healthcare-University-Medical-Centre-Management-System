@@ -16,6 +16,12 @@ export default function Form(){
         visitDate: '',
         medicalReport: null,
     });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    };
+    
     
     return(
         <>
