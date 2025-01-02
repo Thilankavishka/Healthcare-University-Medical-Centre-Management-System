@@ -136,12 +136,15 @@ function App() {
             element={<UserChangePassword></UserChangePassword>}
           ></Route>
 
-          <Route path="drugs" element={<Drugs userRole={role}></Drugs>}></Route>
 
           <Route
             path="/setpassword"
             element={<SetPassword></SetPassword>}
           ></Route>
+
+          <Route path="drugs" element={<Drugs userRole={role}></Drugs>}></Route>
+
+
         </Routes>
       </Router>
     </>
