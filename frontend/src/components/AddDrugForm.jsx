@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./drugs.css";
 
 const DrugForm = ({ drugDatabase, setDrugDatabase }) => {
   const navigate = useNavigate();
@@ -40,35 +39,45 @@ const DrugForm = ({ drugDatabase, setDrugDatabase }) => {
   };
 
   return (
-    <div className="drug-form-container">
+    <div style={{ margin: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>{isEdit ? "Edit Drug" : "Add Drug"}</h1>
-      <form className="drug-form">
-        <label>
+      <form style={{ margin: '20px 0' }}>
+        <label style={{ display: 'block', margin: '10px 0' }}>
           Drug Serial No:
-          <input type="text" value={drugDetails.number} disabled />
+          <input type="text" value={drugDetails.number} disabled style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
         </label>
-        <label>
+        <label style={{ display: 'block', margin: '10px 0' }}>
           Drug Name:
           <input
             type="text"
             name="name"
             value={drugDetails.name}
             onChange={handleChange}
+            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           />
         </label>
-        <label>
+        <label style={{ display: 'block', margin: '10px 0' }}>
           Distributor Name:
           <input
             type="text"
             name="distributor"
             value={drugDetails.distributor}
             onChange={handleChange}
+            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           />
         </label>
-        <button type="button" className="save-button" onClick={handleSave}>
+        <button
+          type="button"
+          style={{ padding: '8px 16px', backgroundColor: '#4CAF50', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+          onClick={handleSave}
+        >
           Save
         </button>
-        <button type="button" className="cancel-button" onClick={handleCancel}>
+        <button
+          type="button"
+          style={{ padding: '8px 16px', backgroundColor: '#f44336', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', margin: '5px' }}
+          onClick={handleCancel}
+        >
           Cancel
         </button>
       </form>
@@ -76,4 +85,4 @@ const DrugForm = ({ drugDatabase, setDrugDatabase }) => {
   );
 };
 
-export default DrugForm;
+export default drugForm;
