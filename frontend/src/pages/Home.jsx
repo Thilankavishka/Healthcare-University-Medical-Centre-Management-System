@@ -3,33 +3,44 @@ import Footer from "../components/Footer";
 import Message from "../components/Message";
 import Navbar from "../components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Home({ role, userId }) {
-  const currenttime = new Date().toLocaleTimeString();
-  const currentDate = new Date().toLocaleDateString();
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [patientCount, setPatientCount] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const handleAppointmentClick = () => {
+    navigate("/AllAppointments");
+  };
 
   useEffect(() => {
     const fetchPatientCount = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/patient/countpatients`
+          "http://localhost:8080/patient/countpatients"
         ); // Adjust the endpoint if needed
         setPatientCount(response.data.count);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching patient count:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchPatientCount();
+
+    // Update time every second
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
+
   if (loading) {
     return <div>Loading...</div>;
   }
+
   return (
     <>
       {/* Navbar section */}
@@ -39,8 +50,8 @@ export default function Home({ role, userId }) {
           <img
             className="w-full sm:w-1/2 h-[200px] sm:h-[300px] object-cover"
             src="/src/assets/images/home.png"
-            alt=""
-          ></img>
+            alt="Healthcare"
+          />
 
           <div className="hero-text w-full sm:w-1/2 flex flex-col items-center text-center sm:text-left mt-5 sm:mt-0">
             <h1 className="font-semibold text-3xl sm:text-4xl text-blue-700">
@@ -61,10 +72,16 @@ export default function Home({ role, userId }) {
         {/* Left side: Time and Date */}
         <div className="flex flex-col justify-center items-start space-y-4">
           <h1 className="text-blue-900 text-3xl sm:text-4xl font-semibold">
-            Time: <span className="text-gray-700">{currenttime}</span>
+            Time:{" "}
+            <span className="text-gray-700">
+              {currentTime.toLocaleTimeString()}
+            </span>
           </h1>
           <h1 className="text-blue-900 text-3xl sm:text-4xl font-semibold">
-            Date: <span className="text-gray-700">{currentDate}</span>
+            Date:{" "}
+            <span className="text-gray-700">
+              {currentTime.toLocaleDateString()}
+            </span>
           </h1>
           <h1 className="text-green-900 text-3xl sm:text-4xl font-semibold">
             Open
@@ -80,10 +97,13 @@ export default function Home({ role, userId }) {
         </div>
       </div>
 
-      {/*Apointment Section*/}
+      {/* Appointment Section */}
       <div className="flex justify-center mt-6">
-        <button className="px-6 py-3 bg-green-500 text-white text-base sm:text-lg font-bold rounded-lg shadow-md sm:shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2 transition duration-300 w-full max-w-xs sm:max-w-sm">
-          Make Appointment
+        <button
+          onClick={handleAppointmentClick}
+          className="bg-[#4CAF50] text-white py-2.5 px-5 rounded cursor-pointer transition-colors duration-300"
+        >
+          Add Appointment
         </button>
       </div>
 
@@ -92,12 +112,12 @@ export default function Home({ role, userId }) {
         <div className="department-head flex justify-center">
           <h1 className="text-3xl font-semibold mt-1 p-5">Send Us A Message</h1>
         </div>
-        <Message></Message>
+        <Message />
 
         {/* Footer */}
         <div className="footer px-5 sm:px-10 bg-gradient-to-b from-[#76dbcf] mt-5">
           <hr className="h-px my-8 border-2" />
-          <Footer></Footer>
+          <Footer />
         </div>
       </div>
     </>
