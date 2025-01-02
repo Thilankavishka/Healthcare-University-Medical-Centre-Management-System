@@ -8,8 +8,9 @@ const path = require("path");
 //import routes
 const Authroute = require("./routes/authroute.js");
 const Patientroute = require("./routes/patientroute.js");
+const Messageroute = require("./routes/msgroute.js");
 //import models
-const adminmodel = require("./models/superadmin.js");
+const adminmodel = require("./models/admin.js");
 
 const seed = require("./seed.js");
 const app = express();
@@ -27,7 +28,10 @@ dotenv.config();
 
 app.use("/auth", Authroute);
 app.use("/patient", Patientroute);
+app.use("/message", Messageroute);
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/',require('./routes/appointmentroute.js'));
 
 const PORT = 8080;
 app.get("/", (req, res) => {

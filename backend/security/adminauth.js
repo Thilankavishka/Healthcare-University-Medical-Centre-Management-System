@@ -10,7 +10,7 @@ const verifyAdmin = async (req, res, next) => {
   if (!token) {
     return res.json({ message: "Enter Admin Token" });
   } else {
-    jwt.verify(token, process.env.admin_key, (err, decoded) => {
+    jwt.verify(token, process.env.Admin_key, (err, decoded) => {
       if (err) {
         return res.json({ message: "Invalid Token" });
       } else {
