@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 export default function Login({ setRole2 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("admin");
+  const [role, setRole] = useState("superadmin");
 
   const navigate = useNavigate();
 
@@ -14,17 +14,26 @@ export default function Login({ setRole2 }) {
     navigate("/register");
   };
 
+  const toForgetPassword = () => {
+    navigate("/passwordrecovery");
+  };
   axios.defaults.withCredentials = true;
   const handleSubmit = () => {
     axios
       .post("http://localhost:8080/auth/login", { username, password, role })
       .then((res) => {
-        if (res.data.login && res.data.role === "admin") {
+        if (res.data.login && res.data.role === "superadmin") {
+          setRole2("superadmin");
+          navigate("/superadmindashboard");
+          window.location.reload();
+        } else if (res.data.login && res.data.role === "patient") {
+          setRole2("patient");
+          navigate("/patientdashboard");
+          window.location.reload();
+        } else if (res.data.login && res.data.role === "admin") {
           setRole2("admin");
           navigate("/admindashboard");
-        } else if (res.data.login && res.data.role === "student") {
-          setRole2("student");
-          navigate("/studentdashboard");
+          window.location.reload();
         } else {
           console.log("Invalid role or login status");
         }
@@ -84,8 +93,9 @@ export default function Login({ setRole2 }) {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             >
               <option value="">Select</option>
-              <option value="student">Patient</option>
+              <option value="patient">Patient</option>
               <option value="admin">Admin</option>
+              <option value="superadmin">SuperAdmin</option>
             </select>
           </div>
           <button
@@ -94,10 +104,16 @@ export default function Login({ setRole2 }) {
           >
             Login
           </button>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-4">
+            <button
+              onClick={toForgetPassword}
+              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline"
+            >
+              Forget Password
+            </button>
             <button
               onClick={toregister}
-              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline "
+              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline"
             >
               Don’t have an account? Register
             </button>
