@@ -1,14 +1,18 @@
 const PasswordRecovery = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const fullName = e.target.fullName.value;
-    const email = e.target.email.value;
-
     try {
-      const response = await axios.post("/password-recovery", { fullName, email });
-      alert(response.data.message);
-    } catch (error) {
-      alert(error.response?.data?.message || "Something went wrong");
+      await axios.post("http://localhost:8080/password-recovery", { fullName, email });
+      setSuccess("Recovery email sent! Check your inbox.");
+      setError("");
+    } catch (err) {
+      setError(err.response?.data?.message || "An error occurred. Please try again.");
+      setSuccess("");
     }
   };
   return (
