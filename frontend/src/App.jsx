@@ -9,6 +9,8 @@ import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
 import RegisterPatient from "./components/RegisterPatient";
 import PatientDetails from "./components/PatientDetails";
+import AllAppointments from "./components/AllAppointments";
+import AddAppointment from "./components/AddAppoinment";
 import Patientdashboard from "./components/Patientdashboard";
 import SuperAdmindashboard from "./components/SuperAdmindashboard";
 import Admindashboard from "./components/Admindashboard";
@@ -17,7 +19,7 @@ import MorePatientDetails from "./components/Morepatientdetails";
 import PasswordRecovery from "./components/PasswordRecovery";
 import AdminDetails from "./components/AdminDetails";
 import UserMessage from "./components/UserMessages";
-import UserChangePassword from "./components/UserChangePassword";
+import UserChangePassword from "./components/UserChangePassword"
 
 function App() {
   const [role, setRole] = useState("");
@@ -93,6 +95,13 @@ function App() {
             element={<PatientDetails></PatientDetails>}
           ></Route>
           <Route
+            path="/AllAppointments"
+            element={<AllAppointments></AllAppointments>}
+          ></Route>
+          <Route
+            path="/AddAppointment"
+            element={<AddAppointment></AddAppointment>}></Route>
+         <Route
             path="/patientdashboard"
             element={<Patientdashboard regnum={username}></Patientdashboard>}
           ></Route>

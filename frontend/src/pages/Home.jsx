@@ -3,6 +3,17 @@ import Footer from "../components/Footer";
 import Message from "../components/Message";
 import Navbar from "../components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
+export default function Home({ role, userId }) {
+  const navigate = useNavigate();
+  const currenrtime = new Date().toLocaleTimeString();
+  const currentDate = new Date().toLocaleDateString();
+  const handleAppointmentClick = () =>{
+    navigate("/AllAppointments");
+  }
+  
+
 import axios from "axios";
 
 export default function Home({ role, userId }) {
@@ -79,7 +90,14 @@ export default function Home({ role, userId }) {
           </h1>
         </div>
       </div>
+      {/* Appointment Section */}
+      <div className="flex justify-center mt-6 ">
+        <button onClick={handleAppointmentClick}
+        className="bg-[#4CAF50] text-white py-2.5 px-5 rounded cursor-pointer transition-colors duration-300">Add Appointment</button>
+      </div>
 
+      {/*Message Section*/}
+      <div className="sec-3 w-full h-fit bg-teal-200  pb-5">
       {/*Apointment Section*/}
       <div className="flex justify-center mt-6">
         <button className="px-6 py-3 bg-green-500 text-white text-base sm:text-lg font-bold rounded-lg shadow-md sm:shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2 transition duration-300 w-full max-w-xs sm:max-w-sm">
