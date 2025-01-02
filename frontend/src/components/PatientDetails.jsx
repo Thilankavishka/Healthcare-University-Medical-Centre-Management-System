@@ -14,6 +14,44 @@ export default function PatientDetails() {
       .catch((err) => console.log(err));
   }, []);
 
+  const [patientCount, setPatientCount] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPatientCount = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/patient/countpatients`
+        ); // Adjust the endpoint if needed
+        setPatientCount(response.data.count);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching patient count:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchPatientCount();
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  //when navigate morepatient details items willnavigate to /morepatientdetails
+  const goMorePatientdetails = (item) => {
+    navigate("/morepatientdetails", { state: item });
+  };
+
+  // Filter the patients based on the serach term
+  const filteredPatients = patient.filter(
+    (item) =>
+      (item.regnum?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+      (item.fullname?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+      (item.faculty?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+      (item.gender?.toLowerCase() || "").includes(searchTerm.toLowerCase())
+  );
+  
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Patient Details</h1>

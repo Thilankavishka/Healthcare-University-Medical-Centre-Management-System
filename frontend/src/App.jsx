@@ -57,7 +57,7 @@ function App() {
             element={<RegisterPatient></RegisterPatient>}
           ></Route>
           <Route
-            path="PatientDetails"
+            path="/patientdetails"
             element={<PatientDetails></PatientDetails>}
           ></Route>
         </Routes>
