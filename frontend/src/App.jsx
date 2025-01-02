@@ -20,6 +20,8 @@ import PasswordRecovery from "./components/PasswordRecovery";
 import AdminDetails from "./components/AdminDetails";
 import UserMessage from "./components/UserMessages";
 import UserChangePassword from "./components/UserChangePassword";
+import AboutUs from "./components/Aboutus";
+import Drugs from "./components/Drug";
 
 function App() {
   const [role, setRole] = useState("");
@@ -136,6 +138,11 @@ function App() {
             element={<UserChangePassword></UserChangePassword>}
           ></Route>
           <Route path="drugs" element={<Drugs userRole={role}></Drugs>}></Route>
+          <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
+          
+
+
+          
         </Routes>
       </Router>
     </>
