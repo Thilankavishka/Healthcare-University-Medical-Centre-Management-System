@@ -23,6 +23,7 @@ import UserChangePassword from "./components/UserChangePassword";
 import Drug from "./components/Drug";
 import Medicalhistory from "./components/Medicalhistory";
 import Form from "./components/Form";
+import AboutUs from "./components/Aboutus";
 
 function App() {
   const [role, setRole] = useState("");
@@ -144,6 +145,7 @@ function App() {
             element={<Medicalhistory></Medicalhistory>}
           ></Route>
           <Route path="medicalform" element={<Form></Form>}></Route>
+          <Route path="aboutus" element={<AboutUs></AboutUs>}></Route>
         </Routes>
       </Router>
     </>
