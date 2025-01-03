@@ -22,6 +22,7 @@ import UserMessage from "./components/UserMessages";
 import UserChangePassword from "./components/UserChangePassword";
 import AboutUs from "./components/Aboutus";
 import Drugs from "./components/Drug";
+import Service from './components/Service'
 
 function App() {
   const [role, setRole] = useState("");
@@ -139,6 +140,7 @@ function App() {
           ></Route>
           <Route path="drugs" element={<Drugs userRole={role}></Drugs>}></Route>
           <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
+          <Route path="/services" element={<Service></Service>}></Route>
           
 
 
