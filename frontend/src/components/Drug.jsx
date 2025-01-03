@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Assuming React Router is being used
 
-const Drugs = ({ userRole }) => {
+const Drug = ({ userRole }) => {
   const [drugs, setDrugs] = useState([]);
   const [newDrug, setNewDrug] = useState({ name: "", quantity: "" });
   const [editingDrug, setEditingDrug] = useState(null);
@@ -134,4 +134,4 @@ const Drugs = ({ userRole }) => {
   );
 };
 
-export default Drugs;
+export default Drug;
