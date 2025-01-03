@@ -44,50 +44,61 @@ const Drug = ({ userRole }) => {
   };
 
   return (
-    <div>
-      <h1>Drugs</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6">Drugs</h1>
 
       {/* Navigation Buttons */}
-      <div style={{ marginBottom: "20px" }}>
-        <button onClick={() => navigate(-1)} style={{ marginRight: "10px" }}>
+      <div className="mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md mr-4 hover:bg-blue-600"
+        >
           Back
         </button>
-        <button onClick={() => navigate("/")} style={{ marginRight: "10px" }}>
+        <button
+          onClick={() => navigate("/")}
+          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+        >
           Home
         </button>
       </div>
 
       {/* Drugs Table */}
-      <table
-        border="1"
-        style={{ width: "100%", textAlign: "left", borderCollapse: "collapse" }}
-      >
+      <table className="w-full border border-gray-300 text-left">
         <thead>
-          <tr>
-            <th>No</th>
-            <th>Drug No</th>
-            <th>Drug Name</th>
+          <tr className="bg-gray-100">
+            <th className="px-4 py-2 border">No</th>
+            <th className="px-4 py-2 border">Drug No</th>
+            <th className="px-4 py-2 border">Drug Name</th>
             {userRole === "superadmin" && (
               <>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th className="px-4 py-2 border">Edit</th>
+                <th className="px-4 py-2 border">Delete</th>
               </>
             )}
           </tr>
         </thead>
         <tbody>
           {drugs.map((drug, index) => (
-            <tr key={drug.id}>
-              <td>{index + 1}</td>
-              <td>{drug.id}</td>
-              <td>{drug.name}</td>
+            <tr key={drug.id} className="odd:bg-white even:bg-gray-50">
+              <td className="px-4 py-2 border">{index + 1}</td>
+              <td className="px-4 py-2 border">{drug.id}</td>
+              <td className="px-4 py-2 border">{drug.name}</td>
               {userRole === "superadmin" && (
                 <>
-                  <td>
-                    <button onClick={() => setEditingDrug(drug)}>Edit</button>
+                  <td className="px-4 py-2 border">
+                    <button
+                      onClick={() => setEditingDrug(drug)}
+                      className="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                    >
+                      Edit
+                    </button>
                   </td>
-                  <td>
-                    <button onClick={() => handleDeleteDrug(drug.id)}>
+                  <td className="px-4 py-2 border">
+                    <button
+                      onClick={() => handleDeleteDrug(drug.id)}
+                      className="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600"
+                    >
                       Delete
                     </button>
                   </td>
@@ -97,8 +108,13 @@ const Drug = ({ userRole }) => {
           ))}
           {userRole === "superadmin" && (
             <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
-                <button onClick={handleAddDrug}>Add Drug</button>
+              <td colSpan="5" className="text-center py-4">
+                <button
+                  onClick={handleAddDrug}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                >
+                  Add Drug
+                </button>
               </td>
             </tr>
           )}
@@ -107,31 +123,38 @@ const Drug = ({ userRole }) => {
 
       {/* Edit Drug Section */}
       {editingDrug && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Edit Drug</h2>
-          <input
-            type="text"
-            placeholder="Name"
-            value={editingDrug.name}
-            onChange={(e) =>
-              setEditingDrug({ ...editingDrug, name: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Quantity"
-            value={editingDrug.quantity}
-            onChange={(e) =>
-              setEditingDrug({ ...editingDrug, quantity: e.target.value })
-            }
-          />
-          <button onClick={() => handleEditDrug(editingDrug.id)}>
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold mb-4">Edit Drug</h2>
+          <div className="flex gap-4 mb-4">
+            <input
+              type="text"
+              placeholder="Name"
+              value={editingDrug.name}
+              onChange={(e) =>
+                setEditingDrug({ ...editingDrug, name: e.target.value })
+              }
+              className="px-4 py-2 border border-gray-300 rounded-md w-full"
+            />
+            <input
+              type="number"
+              placeholder="Quantity"
+              value={editingDrug.quantity}
+              onChange={(e) =>
+                setEditingDrug({ ...editingDrug, quantity: e.target.value })
+              }
+              className="px-4 py-2 border border-gray-300 rounded-md w-full"
+            />
+          </div>
+          <button
+            onClick={() => handleEditDrug(editingDrug.id)}
+            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+          >
             Save Changes
           </button>
         </div>
       )}
     </div>
-  );
+  )D
 };
 
-export default Drug;
+export default drug;
