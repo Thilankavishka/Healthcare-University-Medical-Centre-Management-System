@@ -27,6 +27,7 @@ export default function Navbar({ role, userId }) {
   const Gototadmindashboard = () => {
     Navigate("/admindashboard");
   };
+
   return (
     <nav className="w-full h-16 flex justify-between items-center px-5 bg-sky-200">
       <div className="logo w-12">
@@ -41,7 +42,7 @@ export default function Navbar({ role, userId }) {
           </li>
           <Link to={"/Services"}>Services</Link>
           <li>
-            <Link to={"/Aboutus"}>About us</Link>
+            <Link to={"/AboutUs"}>About us</Link>
           </li>
           <li>
             <Link to={"/Gallery"}>Gallery</Link>

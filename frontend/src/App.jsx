@@ -20,7 +20,12 @@ import PasswordRecovery from "./components/PasswordRecovery";
 import AdminDetails from "./components/AdminDetails";
 import UserMessage from "./components/UserMessages";
 import UserChangePassword from "./components/UserChangePassword";
-import SetPassword from "./components/SetPassword";
+import AboutUs from "./components/Aboutus";
+import Drugs from "./components/Drug";
+import Service from "./components/Service";
+import Medicalhistory from "./components/Medicalhistory";
+import Form from "./components/Form";
+
 function App() {
   const [role, setRole] = useState("");
   const [username, setUserName] = useState(null);
@@ -136,12 +141,14 @@ function App() {
             element={<UserChangePassword></UserChangePassword>}
           ></Route>
 
-          <Route path="drugs" element={<Drugs userRole={role}></Drugs>}></Route>
-
+          <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
+          <Route path="/services" element={<Service></Service>}></Route>
+          <Route path="drugs" element={<Drug></Drug>}></Route>
           <Route
-            path="/setpassword"
-            element={<SetPassword></SetPassword>}
+            path="/medicalhistory"
+            element={<Medicalhistory></Medicalhistory>}
           ></Route>
+          <Route path="medicalform" element={<Form></Form>}></Route>
         </Routes>
       </Router>
     </>

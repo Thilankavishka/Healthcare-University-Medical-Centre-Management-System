@@ -24,6 +24,9 @@ export default function SuperAdmindashboard({ username }) {
   const goUserMessages = () => {
     navigate("/usermessages");
   };
+  const gomedicalhistory = () => {
+    navigate("/medicalhistory");
+  };
 
   return (
     <>
@@ -135,6 +138,26 @@ export default function SuperAdmindashboard({ username }) {
                 variant="primary"
                 className="w-full bg-blue-500 hover:bg-blue-600"
                 onClick={goUserMessages}
+              >
+                User Messages
+              </Button>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="flex items-center justify-center">
+          <Card className="w-72 shadow-lg">
+            <Card.Img variant="top" src="/card_images/register_patient.jpg" />
+            <Card.Body>
+              <Card.Title className="font-bold text-lg text-center">
+                Patient Medical History
+              </Card.Title>
+              <Card.Text className="text-sm text-gray-500 text-center">
+                Click Here to see Patient Medical Histries
+              </Card.Text>
+              <Button
+                variant="primary"
+                className="w-full bg-blue-500 hover:bg-blue-600"
+                onClick={gomedicalhistory}
               >
                 User Messages
               </Button>
