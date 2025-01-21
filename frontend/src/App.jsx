@@ -143,12 +143,12 @@ function App() {
 
           <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
           <Route path="/services" element={<Service></Service>}></Route>
-          <Route path="drugs" element={<Drug></Drug>}></Route>
+          <Route path="drugs" element={<Drugs></Drugs>}></Route>
           <Route
             path="/medicalhistory"
             element={<Medicalhistory></Medicalhistory>}
           ></Route>
-          <Route path="medicalform" element={<Form></Form>}></Route>
+          <Route path="/medicalform" element={<Form></Form>}></Route>
         </Routes>
       </Router>
     </>

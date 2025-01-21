@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+
 const PasswordRecovery = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -7,11 +10,17 @@ const PasswordRecovery = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/password-recovery", { fullName, email });
+      await axios.post("http://localhost:8080/password-recovery", {
+        fullName,
+        email,
+      });
       setSuccess("Recovery email sent! Check your inbox.");
       setError("");
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred. Please try again.");
+      setError(
+        err.response?.data?.message || "An error occurred. Please try again."
+      );
+
       setSuccess("");
     }
   };
@@ -32,7 +41,7 @@ const PasswordRecovery = () => {
         <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Full Name Input */}
           <div className="relative">
-          <input
+            <input
               type="text"
               id="fullName"
               placeholder="Registered Full Name"
