@@ -129,4 +129,25 @@ router.get("/countpatients", async (req, res) => {
   }
 });
 
+//.....................................Delete Patient Details..........................................
+
+router.delete("/:regnum", async (req, res) => {
+  const { regnum } = req.params;
+
+  try {
+    const deletedPatient = await patientmodel.findOneAndDelete({ regnum });
+
+    if (!deletedPatient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Patient deleted successfully", data: deletedPatient });
+  } catch (error) {
+    console.error("Error deleting patient:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;

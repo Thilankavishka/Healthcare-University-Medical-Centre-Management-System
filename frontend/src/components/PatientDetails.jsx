@@ -54,6 +54,30 @@ export default function PatientDetails() {
       item.gender.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Delete patients function
+
+  const handleDelete = async (regnum) => {
+    if (!window.confirm("Are you sure you want to delete this patient?")) {
+      return;
+    }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/patient/${regnum}`
+      );
+
+      if (response.status === 200) {
+        alert("Patient deleted successfully.");
+        setPatient((prev) => prev.filter((item) => item.regnum !== regnum));
+      } else {
+        alert("Failed to delete the patient. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error deleting patient:", error);
+      alert("An error occurred while deleting the patient.");
+    }
+  };
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Patient Details</h1>
@@ -126,7 +150,10 @@ export default function PatientDetails() {
                     <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
                       Update
                     </button>
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                    <button
+                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                      onClick={() => handleDelete(item.regnum)}
+                    >
                       Delete
                     </button>
                   </td>
