@@ -25,6 +25,7 @@ import Drugs from "./components/Drug";
 import Service from "./components/Service";
 import Medicalhistory from "./components/Medicalhistory";
 import Form from "./components/Form";
+import RegisterStudentadmin from "./components/RegisterPatientAdmin";
 
 function App() {
   const [role, setRole] = useState("");
@@ -149,6 +150,10 @@ function App() {
             element={<Medicalhistory></Medicalhistory>}
           ></Route>
           <Route path="/medicalform" element={<Form></Form>}></Route>
+          <Route
+            path="/registerpatientadmin"
+            element={<RegisterStudentadmin></RegisterStudentadmin>}
+          ></Route>
         </Routes>
       </Router>
     </>
