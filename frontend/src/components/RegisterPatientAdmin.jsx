@@ -1,9 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 
-export default function RegisterStudent() {
+export default function RegisterStudentadmin() {
   const [regnum, setRegnum] = useState("");
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,10 +20,6 @@ export default function RegisterStudent() {
   const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
-
-  const tologin = () => {
-    navigate("/login");
-  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +67,7 @@ export default function RegisterStudent() {
       if (res.data.registered) {
         setSuccessMessage(res.data.message);
         setErrorMessage("");
-        setTimeout(() => navigate("/login"), 2000);
+        setTimeout(() => navigate("/superadmindashboard"), 2000);
       }
     } catch (err) {
       console.log(err);
@@ -95,10 +90,10 @@ export default function RegisterStudent() {
           </div>
           <div>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/superadmindashboard")}
               className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             >
-              Back to home
+              Back to dashboard
             </button>
           </div>
         </div>
@@ -335,16 +330,6 @@ export default function RegisterStudent() {
                 </button>
               </div>
             </form>
-
-            {/* Login Link */}
-            <div className="mt-6 text-center">
-              <button
-                onClick={tologin}
-                className="text-blue-600 hover:text-blue-800 underline"
-              >
-                Already have an account? Login
-              </button>
-            </div>
           </div>
         </div>
       </div>

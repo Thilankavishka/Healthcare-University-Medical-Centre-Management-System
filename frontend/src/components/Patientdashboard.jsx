@@ -4,11 +4,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function PatientDashboard({ regnum }) {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const navigatechangepassword = () => {
-    Navigate("/changepassword");
+    navigate("/changepassword");
   };
+
   const [patient, setPatientDetails] = useState(null);
 
   useEffect(() => {
@@ -18,27 +19,47 @@ export default function PatientDashboard({ regnum }) {
         if (response.data.success) {
           setPatientDetails(response.data.patdet);
         } else {
-          // Handle the case when no patient is found
           console.log("Patient not found");
         }
       })
       .catch((error) => {
         console.error("Error fetching patient data:", error);
       });
-  }, [regnum]); // Re-run the effect when regnum changes
+  }, [regnum]);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <Navbar />
-      <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-semibold text-center text-gray-700 mb-6">
-          Welcome {patient ? `${patient.fullname}'s Dashboard` : "Loading..."}
-        </h1>
+    <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
+      {/* Sidebar */}
+      <div className="w-1/4 bg-gradient-to-b from-blue-600 to-purple-600 p-8 flex flex-col justify-between">
         <div>
-          <h1 className="text-3xl font-semibold text-center text-gray-700 mb-6">
-            {patient ? `${patient.fullname}'s Profile Details` : "Loading..."}
+          <h1 className="text-2xl font-bold text-white">
+            Medical Center University of Vavuniya
           </h1>
+          <p className="text-sm text-white mt-2">
+            Secure and Reliable Healthcare Services
+          </p>
         </div>
+        <div>
+          <button
+            onClick={() => navigate("/")}
+            className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+          >
+            Back to home
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="w-3/4 p-8">
+        {/* Title Section */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Welcome {patient ? `${patient.fullname}'s Dashboard` : "Loading..."}
+          </h1>
+          <hr className="mt-2 border-t-2 border-gray-200" />
+        </div>
+
+        {/* Patient Details Section */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
           <h2 className="text-xl font-bold text-gray-800">
             Registration Number: <span className="text-blue-600">{regnum}</span>
@@ -84,9 +105,11 @@ export default function PatientDashboard({ regnum }) {
         ) : (
           <p className="text-gray-600">Loading patient details...</p>
         )}
+
+        {/* Change Password Button */}
         <div className="flex justify-center items-center py-4">
           <button
-            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300"
+            className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             onClick={navigatechangepassword}
           >
             Change Password

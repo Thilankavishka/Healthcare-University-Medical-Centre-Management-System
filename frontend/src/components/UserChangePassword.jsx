@@ -1,159 +1,169 @@
-import { useState } from "react";
-import { FaBars, FaHome, FaListUl } from "react-icons/fa";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UserChangePassword = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    regnum: "", // Assuming you have a way to get the regnum
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const toggleProfileMenu = () => {
-    setProfileMenuOpen(!profileMenuOpen);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/changepassword/change-password",
+        formData
+      );
+      alert(response.data.message);
+      navigate("/logout");
+    } catch (error) {
+      alert(error.response?.data?.message || "Error changing password");
+    }
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
       {/* Sidebar */}
-      <div className="relative w-64 bg-white border-r-2 border-black">
-        <div className="flex justify-between items-center px-4 py-6">
-          <h2 className="text-2xl font-bold text-black">HealthCare</h2>
-          <FaBars
-            className="text-blue-500 text-2xl cursor-pointer"
-            onClick={toggleMenu}
-          />
-        </div>
-        {menuOpen && (
-          <ul className="mt-4">
-            <li className="flex items-center space-x-2 py-4 px-6 hover:bg-gray-200 cursor-pointer">
-              <FaHome className="text-blue-500" />
-              <span className="text-black text-left">Dashboard</span>
-            </li>
-            <hr className="border-black" />
-            <li className="flex items-center space-x-2 py-4 px-6 hover:bg-gray-200 cursor-pointer">
-              <FaListUl className="text-blue-500" />
-              <span className="text-black text-left">Medical History</span>
-            </li>
-          </ul>
-        )}
-      </div>
-      {/* Main Content */}
-      <div className="flex-1">
-        {/* Header */}
-        <header className="bg-white border-b shadow-md py-4 px-6 flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-black">
+      <div className="w-1/4 bg-gradient-to-b from-blue-600 to-purple-600 p-8 flex flex-col justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">
             Medical Center University of Vavuniya
           </h1>
-          <div className="relative">
-            <button
-              className="flex items-center space-x-2 focus:outline-none"
-              onClick={toggleProfileMenu}
-            >
-              <img
-                src="https://via.placeholder.com/40"
-                alt="User Avatar"
-                className="w-10 h-10 rounded-full"
-              />
-              <span className="font-medium">&nbsp;</span> {/* Space for name */}
-            </button>
-            {profileMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-black text-white shadow-md rounded-md z-50">
-                <ul className="text-left">
-                  <li
-                    className="py-2 px-4 hover:bg-gray-700 cursor-pointer"
-                    onClick={() => alert("My Profile")}
-                  >
-                    My Profile
-                  </li>
-                  <li
-                    className="py-2 px-4 hover:bg-gray-700 cursor-pointer"
-                    onClick={() => alert("Change Password")}
-                  >
-                    Change Password
-                  </li>
-                  <li
-                    className="py-2 px-4 hover:bg-gray-700 cursor-pointer"
-                    onClick={() => alert("Log Out")}
-                  >
-                    Log Out
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </header>
-        <main className="p-6">
-          {/* Title Section */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-black text-left">
-              User | Change Password
-            </h1>
-            <hr className="mt-2 border-black" />
-          </div>
+          <p className="text-sm text-white mt-2">
+            Secure and Reliable Healthcare Services
+          </p>
+        </div>
+        <div>
+          <button
+            onClick={() => navigate("/patientdashboard")}
+            className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
 
-          {/* Change Password Section */}
-          <div className="bg-white p-8 shadow-md rounded-md max-w-4xl mx-auto">
-            <h2 className="text-xl font-bold text-black text-left mb-4">
-              Change Password
+      {/* Main Content */}
+      <div className="w-3/4 p-8">
+        {/* Title Section */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-800">
+            User | Change Password
+          </h1>
+          <hr className="mt-2 border-t-2 border-gray-200" />
+        </div>
+
+        {/* Form Sections */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Section 1: Registration and Current Password */}
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              Account Information
             </h2>
-            <form>
-              <div className="mb-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Reg Num Field */}
+              <div>
+                <label
+                  htmlFor="regnum"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Registration Number
+                </label>
+                <input
+                  type="text"
+                  id="regnum"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  placeholder="Enter your registration number"
+                  value={formData.regnum}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Current Password Field */}
+              <div>
                 <label
                   htmlFor="currentPassword"
-                  className="block text-sm font-medium text-black text-left"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Current Password
                 </label>
                 <input
                   type="password"
                   id="currentPassword"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter Current Password"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  placeholder="Enter your current password"
+                  value={formData.currentPassword}
+                  onChange={handleChange}
                 />
               </div>
-              <div className="mb-4">
+            </form>
+          </div>
+
+          {/* Section 2: New Password and Confirm Password */}
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              New Password
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* New Password Field */}
+              <div>
                 <label
                   htmlFor="newPassword"
-                  className="block text-sm font-medium text-black text-left"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   New Password
                 </label>
                 <input
                   type="password"
                   id="newPassword"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="New Password"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  placeholder="Enter your new password"
+                  value={formData.newPassword}
+                  onChange={handleChange}
                 />
               </div>
-              <div className="mb-4">
+
+              {/* Confirm Password Field */}
+              <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-black text-left"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Confirm Password
                 </label>
                 <input
                   type="password"
                   id="confirmPassword"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Confirm Password"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  placeholder="Confirm your new password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                 />
               </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 text-center"
-                style={{
-                  width: "150px",
-                  display: "block",
-                  marginLeft: "0",
-                }}
-              >
-                Submit
-              </button>
             </form>
           </div>
-        </main>
+        </div>
+
+        {/* Submit Button */}
+        <div className="mt-8 flex justify-center">
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );

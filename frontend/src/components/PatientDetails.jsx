@@ -36,16 +36,17 @@ export default function PatientDetails() {
 
     fetchPatientCount();
   }, []);
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  //when navigate morepatient details items willnavigate to /morepatientdetails
+  // Navigate to more patient details
   const goMorePatientdetails = (item) => {
     navigate("/morepatientdetails", { state: item });
   };
 
-  // Filter the patients based on the serach term
+  // Filter the patients based on the search term
   const filteredPatients = patient.filter(
     (item) =>
       item.regnum.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -55,7 +56,6 @@ export default function PatientDetails() {
   );
 
   // Delete patients function
-
   const handleDelete = async (regnum) => {
     if (!window.confirm("Are you sure you want to delete this patient?")) {
       return;
@@ -79,11 +79,14 @@ export default function PatientDetails() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6">Patient Details</h1>
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-6">
+      {/* Title Section */}
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        Patient Details
+      </h1>
 
       {/* Search Bar and Total Number of Patients Section */}
-      <div className="mb-6 flex flex-col sm:flex-row justify-between items-center px-6 sm:px-10 py-4 bg-gray-100 rounded-lg ">
+      <div className="mb-6 flex flex-col sm:flex-row justify-between items-center bg-white p-6 rounded-lg shadow-md">
         {/* Left side: Search Bar */}
         <div className="w-full sm:w-2/3 mb-4 sm:mb-0">
           <input
@@ -91,67 +94,72 @@ export default function PatientDetails() {
             placeholder="Search by Reg. Number, Name, Faculty, or Gender"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-5 py-2 border border-gray-400 rounded-lg text-gray-700 focus:outline-none focus:ring-4 focus:ring-green-400 focus:border-green-500 transition-all duration-300 ease-in-out"
+            className="w-full px-5 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
         </div>
 
         {/* Right side: Total Number of Patients */}
         <div className="flex justify-center items-center">
-          <h1 className="text-green-800 text-2xl sm:text-3xl font-semibold">
-            Total Patients: <span className="text-black">{patientCount}</span>
+          <h1 className="text-blue-600 text-2xl sm:text-3xl font-semibold">
+            Total Patients:{" "}
+            <span className="text-gray-800">{patientCount}</span>
           </h1>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 bg-white text-left text-sm text-gray-500">
-          <thead>
+      {/* Patient Details Table */}
+      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+        <table className="min-w-full border border-gray-300">
+          <thead className="bg-gradient-to-r from-blue-600 to-purple-600">
             <tr>
-              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Reg. Number
               </th>
-              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Full Name
               </th>
-              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Faculty
               </th>
-              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Gender
               </th>
-              <th className="border border-gray-300  px-4 py-2 font-large text-gray-700 text-center">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            {filteredPatients.length > 0 ? ( //check the search patient exist or not
+            {filteredPatients.length > 0 ? (
               filteredPatients.map((item, key) => (
-                <tr key={key} className="hover:bg-gray-100">
-                  <td className="border border-gray-300 px-4 py-2">
+                <tr
+                  key={key}
+                  className="hover:bg-gray-100 transition-all duration-200"
+                >
+                  <td className="border border-gray-300 px-4 py-2 text-center">
                     {item.regnum}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 text-center">
                     {item.fullname}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 text-center">
                     {item.faculty}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 text-center">
                     {item.gender}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 flex gap-2 justify-center items-center">
                     <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all"
                       onClick={() => goMorePatientdetails(item)}
                     >
                       More
                     </button>
-                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all">
                       Update
                     </button>
                     <button
-                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-all"
                       onClick={() => handleDelete(item.regnum)}
                     >
                       Delete
@@ -160,7 +168,6 @@ export default function PatientDetails() {
                 </tr>
               ))
             ) : (
-              //if there are not any matching details
               <tr>
                 <td
                   colSpan="5"

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterAdmin() {
   const [username, setUsername] = useState("");
@@ -10,6 +11,8 @@ export default function RegisterAdmin() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ export default function RegisterAdmin() {
         setAdminType("");
         setPassword("");
         setConfirmPassword("");
+        setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
       }
     } catch (error) {
       setErrorMessage("Error registering admin. Please try again.");
@@ -47,114 +51,142 @@ export default function RegisterAdmin() {
 
   return (
     <>
-      <Navbar />
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-            Register Doctor/Admin
-          </h2>
-          {errorMessage && (
-            <p className="text-red-500 text-center mb-4">{errorMessage}</p>
-          )}
-          {successMessage && (
-            <p className="text-green-500 text-center mb-4">{successMessage}</p>
-          )}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="username"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Username:
-              </label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="gender"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Gender:
-              </label>
-              <select
-                id="gender"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="admintype"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Admin Type:
-              </label>
-              <select
-                id="admintype"
-                value={admintype}
-                onChange={(e) => setAdminType(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-              >
-                <option value="">Select Admin Type</option>
-                <option value="doctor">Doctor</option>
-                <option value="nurse">Nurse</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Confirm Password:
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-              />
-            </div>
+      <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
+        {/* Sidebar */}
+        <div className="w-1/4 bg-gradient-to-b from-blue-600 to-purple-600 p-8 flex flex-col justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white">
+              Medical Center University of Vavuniya
+            </h1>
+            <p className="text-sm text-white mt-2">
+              Secure and Reliable Healthcare Services
+            </p>
+          </div>
+          <div>
             <button
-              type="submit"
-              className="w-full py-2 px-4 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600 transition duration-200"
+              onClick={() => navigate("/superadmindashboard")}
+              className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             >
-              Register Admin
+              Back to Dashboard
             </button>
-          </form>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="w-3/4 p-8">
+          {/* Title Section */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-800">
+              Register Doctor/Admin
+            </h1>
+            <hr className="mt-2 border-t-2 border-gray-200" />
+          </div>
+
+          {/* Form Section */}
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            {successMessage && (
+              <div className="mb-6 text-green-600 text-center text-lg">
+                {successMessage}
+              </div>
+            )}
+            {errorMessage && (
+              <div className="mb-6 text-red-500 text-center text-lg">
+                {errorMessage}
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Username */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* Gender */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Gender
+                </label>
+                <select
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              {/* Admin Type */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Admin Type
+                </label>
+                <select
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={admintype}
+                  onChange={(e) => setAdminType(e.target.value)}
+                  required
+                >
+                  <option value="">Select Admin Type</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="nurse">Nurse</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* Confirm Password */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Confirm password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* Register Button */}
+              <div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                >
+                  Register Admin
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </>

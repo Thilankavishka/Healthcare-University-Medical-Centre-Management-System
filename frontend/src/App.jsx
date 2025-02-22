@@ -25,6 +25,7 @@ import Drugs from "./components/Drug";
 import Service from "./components/Service";
 import Medicalhistory from "./components/Medicalhistory";
 import Form from "./components/Form";
+import RegisterStudentadmin from "./components/RegisterPatientAdmin";
 
 function App() {
   const [role, setRole] = useState("");
@@ -143,12 +144,16 @@ function App() {
 
           <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
           <Route path="/services" element={<Service></Service>}></Route>
-          <Route path="drugs" element={<Drug></Drug>}></Route>
+          <Route path="drugs" element={<Drugs></Drugs>}></Route>
           <Route
             path="/medicalhistory"
             element={<Medicalhistory></Medicalhistory>}
           ></Route>
-          <Route path="medicalform" element={<Form></Form>}></Route>
+          <Route path="/medicalform" element={<Form></Form>}></Route>
+          <Route
+            path="/registerpatientadmin"
+            element={<RegisterStudentadmin></RegisterStudentadmin>}
+          ></Route>
         </Routes>
       </Router>
     </>
