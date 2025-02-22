@@ -203,4 +203,24 @@ router.get("/getadmindetails", async (req, res) => {
   }
 });
 
+//..........................................................Delete Admin Details.................................................
+router.delete("/:username", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const deletedAdmin = await adminmodel.findOneAndDelete({ username });
+
+    if (!deletedAdmin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Admin deleted successfully", data: deletedAdmin });
+  } catch (error) {
+    console.error("Error deleting admin:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;
