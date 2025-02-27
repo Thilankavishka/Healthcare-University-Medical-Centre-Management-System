@@ -84,10 +84,9 @@ export default function AdminDetails() {
                   >
                     Delete
                   </button>
-
                 </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </div>
