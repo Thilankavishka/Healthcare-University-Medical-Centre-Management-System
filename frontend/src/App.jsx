@@ -26,7 +26,7 @@ import Service from "./components/Service";
 import Medicalhistory from "./components/Medicalhistory";
 import Form from "./components/Form";
 import RegisterStudentadmin from "./components/RegisterPatientAdmin";
-
+import SetPassword from './components/SetPassword';
 function App() {
   const [role, setRole] = useState("");
   const [username, setUserName] = useState(null);
@@ -141,7 +141,10 @@ function App() {
             path="/changepassword"
             element={<UserChangePassword></UserChangePassword>}
           ></Route>
-
+          <Route
+            path="/setpassword"
+            element={<SetPassword></SetPassword>}
+          ></Route>
           <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
           <Route path="/services" element={<Service></Service>}></Route>
           <Route path="drugs" element={<Drugs></Drugs>}></Route>
