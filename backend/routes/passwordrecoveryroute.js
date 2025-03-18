@@ -37,5 +37,20 @@ router.post("/", async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   });
-
+  router.post("/set-password", async (req, res) => {
+    const { token, password } = req.body;
+  
+    try {
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
+      console.log("Decoded Token:", decoded); 
+  
+      if (!decoded) return res.status(400).json({ message: "Invalid or expired token" });
+  
+      
+      const user = await Patient.findById(decoded.id);
+      
+    } catch (err) {
+      
+    }
+  });
   module.exports = router;
