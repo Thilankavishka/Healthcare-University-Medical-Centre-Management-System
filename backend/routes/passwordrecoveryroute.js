@@ -50,7 +50,14 @@ router.post("/", async (req, res) => {
       const user = await Patient.findById(decoded.id);
       
     } catch (err) {
-      
+      console.error(err); 
+      if (err.name === "TokenExpiredError") {
+        res.status(400).json({ message: "Token has expired" });
+      } else if (err.name === "JsonWebTokenError") {
+        res.status(400).json({ message: "Invalid token" });
+      } else {
+        res.status(500).json({ message : "Server error" });
+      }
     }
   });
   module.exports = router;
