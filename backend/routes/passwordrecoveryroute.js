@@ -48,7 +48,19 @@ router.post("/", async (req, res) => {
   
       
       const user = await Patient.findById(decoded.id);
+      console.log("User found:", user); 
+      if (!user) return res.status(404).json({ message: "User not found" });
+  
       
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log("Hashed Password:", hashedPassword); 
+  
+    
+      user.password = hashedPassword;
+      await user.save();
+  
+      
+      res.status(200).json({ message: "Password updated successfully" });
     } catch (err) {
       console.error(err); 
       if (err.name === "TokenExpiredError") {
