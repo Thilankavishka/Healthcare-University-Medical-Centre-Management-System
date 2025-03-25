@@ -24,13 +24,38 @@ export default function RegisterStudentadmin() {
   const handlesubmit = async (e) => {
     e.preventDefault();
 
+    // Frontend validation
+    if (
+      !regnum ||
+      !fullname ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !gender ||
+      !address ||
+      !city ||
+      !course ||
+      !department ||
+      !faculty ||
+      !bloodgroup ||
+      !image
+    ) {
+      setErrorMessage("All fields are required");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMessage("Invalid email format");
+      return;
+    }
+
     try {
-      // Upload image
+      // Upload image and register patient (existing code)
       const formData = new FormData();
       formData.append("image", image);
 
@@ -42,10 +67,8 @@ export default function RegisterStudentadmin() {
         }
       );
 
-      // If image upload is successful, get the file path
       const imagePath = uploadRes.data.filePath;
 
-      // Register patient
       const res = await axios.post(
         "http://localhost:8080/patient/patientregister",
         {
@@ -67,10 +90,13 @@ export default function RegisterStudentadmin() {
       if (res.data.registered) {
         setSuccessMessage(res.data.message);
         setErrorMessage("");
-        setTimeout(() => navigate("/superadmindashboard"), 2000);
+        setTimeout(() => {
+          navigate("/registerpatientadmin");
+          window.location.reload();
+        }, 2000);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setErrorMessage("An error occurred. Please try again.");
     }
   };
