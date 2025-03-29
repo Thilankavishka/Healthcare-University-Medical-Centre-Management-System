@@ -40,7 +40,7 @@ export default function RegisterAdmin() {
         setAdminType("");
         setPassword("");
         setConfirmPassword("");
-        setTimeout(() => navigate("/dashboard"), 2000); // Redirect after 2 seconds
+        setTimeout(() => navigate("/admindetails"), 2000); // Redirect after 2 seconds
       }
     } catch (error) {
       setErrorMessage("Error registering admin. Please try again.");
