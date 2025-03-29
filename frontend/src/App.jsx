@@ -162,6 +162,10 @@ function App() {
             path="/registerpatientadmin"
             element={<RegisterStudentadmin></RegisterStudentadmin>}
           ></Route>
+          <Route
+            path="/updateadmin"
+            element={<UpdateAdmin></UpdateAdmin>}
+          ></Route>
         </Routes>
       </Router>
     </>
