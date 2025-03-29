@@ -304,7 +304,7 @@ export default function UpdatePatient() {
                   onChange={handleImageUpload}
                   disabled={loading}
                 />
-                {formData.image && (
+                {/* {formData.image && (
                   <div className="mt-2">
                     <img 
                       src={formData.image} 
@@ -312,7 +312,7 @@ export default function UpdatePatient() {
                       className="w-20 h-20 object-cover rounded-full border-2 border-gray-200"
                     />
                   </div>
-                )}
+                )} */}
               </div>
             </div>
 
