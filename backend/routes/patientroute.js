@@ -205,4 +205,88 @@ router.delete("/:regnum", async (req, res) => {
   }
 });
 
+//..........................................................Update Patient Details.................................................
+router.put("/updatepatient/:regnum", async (req, res) => {
+  try {
+    const { regnum } = req.params;
+    const {
+      fullname,
+      email,
+      address,
+      city,
+      course,
+      department,
+      faculty,
+      bloodgroup,
+      gender,
+      password,
+      image,
+    } = req.body;
+
+    // Validate required fields (except password which is optional for update)
+    if (
+      !fullname ||
+      !email ||
+      !gender ||
+      !address ||
+      !city ||
+      !course ||
+      !department ||
+      !faculty ||
+      !bloodgroup ||
+      !image
+    ) {
+      return res.status(400).json({ message: "All fields except password are required" });
+    }
+
+    // Validate email format
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    // Find the patient
+    const patient = await patientmodel.findOne({ regnum });
+    if (!patient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    // Prepare update data
+    const updateData = {
+      fullname,
+      email,
+      address,
+      city,
+      course,
+      department,
+      faculty,
+      bloodgroup,
+      gender,
+      image,
+    };
+
+    // Only update password if a new one is provided
+    if (password && password.trim() !== "") {
+      const hashpassword = await bcrypt.hash(password, 10);
+      updateData.password = hashpassword;
+    }
+
+    // Update the patient
+    const updatedPatient = await patientmodel.findOneAndUpdate(
+      { regnum },
+      updateData,
+      { new: true } // Return the updated document
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Patient details updated successfully",
+      patient: updatedPatient,
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

@@ -80,6 +80,10 @@ export default function PatientDetails() {
     }
   };
 
+  const goUpdatePatient = (item) => {
+    navigate("/updateapatient", { state: item });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-6">
       {/* Title Section */}
@@ -157,7 +161,8 @@ export default function PatientDetails() {
                     >
                       More
                     </button>
-                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all">
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
+                    onClick={() => goUpdatePatient(item)}>
                       Update
                     </button>
                     <button
