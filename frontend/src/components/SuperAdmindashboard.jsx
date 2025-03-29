@@ -195,10 +195,10 @@ export default function SuperAdmindashboard({ username }) {
             />
             <div className="p-6">
               <h2 className="text-xl font-bold text-gray-800">
-                Medical History
+              Prescription/Diagnosis
               </h2>
               <p className="text-sm text-gray-500 mt-2">
-                Click Here to See Patient Medical Histories
+                Click Here to See Patient Prescription / Diagnosis
               </p>
             </div>
           </div>
@@ -215,10 +215,10 @@ export default function SuperAdmindashboard({ username }) {
             />
             <div className="p-6">
               <h2 className="text-xl font-bold text-gray-800">
-                Add Medical History
+                Add Prescription/Diagnosis
               </h2>
               <p className="text-sm text-gray-500 mt-2">
-                Click Here to Add Patient Medical Histories
+                Click Here to Add Patient Prescription / Diagnosis
               </p>
             </div>
           </div>
