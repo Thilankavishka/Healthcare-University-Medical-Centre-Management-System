@@ -27,6 +27,7 @@ import Medicalhistory from "./components/Medicalhistory";
 import Form from "./components/Form";
 import RegisterStudentadmin from "./components/RegisterPatientAdmin";
 import SetPassword from "./components/SetPassword";
+import MedicalHistoryForm from "./components/MedicalHistoryForm";
 function App() {
   const [role, setRole] = useState("");
   const [username, setUserName] = useState(null);
@@ -156,6 +157,10 @@ function App() {
           <Route
             path="/registerpatientadmin"
             element={<RegisterStudentadmin></RegisterStudentadmin>}
+          ></Route>
+          <Route
+            path="/medicalhistoryform"
+            element={<MedicalHistoryForm></MedicalHistoryForm>}
           ></Route>
         </Routes>
       </Router>
