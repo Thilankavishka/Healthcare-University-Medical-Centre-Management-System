@@ -193,7 +193,7 @@ router.get("/admindetails/:username", async (req, res) => {
   }
 });
 
-//..........................................................Show Patient Details to Admins.................................................
+//..........................................................Show Admin Details to Admins.................................................
 router.get("/getadmindetails", async (req, res) => {
   try {
     const admins = await adminmodel.find();
@@ -222,5 +222,40 @@ router.delete("/:username", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+//Update admin details
+router.put("/updateAdmin/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { gender, admintype, password } = req.body;
+
+    // Find existing admin
+    const admin = await adminmodel.findOne({ username });
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    // Prepare update object
+    const updateData = {
+      gender,
+      admintype,
+    };
+
+    // Hash and update password only if a new one is provided
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(password, salt);
+    }
+
+    await adminmodel.updateOne({ username }, { $set: updateData });
+
+    res.status(200).json({ message: "Admin updated successfully" });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 module.exports = router;
