@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDetails() {
   const [admin, setAdmin] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -34,6 +36,11 @@ export default function AdminDetails() {
       console.error("Error deleting admin:", error);
       alert("An error occurred while deleting the admin.");
     }
+  };
+
+  // Navigate to Update Admin details
+  const goUpdateAdmin = (item) => {
+    navigate("/updateadmin", { state: item });
   };
 
   return (
@@ -75,7 +82,10 @@ export default function AdminDetails() {
                   {item.admintype}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 flex gap-2 justify-center items-center">
-                  <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                  <button
+                    className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                    onClick={() => goUpdateAdmin(item.username)}
+                  >
                     Update
                   </button>
                   <button

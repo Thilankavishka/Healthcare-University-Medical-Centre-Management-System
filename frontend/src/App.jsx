@@ -160,7 +160,7 @@ function App() {
             element={<RegisterStudentadmin></RegisterStudentadmin>}
           ></Route>
           <Route
-            path="/updatepatientadmin"
+            path="/updateadmin"
             element={<UpdateAdmin></UpdateAdmin>}
           ></Route>
         </Routes>
