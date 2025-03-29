@@ -154,7 +154,7 @@ const Drug = ({ userRole }) => {
         </div>
       )}
     </div>
-  )D
+  )
 };
 
 export default drug;
