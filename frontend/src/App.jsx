@@ -144,10 +144,10 @@ function App() {
           <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
           <Route path="/services" element={<Service></Service>}></Route>
           <Route path="/drugs" element={<Drugs></Drugs>}></Route>
-          <Route>
+          <Route
             path="/medicalhistory"
             element={<Medicalhistory></Medicalhistory>}
-          </Route>
+          ></Route>
           <Route path="medicalform" element={<Form></Form>}></Route>
         </Routes>
       </Router>
