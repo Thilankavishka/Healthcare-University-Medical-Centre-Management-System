@@ -43,7 +43,9 @@ export default function PatientDetails() {
 
   // Navigate to more patient details
   const goMorePatientdetails = (item) => {
-    navigate("/morepatientdetails", { state: item });
+    navigate("/morepatientdetails", {
+      state: { regnum: item.regnum, patientDetails: item },
+    }); // Pass both regnum and patientDetails
   };
 
   // Filter the patients based on the search term

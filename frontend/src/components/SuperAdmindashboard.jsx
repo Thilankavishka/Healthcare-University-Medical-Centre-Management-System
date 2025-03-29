@@ -33,6 +33,9 @@ export default function SuperAdmindashboard({ username }) {
   const goappointments = () => {
     navigate("/AllAppointments");
   };
+  const goaddmedicalhistory = () => {
+    navigate("/medicalhistoryform");
+  };
   return (
     <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
       {/* Sidebar */}
@@ -196,6 +199,26 @@ export default function SuperAdmindashboard({ username }) {
               </h2>
               <p className="text-sm text-gray-500 mt-2">
                 Click Here to See Patient Medical Histories
+              </p>
+            </div>
+          </div>
+
+          {/* Add Medical History Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={goaddmedicalhistory}
+          >
+            <img
+              src="/card_images/patient.jpg"
+              alt="Medical History"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">
+                Add Medical History
+              </h2>
+              <p className="text-sm text-gray-500 mt-2">
+                Click Here to Add Patient Medical Histories
               </p>
             </div>
           </div>
