@@ -89,7 +89,7 @@ export default function MedicalHistoryForm() {
           {/* Title Section */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-800">
-              Add Medical History
+              Add Prescription/Diagnosis
             </h1>
             <hr className="mt-2 border-t-2 border-gray-200" />
           </div>

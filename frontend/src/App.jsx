@@ -166,6 +166,10 @@ function App() {
             path="/updateadmin"
             element={<UpdateAdmin></UpdateAdmin>}
           ></Route>
+          <Route
+            path="/medicalhistoryform"
+            element={<MedicalHistoryForm></MedicalHistoryForm>}
+          ></Route>
         </Routes>
       </Router>
     </>
