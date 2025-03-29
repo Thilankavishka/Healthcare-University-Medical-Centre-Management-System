@@ -4,6 +4,9 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const patientmodel = require("../models/patient");
+const nodemailer = require("nodemailer");
+const validator = require("validator");
+
 //........................................Image Uplaod in Registration Form.....................................................
 const storage = multer.diskStorage({
   // Set up storage engine.
@@ -28,6 +31,17 @@ router.post("/upload", upload.single("image"), (req, res) => {
   });
 });
 //.............................................................Patient Register................................................
+
+// Configure Nodemailer
+var transporter = nodemailer.createTransport({
+  host: "live.smtp.mailtrap.io",
+  port: 587,
+  auth: {
+    user: "api",
+    pass: "c22d606690f723b27f4da61766abe126",
+  },
+});
+
 router.post("/patientregister", async (req, res) => {
   try {
     const {
@@ -45,22 +59,43 @@ router.post("/patientregister", async (req, res) => {
       image,
     } = req.body;
 
-    if (!regnum || !fullname || !password || !gender || !email) {
-      return res.status(400).json({ message: "Provide all required fields" });
+    // Validate required fields
+    if (
+      !regnum ||
+      !fullname ||
+      !email ||
+      !password ||
+      !gender ||
+      !address ||
+      !city ||
+      !course ||
+      !department ||
+      !faculty ||
+      !bloodgroup ||
+      !image
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    const patient = await patientmodel.findOne({ regnum: regnum }); //patient validate by registeration number
+    // Validate email format
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    // Check if patient already exists
+    const patient = await patientmodel.findOne({ regnum: regnum });
     if (patient) {
-      return res
-        .status(400)
-        .json({ message: "patient Registration Number is Already Registered" });
+      return res.status(400).json({
+        message: "Patient with this registration number already exists",
+      });
     }
 
-    //create password to hashpassword
+    // Hash the password
     const hashpassword = await bcrypt.hash(password, 10);
-    //add new patient to database
+
+    // Create new patient
     const newpatient = new patientmodel({
-      regnum: regnum,
+      regnum,
       fullname,
       email,
       address,
@@ -76,12 +111,32 @@ router.post("/patientregister", async (req, res) => {
 
     await newpatient.save();
 
-    return res.json({
-      registered: true,
-      message: "Patient Registered Successfully",
+    // Send email with username and password
+    const mailOptions = {
+      from: "hello@demomailtrap.co", // Sender email
+      to: email, // Recipient email
+      subject: "Patient Registration Successful",
+      text: `Dear ${fullname},\n\nYour registration as a patient has been successfully completed.\n\nUsername: ${regnum}\nPassword: ${password}\n\nPlease keep your credentials safe.\n\nBest regards,\nMedical Center University of Vavuniya`, // Email body
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return res
+          .status(500)
+          .json({ message: "Error sending email", error: error.message });
+      } else {
+        console.log("Email sent:", info.response);
+        return res.json({
+          registered: true,
+          message:
+            "Patient registered successfully. Check your email for credentials.",
+        });
+      }
     });
   } catch (err) {
-    res.status(500).json({ message: "server error" });
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -126,6 +181,27 @@ router.get("/countpatients", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error");
+  }
+});
+
+//.....................................Delete Patient Details..........................................
+
+router.delete("/:regnum", async (req, res) => {
+  const { regnum } = req.params;
+
+  try {
+    const deletedPatient = await patientmodel.findOneAndDelete({ regnum });
+
+    if (!deletedPatient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Patient deleted successfully", data: deletedPatient });
+  } catch (error) {
+    console.error("Error deleting patient:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

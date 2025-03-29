@@ -1,8 +1,46 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function MorePatientDetails() {
+  const [medicalHistories, setMedicalHistories] = useState([]); // State for medical histories
+  const [loading, setLoading] = useState(true); // State for loading status
+  const [showMedicalHistories, setShowMedicalHistories] = useState(false); // State to toggle medical histories
+
   const location = useLocation();
-  const patientDetails = location.state;
+  const { regnum, patientDetails } = location.state; // Access regnum and patientDetails from state
+
+  // Fetch medical histories for the patient
+  useEffect(() => {
+    if (regnum) {
+      axios
+        .get(`http://localhost:8080/medicalhis/medical-history-user/${regnum}`)
+        .then((response) => {
+          setMedicalHistories(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching medical histories:", error);
+          setLoading(false);
+        });
+    }
+  }, [regnum]);
+
+  // Handle prescription download
+  const handleDownloadPrescription = (prescription) => {
+    const blob = new Blob([prescription], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "prescription.txt";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Toggle medical histories visibility
+  const toggleMedicalHistories = () => {
+    setShowMedicalHistories(!showMedicalHistories);
+  };
 
   return (
     <>
@@ -77,9 +115,101 @@ export default function MorePatientDetails() {
           </div>
         </div>
         <div>
-          <button className="mt-8 px-6 py-3 bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition duration-200">
-            Patient Medical History
-          </button>
+          {/* Medical Histories Section */}
+          <div className="mt-8">
+            <div className="flex space-x-4 mb-4">
+              {/* Toggle Medical Histories Button */}
+              <button
+                onClick={toggleMedicalHistories}
+                className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+              >
+                {showMedicalHistories
+                  ? "Hide Medical Histories"
+                  : "View Medical Histories"}
+              </button>
+            </div>
+
+            {showMedicalHistories && (
+              <>
+                {loading ? (
+                  <p className="text-gray-600">Loading medical histories...</p>
+                ) : medicalHistories.length === 0 ? (
+                  <p className="text-gray-600">No medical histories found.</p>
+                ) : (
+                  <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+                    <thead>
+                      <tr className="bg-teal-500 text-white">
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Blood Pressure
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Blood Sugar
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Weight
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Temperature
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Diagnosis
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Prescription
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Visit Date
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-medium">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {medicalHistories.map((history, index) => (
+                        <tr
+                          key={index}
+                          className="border-b border-gray-300 hover:bg-gray-50"
+                        >
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {history.bloodPressure}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {history.bloodSugar}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {history.weight}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {history.temperature}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {history.diagnosis}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {history.prescription}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-700">
+                            {new Date(history.visitDate).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            <button
+                              onClick={() =>
+                                handleDownloadPrescription(history.prescription)
+                              }
+                              className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+                            >
+                              Download Prescription
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>

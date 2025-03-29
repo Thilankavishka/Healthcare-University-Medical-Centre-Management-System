@@ -1,13 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 export default function Medicalhistory() {
   const navigate = useNavigate();
   const [medicalData, setMedicalData] = useState([]);
 
+  const [filteredData, setFilteredData] = useState([]); // State for filtered data
+  const [searchTerm, setSearchTerm] = useState(""); // State for search input
+
+  // Fetch medical history data
+  useEffect(() => {
+    const fetchMedicalHistory = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://localhost:8080/medicalhis/medical-history-get",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setMedicalData(response.data);
+        setFilteredData(response.data); // Initialize filtered data with all data
+      } catch (error) {
+        console.error("Error fetching medical history:", error);
+      }
+    };
+
+    fetchMedicalHistory();
+  }, []);
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+
+    // Filter medical data based on registration number
+    const filtered = medicalData.filter((data) =>
+      data.regNo.toLowerCase().includes(term.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
+  // Handle report click
   function handleReportClick() {
     navigate("/medical-report");
   }
+
+  // Handle prescription download
+  const handleDownloadPrescription = (prescription) => {
+    const blob = new Blob([prescription], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "prescription.txt";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
 
   return (
     <>
@@ -19,7 +70,9 @@ export default function Medicalhistory() {
             </a>
             <div className="flex items-center space-x-4">
               <div className="text-white">Medical Centre-UOV</div>
-              <div className="text-gray-200 font-semibold">Super Admin</div>
+
+              <div className="text-gray-200 font-semibold">Admin</div>
+
             </div>
           </div>
         </nav>
@@ -33,6 +86,19 @@ export default function Medicalhistory() {
               <h3 className="text-2xl font-semibold text-gray-900 mb-6">
                 View Medical History
               </h3>
+
+
+              {/* Search Input for Registration Number */}
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Search by Registration Number"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </div>
+
               <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
                 <thead>
                   <tr className="bg-teal-500 text-white">
@@ -61,12 +127,16 @@ export default function Medicalhistory() {
                       Visit Date
                     </th>
                     <th className="px-6 py-3 text-left text-sm font-medium">
-                      Medical Report
+
+                      Actions
+
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {medicalData.map((data, index) => (
+
+                  {filteredData.map((data, index) => (
+
                     <tr
                       key={index}
                       className="border-b border-gray-300 hover:bg-gray-50"
@@ -93,14 +163,20 @@ export default function Medicalhistory() {
                         {data.prescription}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
-                        {data.visitDate}
+
+                        {new Date(data.visitDate).toLocaleDateString()}
+
                       </td>
                       <td className="px-6 py-4 text-sm">
                         <button
                           className="bg-teal-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-teal-700 focus:outline-none"
-                          onClick={handleReportClick}
+
+                          onClick={() =>
+                            handleDownloadPrescription(data.prescription)
+                          }
                         >
-                          View Report
+                          Download Prescription
+
                         </button>
                       </td>
                     </tr>
