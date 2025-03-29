@@ -9,6 +9,8 @@ import Logout from "./components/Logout";
 import Gallery from "./pages/Gallery";
 import RegisterPatient from "./components/RegisterPatient";
 import PatientDetails from "./components/PatientDetails";
+import AllAppointments from "./components/AllAppointments";
+import AddAppointment from "./components/AddAppoinment";
 import Patientdashboard from "./components/Patientdashboard";
 import SuperAdmindashboard from "./components/SuperAdmindashboard";
 import Admindashboard from "./components/Admindashboard";
@@ -18,7 +20,13 @@ import PasswordRecovery from "./components/PasswordRecovery";
 import AdminDetails from "./components/AdminDetails";
 import UserMessage from "./components/UserMessages";
 import UserChangePassword from "./components/UserChangePassword";
-
+import AboutUs from "./components/Aboutus";
+import Drugs from "./components/Drug";
+import Service from "./components/Service";
+import Medicalhistory from "./components/Medicalhistory";
+import Form from "./components/Form";
+import RegisterStudentadmin from "./components/RegisterPatientAdmin";
+import SetPassword from './components/SetPassword';
 function App() {
   const [role, setRole] = useState("");
   const [username, setUserName] = useState(null);
@@ -89,8 +97,16 @@ function App() {
             element={<RegisterPatient></RegisterPatient>}
           ></Route>
           <Route
-            path="PatientDetails"
+            path="/patientdetails"
             element={<PatientDetails></PatientDetails>}
+          ></Route>
+          <Route
+            path="/AllAppointments"
+            element={<AllAppointments></AllAppointments>}
+          ></Route>
+          <Route
+            path="/AddAppointment"
+            element={<AddAppointment></AddAppointment>}
           ></Route>
           <Route
             path="/patientdashboard"
@@ -124,6 +140,22 @@ function App() {
           <Route
             path="/changepassword"
             element={<UserChangePassword></UserChangePassword>}
+          ></Route>
+          <Route
+            path="/setpassword"
+            element={<SetPassword></SetPassword>}
+          ></Route>
+          <Route path="Aboutus" element={<AboutUs></AboutUs>}></Route>
+          <Route path="/services" element={<Service></Service>}></Route>
+          <Route path="drugs" element={<Drugs></Drugs>}></Route>
+          <Route
+            path="/medicalhistory"
+            element={<Medicalhistory></Medicalhistory>}
+          ></Route>
+          <Route path="/medicalform" element={<Form></Form>}></Route>
+          <Route
+            path="/registerpatientadmin"
+            element={<RegisterStudentadmin></RegisterStudentadmin>}
           ></Route>
         </Routes>
       </Router>

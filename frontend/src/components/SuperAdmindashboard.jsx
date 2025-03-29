@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function SuperAdmindashboard({ username }) {
@@ -15,8 +15,9 @@ export default function SuperAdmindashboard({ username }) {
   };
 
   const goRegisterPatient = () => {
-    navigate("/register");
+    navigate("/registerpatientadmin");
   };
+
   const goAdminDetails = () => {
     navigate("/admindetails");
   };
@@ -25,123 +26,181 @@ export default function SuperAdmindashboard({ username }) {
     navigate("/usermessages");
   };
 
+  const gomedicalhistory = () => {
+    navigate("/medicalhistory");
+  };
+
+  const goappointments = () => {
+    navigate("/AllAppointments");
+  };
   return (
-    <>
-      <div>
-        <Navbar />
+    <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
+      {/* Sidebar */}
+      <div className="w-1/4 bg-gradient-to-b from-blue-600 to-purple-600 p-8 flex flex-col justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">
+            Medical Center University of Vavuniya
+          </h1>
+          <p className="text-sm text-white mt-2">
+            Secure and Reliable Healthcare Services
+          </p>
+        </div>
+        <div>
+          <button
+            onClick={() => navigate("/")}
+            className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+          >
+            Back to home
+          </button>
+        </div>
       </div>
-      <div className="flex flex-col items-center justify-center h-20 bg-gray-100 shadow-md">
-        <h1 className="text-4xl font-extrabold text-gray-800">
-          Super Admin Dashboard
-        </h1>
-      </div>
-      <div className="flex flex-col items-center justify-center py-10">
-        <p className="text-2xl font-semibold text-gray-700">
-          Admin Name: <span className="text-blue-600">{username}</span>
-        </p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-8 md:px-20">
-        <div className="flex items-center justify-center">
-          <Card className="w-72 shadow-lg">
-            <Card.Img variant="top" src="/card_images/patient.jpg" />
-            <Card.Body>
-              <Card.Title className="font-bold text-lg text-center">
+
+      {/* Main Content */}
+      <div className="w-3/4 p-8">
+        {/* Title Section */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Welcome {username}'s Dashboard
+          </h1>
+          <hr className="mt-2 border-t-2 border-gray-200" />
+        </div>
+
+        {/* Cards Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Appointments */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={goappointments}
+          >
+            <img
+              src="/card_images/patient.jpg"
+              alt="Patient Details"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">Appointments</h2>
+              <p className="text-sm text-gray-500 mt-2">
+                Click Here to Show Patient Appointments
+              </p>
+            </div>
+          </div>
+          {/* Patient Details Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={gopatientdetails}
+          >
+            <img
+              src="/card_images/patient.jpg"
+              alt="Patient Details"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">
                 Patient Details
-              </Card.Title>
-              <Card.Text className="text-sm text-gray-500 text-center">
+              </h2>
+              <p className="text-sm text-gray-500 mt-2">
                 Click Here to Show Patient Details
-              </Card.Text>
-              <Button
-                variant="primary"
-                className="w-full bg-blue-500 hover:bg-blue-600"
-                onClick={gopatientdetails}
-              >
-                Go Patient Details
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="flex items-center justify-center">
-          <Card className="w-72 shadow-lg">
-            <Card.Img variant="top" src="/card_images/doctor.jpeg" />
-            <Card.Body>
-              <Card.Title className="font-bold text-lg text-center">
-                Admin Details
-              </Card.Title>
-              <Card.Text className="text-sm text-gray-500 text-center">
+              </p>
+            </div>
+          </div>
+
+          {/* Admin Details Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={goAdminDetails}
+          >
+            <img
+              src="/card_images/doctor.jpeg"
+              alt="Admin Details"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">Admin Details</h2>
+              <p className="text-sm text-gray-500 mt-2">
                 Click Here to Show Admin/Doctors Details
-              </Card.Text>
-              <Button
-                variant="primary"
-                className="w-full bg-blue-500 hover:bg-blue-600"
-                onClick={goAdminDetails}
-              >
-                Go Doctors Details
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="flex items-center justify-center">
-          <Card className="w-72 shadow-lg">
-            <Card.Img variant="top" src="/card_images/reg.jpg" />
-            <Card.Body>
-              <Card.Title className="font-bold text-lg text-center">
-                Register Doctors/Admins
-              </Card.Title>
-              <Card.Text className="text-sm text-gray-500 text-center">
-                Click Here to Register Admin
-              </Card.Text>
-              <Button
-                variant="primary"
-                className="w-full bg-blue-500 hover:bg-blue-600"
-                onClick={goAdminregister}
-              >
+              </p>
+            </div>
+          </div>
+
+          {/* Register Admin Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={goAdminregister}
+          >
+            <img
+              src="/card_images/reg.jpg"
+              alt="Register Admin"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">
                 Register Admin
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="flex items-center justify-center">
-          <Card className="w-72 shadow-lg">
-            <Card.Img variant="top" src="/card_images/register_patient.jpg" />
-            <Card.Body>
-              <Card.Title className="font-bold text-lg text-center">
+              </h2>
+              <p className="text-sm text-gray-500 mt-2">
+                Click Here to Register Admin
+              </p>
+            </div>
+          </div>
+
+          {/* Register Patient Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={goRegisterPatient}
+          >
+            <img
+              src="/card_images/register_patient.jpg"
+              alt="Register Patient"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">
                 Register Patient
-              </Card.Title>
-              <Card.Text className="text-sm text-gray-500 text-center">
+              </h2>
+              <p className="text-sm text-gray-500 mt-2">
                 Click Here to Register Patient
-              </Card.Text>
-              <Button
-                variant="primary"
-                className="w-full bg-blue-500 hover:bg-blue-600"
-                onClick={goRegisterPatient}
-              >
-                Register Patient
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="flex items-center justify-center">
-          <Card className="w-72 shadow-lg">
-            <Card.Img variant="top" src="/card_images/register_patient.jpg" />
-            <Card.Body>
-              <Card.Title className="font-bold text-lg text-center">
-                User Messages
-              </Card.Title>
-              <Card.Text className="text-sm text-gray-500 text-center">
+              </p>
+            </div>
+          </div>
+
+          {/* User Messages Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={goUserMessages}
+          >
+            <img
+              src="/card_images/doctor.jpeg"
+              alt="User Messages"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">User Messages</h2>
+              <p className="text-sm text-gray-500 mt-2">
                 Click Here to Show User Messages
-              </Card.Text>
-              <Button
-                variant="primary"
-                className="w-full bg-blue-500 hover:bg-blue-600"
-                onClick={goUserMessages}
-              >
-                User Messages
-              </Button>
-            </Card.Body>
-          </Card>
+              </p>
+            </div>
+          </div>
+
+          {/* Medical History Card */}
+          <div
+            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+            onClick={gomedicalhistory}
+          >
+            <img
+              src="/card_images/patient.jpg"
+              alt="Medical History"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800">
+                Medical History
+              </h2>
+              <p className="text-sm text-gray-500 mt-2">
+                Click Here to See Patient Medical Histories
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

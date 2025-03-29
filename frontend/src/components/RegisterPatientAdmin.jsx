@@ -1,9 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 
-export default function RegisterStudent() {
+export default function RegisterStudentadmin() {
   const [regnum, setRegnum] = useState("");
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,20 +21,41 @@ export default function RegisterStudent() {
 
   const navigate = useNavigate();
 
-  const tologin = () => {
-    navigate("/login");
-  };
-
   const handlesubmit = async (e) => {
     e.preventDefault();
+
+    // Frontend validation
+    if (
+      !regnum ||
+      !fullname ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !gender ||
+      !address ||
+      !city ||
+      !course ||
+      !department ||
+      !faculty ||
+      !bloodgroup ||
+      !image
+    ) {
+      setErrorMessage("All fields are required");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMessage("Invalid email format");
+      return;
+    }
+
     try {
-      // Upload image
+      // Upload image and register patient (existing code)
       const formData = new FormData();
       formData.append("image", image);
 
@@ -47,10 +67,8 @@ export default function RegisterStudent() {
         }
       );
 
-      // If image upload is successful, get the file path
       const imagePath = uploadRes.data.filePath;
 
-      // Register patient
       const res = await axios.post(
         "http://localhost:8080/patient/patientregister",
         {
@@ -72,10 +90,13 @@ export default function RegisterStudent() {
       if (res.data.registered) {
         setSuccessMessage(res.data.message);
         setErrorMessage("");
-        setTimeout(() => navigate("/login"), 2000);
+        setTimeout(() => {
+          navigate("/registerpatientadmin");
+          window.location.reload();
+        }, 2000);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setErrorMessage("An error occurred. Please try again.");
     }
   };
@@ -95,10 +116,10 @@ export default function RegisterStudent() {
           </div>
           <div>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/superadmindashboard")}
               className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             >
-              Back to home
+              Back to dashboard
             </button>
           </div>
         </div>
@@ -335,16 +356,6 @@ export default function RegisterStudent() {
                 </button>
               </div>
             </form>
-
-            {/* Login Link */}
-            <div className="mt-6 text-center">
-              <button
-                onClick={tologin}
-                className="text-blue-600 hover:text-blue-800 underline"
-              >
-                Already have an account? Login
-              </button>
-            </div>
           </div>
         </div>
       </div>

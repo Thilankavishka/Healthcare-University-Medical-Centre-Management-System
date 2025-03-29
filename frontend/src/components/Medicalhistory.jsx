@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 export default function Medicalhistory() {
   const navigate = useNavigate();
   const [medicalData, setMedicalData] = useState([]);
+
   const [filteredData, setFilteredData] = useState([]); // State for filtered data
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
 
@@ -57,6 +59,7 @@ export default function Medicalhistory() {
     URL.revokeObjectURL(url);
   };
 
+
   return (
     <>
       <div className="medical-history-page">
@@ -67,7 +70,9 @@ export default function Medicalhistory() {
             </a>
             <div className="flex items-center space-x-4">
               <div className="text-white">Medical Centre-UOV</div>
+
               <div className="text-gray-200 font-semibold">Admin</div>
+
             </div>
           </div>
         </nav>
@@ -81,6 +86,7 @@ export default function Medicalhistory() {
               <h3 className="text-2xl font-semibold text-gray-900 mb-6">
                 View Medical History
               </h3>
+
 
               {/* Search Input for Registration Number */}
               <div className="mb-6">
@@ -121,12 +127,16 @@ export default function Medicalhistory() {
                       Visit Date
                     </th>
                     <th className="px-6 py-3 text-left text-sm font-medium">
+
                       Actions
+
                     </th>
                   </tr>
                 </thead>
                 <tbody>
+
                   {filteredData.map((data, index) => (
+
                     <tr
                       key={index}
                       className="border-b border-gray-300 hover:bg-gray-50"
@@ -153,16 +163,20 @@ export default function Medicalhistory() {
                         {data.prescription}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
+
                         {new Date(data.visitDate).toLocaleDateString()}
+
                       </td>
                       <td className="px-6 py-4 text-sm">
                         <button
                           className="bg-teal-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-teal-700 focus:outline-none"
+
                           onClick={() =>
                             handleDownloadPrescription(data.prescription)
                           }
                         >
                           Download Prescription
+
                         </button>
                       </td>
                     </tr>

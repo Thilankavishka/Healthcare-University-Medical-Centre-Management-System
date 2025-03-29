@@ -32,6 +32,10 @@ export default function Admindashboard({ username }) {
     navigate("/register");
   };
 
+  const goMedicalForm = () => {
+    navigate("/medicalform");
+  };
+
   return (
     <>
       <div>
@@ -116,6 +120,31 @@ export default function Admindashboard({ username }) {
                 className="block w-full py-2 bg-indigo-500 text-white font-semibold text-center rounded hover:bg-indigo-600"
               >
                 Register Patient
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Register Patient Card */}
+        <div className="flex items-center justify-center">
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105">
+            <img
+              src="/card_images/register_patient.jpg"
+              alt="Register Patient"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-6">
+              <h2 className="text-lg font-bold text-center text-gray-800">
+                Medical Form
+              </h2>
+              <p className="text-sm text-center text-gray-600 mb-4">
+                Click Here to Add Medical Data
+              </p>
+              <button
+                onClick={goMedicalForm}
+                className="block w-full py-2 bg-indigo-500 text-white font-semibold text-center rounded hover:bg-indigo-600"
+              >
+                Add Medical Data{" "}
               </button>
             </div>
           </div>
