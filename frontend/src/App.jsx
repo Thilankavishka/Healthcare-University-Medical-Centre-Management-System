@@ -26,7 +26,7 @@ import Service from "./components/Service";
 import Medicalhistory from "./components/Medicalhistory";
 import Form from "./components/Form";
 import RegisterStudentadmin from "./components/RegisterPatientAdmin";
-import SetPassword from './components/SetPassword';
+import SetPassword from "./components/SetPassword";
 function App() {
   const [role, setRole] = useState("");
   const [username, setUserName] = useState(null);
