@@ -1,49 +1,55 @@
 import { useState } from "react";
 import axios from "axios";
-import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function RegisterAdmin() {
-  const [username, setUsername] = useState("");
-  const [gender, setGender] = useState("");
-  const [admintype, setAdminType] = useState("");
+export default function UpdateAdmin() {  
+  const navigate = useNavigate();
+  const location = useLocation();
+  const adminData = location.state || {}; // Get passed admin data
+
+  // Initialize state with existing admin data
+  const [username, setUsername] = useState(adminData.username || "");
+  const [gender, setGender] = useState(adminData.gender || "");
+  const [admintype, setAdminType] = useState(adminData.admintype || "");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+
+    // Ensure passwords match if a new password is provided
+    if (password && password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/auth/registerAdmin",
-        {
-          username,
-          gender,
-          admintype,
-          password,
-        }
+      // Prepare the update payload
+      const updateData = {
+        username,
+        gender,
+        admintype,
+      };
+
+      // Only include password if a new one is provided
+      if (password) {
+        updateData.password = password;
+      }
+
+      const response = await axios.put(
+        `http://localhost:8080/auth/updateAdmin/${username}`,
+        updateData
       );
-      if (response.status === 201) {
-        setSuccessMessage("Admin registered successfully!");
+
+      if (response.status === 200) {
+        setSuccessMessage("Admin updated successfully!");
         setErrorMessage("");
-        // Clear form fields
-        setUsername("");
-        setGender("");
-        setAdminType("");
-        setPassword("");
-        setConfirmPassword("");
-        setTimeout(() => navigate("/admindetails"), 2000); // Redirect after 2 seconds
+        setTimeout(() => navigate("/superadmindashboard"), 2000); // Changed to navigate to admindashboard
       }
     } catch (error) {
-      setErrorMessage("Error registering admin. Please try again.");
+      setErrorMessage("Error updating admin. Please try again.");
       setSuccessMessage("");
       console.error(error);
     }
@@ -64,7 +70,7 @@ export default function RegisterAdmin() {
           </div>
           <div>
             <button
-              onClick={() => navigate("/superadmindashboard")}
+              onClick={() => navigate("/superadmindashboard")} // Changed to admindashboard
               className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             >
               Back to Dashboard
@@ -77,7 +83,7 @@ export default function RegisterAdmin() {
           {/* Title Section */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-800">
-              Register Doctor/Admin
+              Update Doctor/Admin
             </h1>
             <hr className="mt-2 border-t-2 border-gray-200" />
           </div>
@@ -102,11 +108,9 @@ export default function RegisterAdmin() {
                 </label>
                 <input
                   type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter username"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
+                  disabled
                 />
               </div>
 
@@ -149,40 +153,40 @@ export default function RegisterAdmin() {
               {/* Password */}
               <div>
                 <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Password
+                  New Password (Leave empty to keep old password)
                 </label>
                 <input
                   type="password"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter password"
+                  placeholder="Enter new password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
               </div>
 
-              {/* Confirm Password */}
-              <div>
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Confirm password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
+              {/* Confirm Password (only shown if password is being changed) */}
+              {password && (
+                <div>
+                  <label className="block text-gray-700 text-sm font-medium mb-2">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Confirm new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+              )}
 
-              {/* Register Button */}
+              {/* Update Button */}
               <div>
                 <button
                   type="submit"
                   className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 >
-                  Register Admin
+                  Update Admin
                 </button>
               </div>
             </form>
