@@ -29,7 +29,6 @@ const drugData = [
   { name: "Furosemide", dosage: "80mg", quantity: 30 },
 ];
 
-
 export default function DrugInventory() {
   const [search, setSearch] = useState("");
   const [sortField, setSortField] = useState("name");
