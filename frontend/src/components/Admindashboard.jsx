@@ -32,8 +32,8 @@ export default function Admindashboard({ username }) {
     navigate("/register");
   };
 
-  const goMedicalForm = () => {
-    navigate("/medicalform");
+  const goMedicalHistoryForm = () => {
+    navigate("/medicalhistoryform");
   };
 
   return (
@@ -125,7 +125,7 @@ export default function Admindashboard({ username }) {
           </div>
         </div>
 
-        {/* Register Patient Card */}
+        {/*Add Medical History*/}
         <div className="flex items-center justify-center">
           <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105">
             <img
@@ -141,7 +141,7 @@ export default function Admindashboard({ username }) {
                 Click Here to Add Medical Data
               </p>
               <button
-                onClick={goMedicalForm}
+                onClick={goMedicalHistoryForm}
                 className="block w-full py-2 bg-indigo-500 text-white font-semibold text-center rounded hover:bg-indigo-600"
               >
                 Add Medical Data{" "}

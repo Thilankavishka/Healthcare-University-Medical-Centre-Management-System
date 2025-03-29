@@ -240,14 +240,38 @@ export default function RegisterStudentadmin() {
                 <label className="block text-gray-700 text-sm font-medium mb-2">
                   Department
                 </label>
-                <input
-                  type="text"
+                <select
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Ex: Physical Science/Biological Science"
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
                   required
-                />
+                >
+                  <option value="">Select a Department</option>
+                  <option value="Department of Physical Science">
+                    Department of Physical Science
+                  </option>
+                  <option value="Department of Bio Science">
+                    Department of Bio Science
+                  </option>
+                  <option value="Business Economics">Business Economics</option>
+                  <option value="English Language Teaching">
+                    English Language Teaching
+                  </option>
+                  <option value="Finance and Accountancy">
+                    Finance and Accountancy
+                  </option>
+                  <option value="Human Resource Management">
+                    Human Resource Management
+                  </option>
+                  <option value="Management and Entrepreneurship">
+                    Management and Entrepreneurship
+                  </option>
+                  <option value="Marketing Management">
+                    Marketing Management
+                  </option>
+                  <option value="Project Management">Project Management</option>
+                  <option value="Department of ICT">Department of ICT</option>
+                </select>
               </div>
 
               {/* Faculty */}
@@ -255,14 +279,23 @@ export default function RegisterStudentadmin() {
                 <label className="block text-gray-700 text-sm font-medium mb-2">
                   Faculty
                 </label>
-                <input
-                  type="text"
+                <select
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Ex: Applied Science/Business Studies/Technology"
                   value={faculty}
                   onChange={(e) => setFaculty(e.target.value)}
                   required
-                />
+                >
+                  <option value="">Select a Faculty</option>
+                  <option value="Faculty of Applied Science">
+                    Faculty of Applied Science
+                  </option>
+                  <option value="Faculty of Business Studies">
+                    Faculty of Business Studies
+                  </option>
+                  <option value="Faculty of Technological Studies">
+                    Faculty of Technological Studies
+                  </option>
+                </select>
               </div>
 
               {/* Blood Group */}

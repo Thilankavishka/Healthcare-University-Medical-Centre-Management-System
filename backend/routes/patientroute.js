@@ -33,12 +33,12 @@ router.post("/upload", upload.single("image"), (req, res) => {
 //.............................................................Patient Register................................................
 
 // Configure Nodemailer
-var transporter = nodemailer.createTransport({
-  host: "live.smtp.mailtrap.io",
+var transport = nodemailer.createTransport({
+  host: "sandbox.smtp.mailtrap.io",
   port: 587,
   auth: {
-    user: "api",
-    pass: "c22d606690f723b27f4da61766abe126",
+    user: "168bdeae3a35d2",
+    pass: "d2073c73dc8285",
   },
 });
 
@@ -119,7 +119,7 @@ router.post("/patientregister", async (req, res) => {
       text: `Dear ${fullname},\n\nYour registration as a patient has been successfully completed.\n\nUsername: ${regnum}\nPassword: ${password}\n\nPlease keep your credentials safe.\n\nBest regards,\nMedical Center University of Vavuniya`, // Email body
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transport.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error("Error sending email:", error);
         return res

@@ -163,10 +163,6 @@ function App() {
             element={<RegisterStudentadmin></RegisterStudentadmin>}
           ></Route>
           <Route
-            path="/registerpatientadmin"
-            element={<RegisterStudentadmin></RegisterStudentadmin>}
-          ></Route>
-          <Route
             path="/updateadmin"
             element={<UpdateAdmin></UpdateAdmin>}
           ></Route>
