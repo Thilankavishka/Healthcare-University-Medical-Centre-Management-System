@@ -84,7 +84,7 @@ export default function AdminDetails() {
                 <td className="border border-gray-300 px-4 py-2 flex gap-2 justify-center items-center">
                   <button
                     className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                    onClick={() => goUpdateAdmin(item.username)}
+                    onClick={() => goUpdateAdmin(item)}
                   >
                     Update
                   </button>
