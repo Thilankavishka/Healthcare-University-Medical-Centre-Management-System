@@ -17,6 +17,7 @@ export default function UserMessage() {
         console.log("Error fetching messages:", error);
       });
   }, []);
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/message/countmessages")
@@ -24,7 +25,7 @@ export default function UserMessage() {
         setNumofmessages(response.data.count);
       })
       .catch((error) => {
-        console.log("Error fetching messages:", error);
+        console.log("Error fetching message count:", error);
       });
   }, []);
 
@@ -34,76 +35,96 @@ export default function UserMessage() {
   );
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6">User Messages</h1>
-      {/* Search Input and Total Messages Section */}
-      <div className="mb-6 flex flex-col sm:flex-row justify-between items-center px-6 sm:px-10 py-4 bg-gray-100 rounded-lg ">
-        {/* Left side: Search Input */}
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-6">
+      {/* Title Section */}
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        User Messages
+      </h1>
+
+      {/* Search Bar and Total Messages Section */}
+      <div className="mb-6 flex flex-col sm:flex-row justify-between items-center bg-white p-6 rounded-lg shadow-md">
+        {/* Left side: Search Bar */}
         <div className="w-full sm:w-2/3 mb-4 sm:mb-0">
           <input
             type="text"
             placeholder="Search by Registration Number"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-5 py-2 border border-gray-400 rounded-lg text-gray-700 focus:outline-none focus:ring-4 focus:ring-green-400 focus:border-green-500 transition-all duration-300 ease-in-out"
+            className="w-full px-5 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
         </div>
 
         {/* Right side: Total Messages */}
         <div className="flex justify-center items-center">
-          <h2 className="text-green-800 text-2xl sm:text-3xl font-semibold">
-            Total Messages: <span className="text-black">{numofmessages}</span>
+          <h2 className="text-blue-600 text-2xl sm:text-3xl font-semibold">
+            Total Messages:{" "}
+            <span className="text-gray-800">{numofmessages}</span>
           </h2>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 bg-white text-left text-sm text-gray-500">
-          <thead>
+      {/* Messages Table */}
+      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+        <table className="min-w-full border border-gray-300">
+          <thead className="bg-gradient-to-r from-blue-600 to-purple-600">
             <tr>
-              <th className="border border-gray-300 px-4 py-2 text-gray-700">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Reg. Number
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-gray-700">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Name
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-gray-700">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Faculty
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-gray-700">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Course
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-gray-700">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Email
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-gray-700">
+              <th className="px-4 py-2 text-white font-semibold text-center">
                 Message
               </th>
             </tr>
           </thead>
           <tbody>
-            {filteredMessages.map((message) => (
-              <tr key={message._id} className="hover:bg-gray-100">
-                <td className="border border-gray-300 px-4 py-2">
-                  {message.regnum}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {message.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {message.faculty}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {message.course}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {message.email}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {message.message}
+            {filteredMessages.length > 0 ? (
+              filteredMessages.map((message) => (
+                <tr
+                  key={message._id}
+                  className="hover:bg-gray-100 transition-all duration-200"
+                >
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {message.regnum}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {message.name}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {message.faculty}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {message.course}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {message.email}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {message.message}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="6"
+                  className="text-center text-gray-500 py-4 font-medium"
+                >
+                  No matching records found.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

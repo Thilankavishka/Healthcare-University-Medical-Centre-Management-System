@@ -86,9 +86,9 @@ export default function Navbar({ role, userId }) {
         )}
         {role === "" && (
           <>
-            <Button variant="info" className=" mr-3" onClick={goRegister}>
+            {/*<Button variant="info" className=" mr-3" onClick={goRegister}>
               REGISTER
-            </Button>
+            </Button>*/}
             <Button variant="dark" onClick={goLogin}>
               LOGIN
             </Button>
