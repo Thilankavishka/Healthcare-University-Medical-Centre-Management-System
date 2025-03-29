@@ -69,5 +69,29 @@ router.post("/medical-history", async (req, res) => {
       res.status(500).json({ message: "Failed to fetch medical histories" });
     }
   });
+
+  router.post("/medical-history", async (req, res) => {
+    try {
+      const { regNo, bloodPressure, bloodSugar, weight, temperature, diagnosis, prescription, visitDate } = req.body;
+      
+      if (!regNo || !bloodPressure || !bloodSugar || !weight || !temperature || !diagnosis || !prescription || !visitDate) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
+  
+      const patient = await PatientModel.findOne({ regNo });
+      if (!patient) {
+        return res.status(404).json({ message: "Patient not found" });
+      }
+  
+      const medicalHistory = new MedicalHistoryModel({ regNo, bloodPressure, bloodSugar, weight, temperature, diagnosis, prescription, visitDate });
+      await medicalHistory.save();
+  
+      res.status(201).json({ message: "Medical history added successfully" });
+    } catch (error) {
+      console.error("Error adding medical history:", error);
+      res.status(500).json({ message: "Failed to add medical history" });
+    }
+  });
+  
   
   
