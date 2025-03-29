@@ -217,7 +217,7 @@ export default function MorePatientDetails() {
                           <td className="px-6 py-4 text-sm">
                             <button
                               onClick={() =>
-                                handleDownloadPrescription(history.prescription)
+                                handleDownloadPrescription(history.regNo,history.prescription)
                               }
                               className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
                             >
