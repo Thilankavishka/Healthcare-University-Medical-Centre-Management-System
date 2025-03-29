@@ -160,6 +160,10 @@ function App() {
             path="/registerpatientadmin"
             element={<RegisterStudentadmin></RegisterStudentadmin>}
           ></Route>
+          <Route
+            path="/medicalhistoryform"
+            element={<MedicalHistoryForm></MedicalHistoryForm>}
+          ></Route>
         </Routes>
       </Router>
     </>
