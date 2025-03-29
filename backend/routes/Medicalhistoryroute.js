@@ -42,4 +42,14 @@ router.post("/medical-history", async (req, res) => {
       res.status(500).json({ message: "Failed to add medical history" });
     }
   });
+
+  router.get("/medical-history-get", async (req, res) => {
+    try {
+      const medicalHistory = await MedicalHistoryModel.find();
+      res.status(200).json(medicalHistory);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch medical history" });
+    }
+  });
   
