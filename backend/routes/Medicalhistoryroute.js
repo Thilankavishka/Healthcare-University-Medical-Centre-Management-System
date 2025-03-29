@@ -52,4 +52,22 @@ router.post("/medical-history", async (req, res) => {
       res.status(500).json({ message: "Failed to fetch medical history" });
     }
   });
+
+  router.get("/medical-history-user/:regNo", async (req, res) => {
+    const { regNo } = req.params;
+  
+    try {
+      const medicalHistories = await MedicalHistoryModel.find({ regNo });
+      if (medicalHistories.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "No medical histories found for this patient" });
+      }
+      res.status(200).json(medicalHistories);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch medical histories" });
+    }
+  });
+  
   
