@@ -76,7 +76,7 @@ export default function SuperAdmindashboard({ username }) {
             onClick={goappointments}
           >
             <img
-              src="/card_images/patient.jpg"
+              src="/card_images/appointment.jpg"
               alt="Patient Details"
               className="w-full h-48 object-cover rounded-t-lg"
             />
@@ -171,7 +171,7 @@ export default function SuperAdmindashboard({ username }) {
             onClick={goUserMessages}
           >
             <img
-              src="/card_images/doctor.jpeg"
+              src="/card_images/msg.jpg"
               alt="User Messages"
               className="w-full h-48 object-cover rounded-t-lg"
             />
@@ -189,13 +189,13 @@ export default function SuperAdmindashboard({ username }) {
             onClick={gomedicalhistory}
           >
             <img
-              src="/card_images/patient.jpg"
+              src="/card_images/prescription.jpg"
               alt="Medical History"
               className="w-full h-48 object-cover rounded-t-lg"
             />
             <div className="p-6">
               <h2 className="text-xl font-bold text-gray-800">
-              Prescription/Diagnosis
+                Prescription/Diagnosis
               </h2>
               <p className="text-sm text-gray-500 mt-2">
                 Click Here to See Patient Prescription / Diagnosis
@@ -209,7 +209,7 @@ export default function SuperAdmindashboard({ username }) {
             onClick={goaddmedicalhistory}
           >
             <img
-              src="/card_images/patient.jpg"
+              src="/card_images/prescription.jpg"
               alt="Medical History"
               className="w-full h-48 object-cover rounded-t-lg"
             />
