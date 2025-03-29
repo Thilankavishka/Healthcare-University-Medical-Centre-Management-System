@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const UserChangePassword = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,20 @@ const UserChangePassword = () => {
   };
 
   const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/changepassword/change-password",
+        formData
+      );
+      alert(response.data.message);
+      navigate("/logout");
+    } catch (error) {
+      alert(error.response?.data?.message || "Error changing password");
+    }
+  };
 
   return (
     <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
@@ -45,15 +60,15 @@ const UserChangePassword = () => {
           </h1>
           <hr className="mt-2 border-t-2 border-gray-200" />
         </div>
-        {/* Form Sections */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Section 1: Registration and Current Password */}
+         
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-bold text-gray-800 mb-4">
               Account Information
             </h2>
-            <form className="space-y-4">
-              {/* Reg Num Field */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              
               <div>
                 <label
                   htmlFor="regnum"
@@ -71,7 +86,7 @@ const UserChangePassword = () => {
                 />
               </div>
 
-              {/* Current Password Field */}
+             
               <div>
                 <label
                   htmlFor="currentPassword"
@@ -91,13 +106,13 @@ const UserChangePassword = () => {
             </form>
           </div>
 
-          {/* Section 2: New Password and Confirm Password */}
+          
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-bold text-gray-800 mb-4">
               New Password
             </h2>
-            <form className="space-y-4">
-              {/* New Password Field */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              
               <div>
                 <label
                   htmlFor="newPassword"
@@ -115,7 +130,7 @@ const UserChangePassword = () => {
                 />
               </div>
 
-              {/* Confirm Password Field */}
+             
               <div>
                 <label
                   htmlFor="confirmPassword"
@@ -134,6 +149,15 @@ const UserChangePassword = () => {
               </div>
             </form>
           </div>
+        </div>
+        <div className="mt-8 flex justify-center">
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
