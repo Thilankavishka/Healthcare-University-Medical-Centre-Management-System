@@ -26,6 +26,10 @@ export default function AllAppointments() {
     }
   };
 
+  const handleSelectAppointment = (appointment) => {
+    navigate("/", { state: { selectedAppointment: appointment } });
+  };
+  
   // Check if there are no appointments
   if (appointments.length === 0 && !loading) {
     return <p>No Appointments available</p>;
