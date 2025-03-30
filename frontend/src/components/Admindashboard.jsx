@@ -28,14 +28,22 @@ export default function Admindashboard({ username }) {
     navigate("/patientdetails");
   };
 
-  const goRegisterPatient = () => {
-    navigate("/register");
-  };
-
-  const goMedicalHistoryForm = () => {
+  const goaddmedicalhistory = () => {
     navigate("/medicalhistoryform");
   };
+  const goUserMessages = () => {
+    navigate("/usermessages");
+  };
 
+  const gomedicalhistory = () => {
+    navigate("/medicalhistory");
+  };
+  const godrugdetails = () => {
+    navigate("/drugs");
+  };
+  const goappointments = () => {
+    navigate("/AllAppointments");
+  };
   return (
     <>
       <div>
@@ -75,78 +83,112 @@ export default function Admindashboard({ username }) {
 
       {/* Cards Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-16 py-10 bg-gray-100">
+        {/* Appointments */}
+        <div
+          className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+          onClick={goappointments}
+        >
+          <img
+            src="/card_images/appointment.jpg"
+            alt="Patient Details"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800">Appointments</h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Click Here to Show Patient Appointments
+            </p>
+          </div>
+        </div>
         {/* Patient Details Card */}
-        <div className="flex items-center justify-center">
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105">
-            <img
-              src="/card_images/patient.jpg"
-              alt="Patient Details"
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-center text-gray-800">
-                Patient Details
-              </h2>
-              <p className="text-sm text-center text-gray-600 mb-4">
-                Click Here to Show Patient Details
-              </p>
-              <button
-                onClick={gopatientdetails}
-                className="block w-full py-2 bg-indigo-500 text-white font-semibold text-center rounded hover:bg-indigo-600"
-              >
-                Go Patient Details
-              </button>
-            </div>
+        <div
+          className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+          onClick={gopatientdetails}
+        >
+          <img
+            src="/card_images/patient.jpg"
+            alt="Patient Details"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800">Patient Details</h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Click Here to Show Patient Details
+            </p>
+          </div>
+        </div>
+        {/* User Messages Card */}
+        <div
+          className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+          onClick={goUserMessages}
+        >
+          <img
+            src="/card_images/msg.jpg"
+            alt="User Messages"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800">User Messages</h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Click Here to Show User Messages
+            </p>
+          </div>
+        </div>
+        {/* Add Medical History Card */}
+        <div
+          className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+          onClick={goaddmedicalhistory}
+        >
+          <img
+            src="/card_images/prescription.jpg"
+            alt="Medical History"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800">
+              Add Prescription/Diagnosis
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Click Here to Add Patient Prescription / Diagnosis
+            </p>
           </div>
         </div>
 
-        {/* Register Patient Card */}
-        <div className="flex items-center justify-center">
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105">
-            <img
-              src="/card_images/register_patient.jpg"
-              alt="Register Patient"
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-center text-gray-800">
-                Register Patient
-              </h2>
-              <p className="text-sm text-center text-gray-600 mb-4">
-                Click Here to Register Patient
-              </p>
-              <button
-                onClick={goRegisterPatient}
-                className="block w-full py-2 bg-indigo-500 text-white font-semibold text-center rounded hover:bg-indigo-600"
-              >
-                Register Patient
-              </button>
-            </div>
+        {/* Medical History Card */}
+        <div
+          className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+          onClick={gomedicalhistory}
+        >
+          <img
+            src="/card_images/prescription.jpg"
+            alt="Medical History"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800">
+              Prescription/Diagnosis
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Click Here to See Patient Prescription / Diagnosis
+            </p>
           </div>
         </div>
 
-        {/*Add Medical History*/}
-        <div className="flex items-center justify-center">
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105">
-            <img
-              src="/card_images/register_patient.jpg"
-              alt="Register Patient"
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-center text-gray-800">
-                Medical Form
-              </h2>
-              <p className="text-sm text-center text-gray-600 mb-4">
-                Click Here to Add Medical Data
-              </p>
-              <button
-                onClick={goMedicalHistoryForm}
-                className="block w-full py-2 bg-indigo-500 text-white font-semibold text-center rounded hover:bg-indigo-600"
-              >
-                Add Medical Data{" "}
-              </button>
-            </div>
+        {/* Drug Details Card */}
+        <div
+          className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
+          onClick={godrugdetails}
+        >
+          <img
+            src="/card_images/drug.jpg"
+            alt="Medical History"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800">Drug/Details</h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Click Here to See Drug/Details
+            </p>
           </div>
         </div>
       </div>
