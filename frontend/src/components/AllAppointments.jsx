@@ -9,7 +9,7 @@ export default function AllAppointments() {
   const [error, setError] = useState("");
   const [showAppointments, setShowAppointments] = useState(false);
   const navigate = useNavigate();
-//
+
   useEffect(() => {
     getData();
   }, []);
@@ -96,7 +96,10 @@ export default function AllAppointments() {
                 </th>
                 <th className="px-4 py-2 text-white font-semibold text-center">
                   Condition
-                </th>//
+                </th>
+                <th className="px-4 py-2 text-white font-semibold text-center">
+                  Action
+                  </th>
               </tr>
             </thead>
             <tbody>
