@@ -74,7 +74,7 @@ export default function AllAppointments() {
       {error && <p className="text-center text-red-600">{error}</p>}
 
       {/* Appointments Table */}
-      {!loading && !error && (
+      {showAppointments && !loading && !error && (
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">
           <table className="min-w-full border border-gray-300">
             <thead className="bg-gradient-to-r from-blue-600 to-purple-600">
