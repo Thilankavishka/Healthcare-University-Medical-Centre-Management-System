@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+//
 export default function AllAppointments() {
   const [searchTerm, setSearchTerm] = useState("");
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showAppointments, setShowAppointments] = useState(false);
   const navigate = useNavigate();
-
+//
   useEffect(() => {
     getData();
   }, []);
@@ -29,7 +30,7 @@ export default function AllAppointments() {
   const handleSelectAppointment = (appointment) => {
     navigate("/", { state: { selectedAppointment: appointment } });
   };
-  
+
   // Check if there are no appointments
   if (appointments.length === 0 && !loading) {
     return <p>No Appointments available</p>;
@@ -59,7 +60,7 @@ export default function AllAppointments() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          />//
         </div>
       </div>
 
@@ -89,7 +90,7 @@ export default function AllAppointments() {
                 </th>
                 <th className="px-4 py-2 text-white font-semibold text-center">
                   Condition
-                </th>
+                </th>//
               </tr>
             </thead>
             <tbody>
