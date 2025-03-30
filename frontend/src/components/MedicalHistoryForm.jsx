@@ -41,7 +41,7 @@ export default function MedicalHistoryForm() {
       if (response.status === 201) {
         setSuccessMessage("Medical history added successfully!");
         setErrorMessage("");
-        // Clear form fields
+        
         setFormData({
           regNo: "",
           bloodPressure: "",
@@ -52,7 +52,7 @@ export default function MedicalHistoryForm() {
           prescription: "",
           visitDate: "",
         });
-        setTimeout(() => navigate("/medicalhistoryform"), 2000); // Redirect after 2 seconds
+        setTimeout(() => navigate("/medicalhistoryform"), 2000); 
       }
     } catch (error) {
       setErrorMessage("Failed to add medical history. Please try again.");
@@ -64,7 +64,7 @@ export default function MedicalHistoryForm() {
   return (
     <>
       <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
-        {/* Sidebar */}
+        
         <div className="w-1/4 bg-gradient-to-b from-blue-600 to-purple-600 p-8 flex flex-col justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">
@@ -84,7 +84,7 @@ export default function MedicalHistoryForm() {
           </div>
         </div>
 
-        {/* Main Content */}
+        
         <div className="w-3/4 p-8">
           {/* Title Section */}
           <div className="mb-8">
