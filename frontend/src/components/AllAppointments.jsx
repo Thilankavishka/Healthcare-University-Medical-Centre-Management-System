@@ -1,17 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+//
 export default function AllAppointments() {
   const [searchTerm, setSearchTerm] = useState("");
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showAppointments, setShowAppointments] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     getData();
   }, []);
+
+  const onUpdate = (data) => {
+    localStorage.setItem('id', data._id);
+    localStorage.setItem('regno', data.regno);
+    localStorage.setItem('fullname', data.fullname);
+    localStorage.setItem('email', data.email);
+    localStorage.setItem('date', data.date);
+    localStorage.setItem('condition', data.condition);
+
+    navigate('/update-appoinment');
+}
 
   const getData = async () => {
     try {
@@ -24,6 +36,10 @@ export default function AllAppointments() {
       setError("Error fetching appointments: " + err.message);
       setLoading(false);
     }
+  };
+
+  const handleSelectAppointment = (appointment) => {
+    navigate("/", { state: { selectedAppointment: appointment } });
   };
 
   // Check if there are no appointments
@@ -56,6 +72,12 @@ export default function AllAppointments() {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+           <button
+          onClick={() => setShowAppointments(!showAppointments)}
+          className="mt-4 sm:mt-0 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
+        >
+          {showAppointments ? "Hide Appointments" : "View Appointments"}
+        </button>
         </div>
       </div>
 
@@ -63,7 +85,7 @@ export default function AllAppointments() {
       {error && <p className="text-center text-red-600">{error}</p>}
 
       {/* Appointments Table */}
-      {!loading && !error && (
+      {showAppointments && !loading && !error && (
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">
           <table className="min-w-full border border-gray-300">
             <thead className="bg-gradient-to-r from-blue-600 to-purple-600">
@@ -86,6 +108,9 @@ export default function AllAppointments() {
                 <th className="px-4 py-2 text-white font-semibold text-center">
                   Condition
                 </th>
+                <th className="px-4 py-2 text-white font-semibold text-center">
+                  Action
+                  </th>
               </tr>
             </thead>
             <tbody>
@@ -112,6 +137,20 @@ export default function AllAppointments() {
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-center">
                       {appointment.condition}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      <button
+                        onClick={() => handleSelectAppointment(appointment)}
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                      >
+                        Select
+                      </button>
+                      <button
+                        onClick={() => onUpdate(appointment)}
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                      >
+                        Update
+                      </button>
                     </td>
                   </tr>
                 ))

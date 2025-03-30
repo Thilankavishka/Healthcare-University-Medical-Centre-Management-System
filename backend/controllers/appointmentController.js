@@ -8,6 +8,7 @@ exports.create = (req, res) => {
 
   const { regno, pname, email, date, time, condition } = req.body;
 
+  // New appointment
   const appointment = new Appointment({
     regno,
     pname,
@@ -46,6 +47,7 @@ exports.findAll = (req, res) => {
     });
 };
 
+//Retrieve and return a single appointment
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -66,6 +68,7 @@ exports.findOne = (req, res) => {
     });
 };
 
+//Update a appoinment by appoinment id
 exports.update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({ message: "Data to update cannot be empty" });
