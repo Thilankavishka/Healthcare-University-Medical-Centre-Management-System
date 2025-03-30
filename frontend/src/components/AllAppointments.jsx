@@ -113,6 +113,14 @@ export default function AllAppointments() {
                     <td className="border border-gray-300 px-4 py-2 text-center">
                       {appointment.condition}
                     </td>
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      <button
+                        onClick={() => handleSelectAppointment(appointment)}
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                      >
+                        Select
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
