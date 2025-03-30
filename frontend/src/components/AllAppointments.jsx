@@ -14,6 +14,17 @@ export default function AllAppointments() {
     getData();
   }, []);
 
+  const onUpdate = (data) => {
+    localStorage.setItem('id', data._id);
+    localStorage.setItem('regno', data.regno);
+    localStorage.setItem('fullname', data.fullname);
+    localStorage.setItem('email', data.email);
+    localStorage.setItem('date', data.date);
+    localStorage.setItem('condition', data.condition);
+
+    navigate('/update-appoinment');
+}
+
   const getData = async () => {
     try {
       const response = await axios.get(
