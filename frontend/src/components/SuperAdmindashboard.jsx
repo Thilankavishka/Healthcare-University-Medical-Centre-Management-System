@@ -30,11 +30,8 @@ export default function SuperAdmindashboard({ username }) {
     navigate("/medicalhistory");
   };
 
-  const goappointments = () => {
-    navigate("/AllAppointments");
-  };
-  const goaddmedicalhistory = () => {
-    navigate("/medicalhistoryform");
+  const godrugdetails = () => {
+    navigate("/drugs");
   };
   return (
     <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
@@ -70,23 +67,6 @@ export default function SuperAdmindashboard({ username }) {
 
         {/* Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Appointments */}
-          <div
-            className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
-            onClick={goappointments}
-          >
-            <img
-              src="/card_images/appointment.jpg"
-              alt="Patient Details"
-              className="w-full h-48 object-cover rounded-t-lg"
-            />
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800">Appointments</h2>
-              <p className="text-sm text-gray-500 mt-2">
-                Click Here to Show Patient Appointments
-              </p>
-            </div>
-          </div>
           {/* Patient Details Card */}
           <div
             className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
@@ -203,22 +183,20 @@ export default function SuperAdmindashboard({ username }) {
             </div>
           </div>
 
-          {/* Add Medical History Card */}
+          {/* Drug Details Card */}
           <div
             className="bg-white rounded-lg shadow-md transform transition-all hover:scale-105 cursor-pointer"
-            onClick={goaddmedicalhistory}
+            onClick={godrugdetails}
           >
             <img
-              src="/card_images/prescription.jpg"
+              src="/card_images/drug.jpg"
               alt="Medical History"
               className="w-full h-48 object-cover rounded-t-lg"
             />
             <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800">
-                Add Prescription/Diagnosis
-              </h2>
+              <h2 className="text-xl font-bold text-gray-800">Drug/Details</h2>
               <p className="text-sm text-gray-500 mt-2">
-                Click Here to Add Patient Prescription / Diagnosis
+                Click Here to See Drug/Details
               </p>
             </div>
           </div>

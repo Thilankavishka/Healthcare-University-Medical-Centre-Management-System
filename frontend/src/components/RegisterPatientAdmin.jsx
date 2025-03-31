@@ -303,14 +303,23 @@ export default function RegisterStudentadmin() {
                 <label className="block text-gray-700 text-sm font-medium mb-2">
                   Blood Group
                 </label>
-                <input
-                  type="text"
+                <select
+                  name="bloodgroup"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Ex: B-/B+"
                   value={bloodgroup}
                   onChange={(e) => setBlood(e.target.value)}
                   required
-                />
+                >
+                  <option value="">Select Blood Group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
               </div>
 
               {/* Gender */}
@@ -395,3 +404,21 @@ export default function RegisterStudentadmin() {
     </>
   );
 }
+/**{/* Blood Group 
+
+
+
+
+  <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Blood Group
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Ex: B-/B+"
+                  value={bloodgroup}
+                  onChange={(e) => setBlood(e.target.value)}
+                  required
+                />
+   </div>*/
