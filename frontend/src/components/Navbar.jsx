@@ -56,7 +56,7 @@ export default function Navbar({ role, userId }) {
         {role === "superadmin" && (
           <>
             <Button onClick={SuperGoAdmindDshboard} className=" mr-3">
-              SuperAdmindDshboard
+              Super Admin Dashboard
             </Button>
 
             <Button variant="info" className=" mr-3" onClick={GoLogOut}>
@@ -77,7 +77,7 @@ export default function Navbar({ role, userId }) {
         {role === "admin" && (
           <>
             <Button onClick={Gototadmindashboard} className=" mr-3">
-              AdmindDshboard
+              Admin Dashboard
             </Button>
             <Button variant="info" className=" mr-3" onClick={GoLogOut}>
               Logout
