@@ -22,23 +22,25 @@ export default function Login({ setRole2 }) {
     axios
       .post("http://localhost:8080/auth/login", { username, password, role })
       .then((res) => {
-        if (res.data.login && res.data.role === "superadmin") {
-          setRole2("superadmin");
-          navigate("/superadmindashboard");
-          window.location.reload();
-        } else if (res.data.login && res.data.role === "patient") {
-          setRole2("patient");
-          navigate("/patientdashboard");
-          window.location.reload();
-        } else if (res.data.login && res.data.role === "admin") {
-          setRole2("admin");
-          navigate("/admindashboard");
+        if (res.data.login && res.data.role) {
+          sessionStorage.setItem("role", res.data.role);
+
+          setRole2(res.data.role);
+
+          if (res.data.role === "superadmin") {
+            navigate("/superadmindashboard");
+          } else if (res.data.role === "patient") {
+            navigate("/patientdashboard");
+          } else if (res.data.role === "admin") {
+            navigate("/admindashboard");
+          }
+
           window.location.reload();
         } else {
           console.log("Invalid role or login status");
         }
       })
-      .catch((err) => console.log(err)); // Check for errors
+      .catch((err) => console.log(err));
   };
 
   return (

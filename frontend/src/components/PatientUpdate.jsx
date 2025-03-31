@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function UpdatePatient() {  
+export default function UpdatePatient() {
   const navigate = useNavigate();
   const location = useLocation();
   const patientData = location.state || {}; // Get passed patient data
@@ -21,15 +21,15 @@ export default function UpdatePatient() {
     bloodgroup: patientData.bloodgroup || "",
     gender: patientData.gender || "",
     password: "",
-    image: patientData.image || ""
+    image: patientData.image || "",
   });
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -38,23 +38,27 @@ export default function UpdatePatient() {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("image", file);
 
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:8080/patient/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      const response = await axios.post(
+        "http://localhost:8080/patient/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
-      
-      setFormData(prev => ({
+      );
+
+      setFormData((prev) => ({
         ...prev,
-        image: response.data.filePath
+        image: response.data.filePath,
       }));
-      toast.success('Image uploaded successfully');
+      toast.success("Image uploaded successfully");
     } catch (error) {
-      toast.error('Failed to upload image');
+      toast.error("Failed to upload image");
     } finally {
       setLoading(false);
     }
@@ -63,23 +67,43 @@ export default function UpdatePatient() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
       const response = await axios.put(
         `http://localhost:8080/patient/updatepatient/${formData.regnum}`,
         formData
       );
-
+  
       if (response.data.success) {
-        toast.success('Patient details updated successfully!');
-        setTimeout(() => navigate("/superadmindashboard"), 2000);
+        toast.success("Patient details updated successfully!");
+        const role = sessionStorage.getItem("role");
+  
+        if (role === "admin") {
+          navigate("/admindashboard");
+        } else if (role === "superadmin") {
+          navigate("/superadmindashboard");
+        } else {
+          console.error("No valid role found in sessionStorage");
+        }
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Error updating patient');
+      toast.error(error.response?.data?.message || "Error updating patient");
     } finally {
       setLoading(false);
     }
   };
+
+  const handleClick = () => {
+    const role = sessionStorage.getItem("role");
+  
+    if (role === "admin") {
+      setTimeout(() => navigate("/admindashboard"), 2000);
+    } else if (role === "superadmin") {
+      setTimeout(() => navigate("/superadmindashboard"), 2000);
+    }
+  };
+  
+  
 
   return (
     <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
@@ -95,7 +119,7 @@ export default function UpdatePatient() {
         </div>
         <div>
           <button
-            onClick={() => navigate("/admindashboard")}
+            onClick={handleClick}
             className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
           >
             Back to Dashboard
@@ -323,7 +347,7 @@ export default function UpdatePatient() {
                 className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all disabled:opacity-50"
                 disabled={loading}
               >
-                {loading ? 'Updating...' : 'Update Patient'}
+                {loading ? "Updating..." : "Update Patient"}
               </button>
             </div>
           </form>
