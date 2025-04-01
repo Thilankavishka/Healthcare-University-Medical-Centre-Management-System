@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { jsPDF } from "jspdf";
 
-export default function PatientDashboard({ regnum }) {
+export default function PatientDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const regnum = location.state?.regnum;
 
   const navigatechangepassword = () => {
     navigate("/changepassword");
   };
 
   const [patient, setPatientDetails] = useState(null);
+  const [patientTemp, setPatientDetailsTemp] = useState(null);
   const [medicalHistories, setMedicalHistories] = useState([]); // State for medical histories
   const [loading, setLoading] = useState(true); // State for loading status
   const [showMedicalHistories, setShowMedicalHistories] = useState(false); // State to toggle medical histories
@@ -30,6 +33,34 @@ export default function PatientDashboard({ regnum }) {
         console.error("Error fetching patient data:", error);
       });
   }, [regnum]);
+
+  
+  useEffect(() => {
+    const fetchPatientDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/patient/patientdetails/${regnum}`);
+        if (response.data.success) {
+          setPatientDetailsTemp(response.data.patdet);
+        }
+      } catch (error) {
+        console.error("Error fetching patient details:", error);
+      }
+    };
+
+    if (regnum) fetchPatientDetails();
+  }, [regnum]);
+
+  
+
+  const handleAppointmentClick = () => {
+    navigate("/AddAppointment", {
+      state: {
+        regnum: patientTemp?.regnum,
+        fullname: patientTemp?.fullname,
+        email: patientTemp?.email,
+      },
+    });
+  };
 
   // Fetch medical histories for the patient
   useEffect(() => {
@@ -199,6 +230,12 @@ export default function PatientDashboard({ regnum }) {
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             >
               Change Password
+            </button>
+            <button
+              onClick={handleAppointmentClick}
+              className="bg-blue-600 text-white py-2.5 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            >
+              Add Appointment
             </button>
           </div>
 
