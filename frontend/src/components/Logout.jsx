@@ -10,6 +10,8 @@ const Logout = ({ setRole }) => {
       .then((res) => {
         if (res.data.logout) {
           setRole("");
+          sessionStorage.clear();
+          localStorage.clear();
           navigate("/");
         }
       })
