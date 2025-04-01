@@ -30,7 +30,7 @@ export default function Footer() {
           </li>
           <li className="flex items-center">
             <img src="location.png" alt="" className="w-4 h-4" />
-            <h6 className="text-slate-600">&nbsp;Pampeimadu,Vavuniya</h6>
+            <h6 className="text-slate-600">&nbsp;Pambaimadu,Vavuniya</h6>
           </li>
         </ul>
       </div>
@@ -38,20 +38,20 @@ export default function Footer() {
         <h4 className="text-lg font-semibold">Hours</h4>
         <ul>
           <h6 className="text-slate-600">
-            Monday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.0pm
+            Monday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.00pm
           </h6>
           <h6 className="text-slate-600">
-            Tuesday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.0pm
+            Tuesday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.00pm
           </h6>
           <h6 className="text-slate-600">
-            Wednesday&nbsp;&nbsp;&nbsp;8.30am-4.0pm
+            Wednesday&nbsp;&nbsp;&nbsp;8.30am-4.00pm
           </h6>
 
           <h6 className="text-slate-600">
-            Friday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.0pm
+            Friday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.00pm
           </h6>
           <h6 className="text-slate-600">
-            Saturday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9pm-12pm
+            Saturday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.00am-12.00pm
           </h6>
           <h6 className="text-slate-600">
             Sunday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Closed
