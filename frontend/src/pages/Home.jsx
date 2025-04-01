@@ -13,9 +13,9 @@ export default function Home({ role, userId }) {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false); // State to track if the center is open
 
-  const handleAppointmentClick = () => {
-    navigate("/AddAppointment");
-  };
+  // const handleAppointmentClick = () => {
+  //   navigate("/AddAppointment");
+  // };
 
   useEffect(() => {
     const fetchPatientCount = async () => {
@@ -134,7 +134,7 @@ export default function Home({ role, userId }) {
         </div>
       </div>
 
-      {/* Appointment Section */}
+      {/* Appointment Section
       <div className="flex justify-center mt-8">
         <button
           onClick={handleAppointmentClick}
@@ -142,7 +142,7 @@ export default function Home({ role, userId }) {
         >
           Add Appointment
         </button>
-      </div>
+      </div> */}
 
       {/* Message Section */}
       <div className="w-full h-fit bg-teal-100 pb-5 mt-8">
