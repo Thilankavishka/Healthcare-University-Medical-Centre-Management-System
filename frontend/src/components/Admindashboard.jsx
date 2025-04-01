@@ -70,7 +70,7 @@ export default function Admindashboard({ username }) {
             </p>
             <p className="text-lg font-medium mt-2">
               Account Created:{" "}
-              <span className="font-bold">{admin.createdAt}</span>
+              <span className="font-bold text-sm">{new Date(admin.createdAt).toLocaleString()}</span>
             </p>
           </div>
         </div>
