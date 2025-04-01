@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
-    regno:{
+    regnum:{
         type: String,
         required: true,
         unique: true,
     },
-    pname:{
+    fullname:{
         type: String,
         required: true,
     },

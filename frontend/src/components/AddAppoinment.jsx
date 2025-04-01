@@ -1,41 +1,53 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AddAppointment() {
-  const [regno, setRegNo] = useState("");
-  const [pname, setPatientName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [condition, setCondition] = useState("");
-
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const allAppointment = async (e) => {
+  // Extract patient details from state
+  const { regnum, fullname, email } = location.state || {};
+
+  // Form state
+  const [appointmentData, setAppointmentData] = useState({
+    regnum: regnum || "", // Pre-fill with patient data
+    fullname: fullname || "",
+    email: email || "",
+    date: "", // This field is not pre-filled
+    time: "",
+    condition: "",
+  });
+
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const newAppointment = {
-      regno,
-      pname,
-      email,
-      date,
-      time,
-      condition,
-    };
-
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:8080/Appointments/Appointments",
-        newAppointment
+        appointmentData
       );
-      alert("Appointment Added Successfully");
-      navigate("/AllAppointments"); // Redirect to the appointments page
-    } catch (err) {
-      alert("Error adding appointment. Please try again.");
-      console.error(err);
+      if (response.data.success) {
+        alert("Appointment booked successfully!");
+        navigate("/dashboard"); // Redirect after successful submission
+      } else {
+        alert("Failed to book appointment.");
+      }
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      alert("Error booking appointment.");
     }
   };
+
 
   const getCurrentDate = () => {
     const currentDate = new Date();
@@ -55,19 +67,18 @@ export default function AddAppointment() {
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Add Appointment
         </h1>
-        <form onSubmit={allAppointment} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Registration Number */}
           <div>
             <label className="block text-gray-700 text-sm font-medium mb-2">
               Patient Registration Number
             </label>
             <input
-              type="text"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Registration Number"
-              value={regno}
-              onChange={(e) => setRegNo(e.target.value)}
-              required
+              type="text"
+              name="regnum"
+              value={appointmentData.regnum}
+              readOnly
             />
           </div>
 
@@ -77,12 +88,11 @@ export default function AddAppointment() {
               Patient Name
             </label>
             <input
-              type="text"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Patient Name"
-              value={pname}
-              onChange={(e) => setPatientName(e.target.value)}
-              required
+              type="text"
+              name="fullname"
+              value={appointmentData.fullname}
+              readOnly
             />
           </div>
 
@@ -92,12 +102,11 @@ export default function AddAppointment() {
               Email
             </label>
             <input
-              type="email"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              type="email"
+              name="email"
+              value={appointmentData.email}
+              readOnly
             />
           </div>
 
@@ -107,11 +116,12 @@ export default function AddAppointment() {
               Date
             </label>
             <input
-              type="date"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={date}
+              type="date"
+              name="date"
               min={getCurrentDate()}
-              onChange={(e) => setDate(e.target.value)}
+              value={appointmentData.date}
+              onChange={handleChange}
               required
             />
           </div>
@@ -124,8 +134,9 @@ export default function AddAppointment() {
             <input
               type="time"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
+              name="time"
+              value={appointmentData.time}
+              onChange={handleChange}
               required
             />
           </div>
@@ -137,22 +148,29 @@ export default function AddAppointment() {
             </label>
             <textarea
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Condition"
-              value={condition}
-              onChange={(e) => setCondition(e.target.value)}
+              name="condition"
+              value={appointmentData.condition}
+              onChange={handleChange}
               required
             />
           </div>
 
           {/* Submit Button */}
-          <div>
+          <div className="flex justify-around">
+          <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
             >
               Add Appointment
             </button>
-          </div>
+            </div>
         </form>
       </div>
     </div>
