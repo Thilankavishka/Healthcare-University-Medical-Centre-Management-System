@@ -54,4 +54,18 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Get one drug
+router.get("/:id", async (req, res) => {
+    try {
+      const drug = await Drug.findById(req.params.id);
+      if (!drug) {
+        return res.status(404).json({ success: false, message: "Drug not found" });
+      }
+      res.json({ success: true, drug });
+    } catch (error) {
+      console.error("Error fetching drug:", error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  });
+
 module.exports = router;
