@@ -186,6 +186,10 @@ function App() {
             path="/updateDrugs"
             element={<UpdateDrug></UpdateDrug>}
           ></Route>
+          <Route
+            path="/Help"
+            element={<Help></Help>}
+          ></Route>
         </Routes>
       </Router>
     </>
