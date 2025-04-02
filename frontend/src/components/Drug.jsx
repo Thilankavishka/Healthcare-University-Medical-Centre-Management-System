@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function DrugInventory() {
   const [drugs, setDrugs] = useState([]);
@@ -8,6 +8,7 @@ export default function DrugInventory() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [selectedDrug, setSelectedDrug] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     fetch("http://localhost:8080/drugs")
@@ -37,6 +38,31 @@ export default function DrugInventory() {
   function handleClick() {
     navigate("/addDrugs");
   }
+
+  const handleUpdate = (drug) => {
+    navigate("/updateDrugs", { state: { drug } });
+  };
+  
+  
+
+  const handleDelete = async (drugId) => {
+    if (window.confirm("Are you sure you want to delete this drug?")) {
+      try {
+        const response = await fetch(`http://localhost:8080/drugs/${drugId}`, {
+          method: "DELETE",
+        });
+  
+        if (response.ok) {
+          setDrugs(drugs.filter((drug) => drug._id !== drugId));
+        } else {
+          console.error("Failed to delete drug");
+        }
+      } catch (error) {
+        console.error("Error deleting drug:", error);
+      }
+    }
+  };
+  
 
 
   return (
@@ -118,10 +144,12 @@ export default function DrugInventory() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right justify-center">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition-colors">
+                    <button className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition-colors"
+                    onClick={() => handleUpdate(drug)}>
                       Update
                     </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors">
+                    <button className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors"
+                    onClick={() => handleDelete(drug._id)}>
                       Delete
                     </button>
                   </td>                  
