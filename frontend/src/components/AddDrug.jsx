@@ -14,7 +14,6 @@ export default function AddDrug() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Frontend validation
     if (!name || !dosage || quantity <= 0) {
       setErrorMessage(
         "All fields are required and quantity must be greater than 0"
@@ -32,9 +31,10 @@ export default function AddDrug() {
       if (res.data.success) {
         setSuccessMessage(res.data.message);
         setErrorMessage("");
-        setTimeout(() => {
-          navigate("/drugs"); // Redirect to the drug inventory page after adding the drug
-        }, 2000);
+        setName("");
+        setDosage("");
+        setQuantity(0);
+        navigate("/drugs");
       } else {
         setErrorMessage(res.data.message);
       }
@@ -45,9 +45,8 @@ export default function AddDrug() {
   };
 
   function handleClick() {
-    navigate("/superadmindashboard");
-  };
-
+    navigate("/drugs");
+  }
 
   return (
     <div className="min-h-screen flex bg-gradient-to-r from-blue-50 to-purple-50">
@@ -66,7 +65,7 @@ export default function AddDrug() {
             onClick={handleClick}
             className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
           >
-            Back to dashboard
+            Go Back
           </button>
         </div>
       </div>
