@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 export default function Login({ setRole2 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("superadmin");
+  const [role, setRole] = useState(""); // Changed from default "superadmin" to empty
 
   const navigate = useNavigate();
 
@@ -18,17 +18,29 @@ export default function Login({ setRole2 }) {
   const toForgetPassword = () => {
     navigate("/passwordrecovery");
   };
+
   axios.defaults.withCredentials = true;
+
   const handleSubmit = () => {
-    if (!role) {
+    // Validate inputs
+    if (!username || !password) {
       Swal.fire({
         icon: "error",
-        title: "Login Failed",
-        text: "Please select a role before logging in.",
+        title: "Missing Information",
+        text: "Please enter both username and password.",
       });
       return;
     }
-  
+
+    if (!role) {
+      Swal.fire({
+        icon: "error",
+        title: "Role Required",
+        text: "Please select your role before logging in.",
+      });
+      return;
+    }
+
     axios
       .post("http://localhost:8080/auth/login", { username, password, role })
       .then((res) => {
@@ -36,7 +48,7 @@ export default function Login({ setRole2 }) {
           sessionStorage.setItem("role", res.data.role);
           sessionStorage.setItem("username", res.data.username);
           setRole2(res.data.role);
-  
+
           if (res.data.role === "superadmin") {
             navigate("/superadmindashboard");
           } else if (res.data.role === "patient") {
@@ -44,13 +56,13 @@ export default function Login({ setRole2 }) {
           } else if (res.data.role === "admin") {
             navigate("/admindashboard");
           }
-  
+
           window.location.reload();
-        } else if (res.data.role === ""){
+        } else {
           Swal.fire({
             icon: "error",
             title: "Login Failed",
-            text: "Invalid role or credentials.",
+            text: res.data.message || "Invalid credentials or role mismatch.",
           });
         }
       })
@@ -59,7 +71,7 @@ export default function Login({ setRole2 }) {
         Swal.fire({
           icon: "error",
           title: "Login Error",
-          text: "Something went wrong. Please try again.",
+          text: err.response?.data?.message || "Something went wrong. Please try again.",
         });
       });
   };
@@ -84,8 +96,10 @@ export default function Login({ setRole2 }) {
             <input
               type="text"
               placeholder="Enter username"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              required
             />
           </div>
           <div className="mb-4">
@@ -98,8 +112,10 @@ export default function Login({ setRole2 }) {
             <input
               type="password"
               placeholder="Enter Password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              required
             />
           </div>
           <div className="mb-6">
@@ -112,10 +128,12 @@ export default function Login({ setRole2 }) {
             <select
               name="role"
               id="role"
+              value={role}
               onChange={(e) => setRole(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              required
             >
-              <option value="">Select</option>
+              <option value="">Select your role</option>
               <option value="patient">Patient</option>
               <option value="admin">Admin</option>
               <option value="superadmin">SuperAdmin</option>
@@ -134,12 +152,6 @@ export default function Login({ setRole2 }) {
             >
               Forget Password
             </button>
-            {/*<button
-              onClick={toregister}
-              className="block mt-4 text-center text-blue-600 hover:text-blue-800 underline"
-            >
-              Don’t have an account? Register
-            </button>*/}
           </div>
         </div>
       </div>
