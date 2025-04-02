@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
 
-const AboutUs = () => {
+const Help = () => {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const AboutUs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-800 mb-4">
-            About Us
+            Help & Support
           </h1>
           <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full mx-auto mb-12"></div>
         </div>
@@ -29,55 +29,47 @@ const AboutUs = () => {
           {/* Content */}
           <div className="w-full lg:w-1/2 bg-white rounded-xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow duration-300">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-              University of Vavuniya
+              Contact Details
             </h3>
 
             <div className="space-y-4 text-gray-600">
               <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                 <p className="text-lg leading-relaxed">
-                  <span className="font-semibold text-blue-700">
-                    Medical Officer:
-                  </span>{" "}
-                  Dr.P.Sathiyalingam
+                  <span className="font-semibold text-blue-700">Help Desk:</span> 
+                  John Doe
                 </p>
                 <p className="text-lg leading-relaxed">
                   <span className="font-semibold text-blue-700">E-mail:</span>
                   <a
-                    href="mailto:umo@vau.ac.lk"
+                    href="mailto:helpdesk@vau.ac.lk"
                     className="text-cyan-600 hover:text-cyan-800 font-medium ml-1 transition-colors"
                   >
-                    umo@vau.ac.lk
+                    helpdesk@vau.ac.lk
                   </a>
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold text-blue-700">Tel:</span> 024
-                  2224674
+                  2224680
                 </p>
               </div>
 
               <p className="text-lg leading-relaxed">
-                The Health Centre of Northern Provincial Affiliated University
-                College (NPAUC) was established in 1992 and was functioning at
-                Kurumankadu.
+                If you have any questions or need assistance, feel free to
+                contact our help desk team. We are here to provide support and
+                resolve any issues you may encounter.
               </p>
 
               {expanded && (
                 <div className="space-y-4 animate-fadeIn">
                   <p className="text-lg leading-relaxed">
-                    The university has grown significantly since its
-                    establishment, offering a wide range of academic programs
-                    and fostering research and innovation in various fields.
+                    We offer assistance with the following:
                   </p>
-                  <p className="text-lg leading-relaxed">
-                    Our health center provides comprehensive medical services to
-                    students and staff, ensuring a healthy environment for
-                    academic excellence.
-                  </p>
-                  <p className="text-lg leading-relaxed">
-                    We are committed to providing quality healthcare services,
-                    promoting wellness programs, and creating a supportive
-                    environment for all members of our university community.
-                  </p>
+                  <ul className="list-disc pl-6 text-lg leading-relaxed">
+                    <li>Account setup and management</li>
+                    <li>Technical support for university systems</li>
+                    <li>Guidance on accessing university resources</li>
+                    <li>Campus-related queries</li>
+                  </ul>
                 </div>
               )}
             </div>
@@ -153,17 +145,16 @@ const AboutUs = () => {
             <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
               <img
                 src="/src/assets/logo.png"
-                alt="University of Vavuniya Logo"
+                alt="Help & Support Logo"
                 className="w-full h-auto object-contain"
                 style={{ filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" }}
               />
               <div className="mt-6 text-center">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  Our Vision
+                  We're Here to Help
                 </h3>
                 <p className="text-gray-600">
-                  To be a center of excellence in higher education and
-                  healthcare services
+                  Our team is ready to assist with any inquiries you may have.
                 </p>
               </div>
             </div>
@@ -193,8 +184,7 @@ const AboutUs = () => {
               Our Mission
             </h3>
             <p className="text-gray-600">
-              To provide accessible, quality healthcare services to our
-              university community
+              To provide accessible, quality support to all members of our community
             </p>
           </div>
 
@@ -217,8 +207,7 @@ const AboutUs = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Our Values</h3>
             <p className="text-gray-600">
-              Compassion, Excellence, Integrity, and Innovation in healthcare
-              delivery
+              Compassion, Excellence, Integrity, and Innovation in providing support
             </p>
           </div>
 
@@ -241,7 +230,7 @@ const AboutUs = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Our Team</h3>
             <p className="text-gray-600">
-              Dedicated professionals committed to student and staff wellbeing
+              Dedicated professionals committed to ensuring smooth operations
             </p>
           </div>
         </div>
@@ -250,4 +239,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default Help;
