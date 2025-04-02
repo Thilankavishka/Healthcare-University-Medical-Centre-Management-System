@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Swal from "sweetalert2";
 
 export default function Login({ setRole2 }) {
   const [username, setUsername] = useState("");
@@ -19,26 +20,48 @@ export default function Login({ setRole2 }) {
   };
   axios.defaults.withCredentials = true;
   const handleSubmit = () => {
+    if (!role) {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "Please select a role before logging in.",
+      });
+      return;
+    }
+  
     axios
       .post("http://localhost:8080/auth/login", { username, password, role })
       .then((res) => {
-        if (res.data.login && res.data.role === "superadmin") {
-          setRole2("superadmin");
-          navigate("/superadmindashboard");
+        if (res.data.login && res.data.role) {
+          sessionStorage.setItem("role", res.data.role);
+          sessionStorage.setItem("username", res.data.username);
+          setRole2(res.data.role);
+  
+          if (res.data.role === "superadmin") {
+            navigate("/superadmindashboard");
+          } else if (res.data.role === "patient") {
+            navigate("/patientdashboard", { state: { regnum: res.data.username } });      
+          } else if (res.data.role === "admin") {
+            navigate("/admindashboard");
+          }
+  
           window.location.reload();
-        } else if (res.data.login && res.data.role === "patient") {
-          setRole2("patient");
-          navigate("/patientdashboard");
-          window.location.reload();
-        } else if (res.data.login && res.data.role === "admin") {
-          setRole2("admin");
-          navigate("/admindashboard");
-          window.location.reload();
-        } else {
-          console.log("Invalid role or login status");
+        } else if (res.data.role === ""){
+          Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: "Invalid role or credentials.",
+          });
         }
       })
-      .catch((err) => console.log(err)); // Check for errors
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Login Error",
+          text: "Something went wrong. Please try again.",
+        });
+      });
   };
 
   return (

@@ -13,6 +13,7 @@ const PasswordRecoveryroute = require("./routes/passwordrecoveryroute.js");
 const passwordchange = require("./routes/changepassword.js");
 const appointmentroute = require("./routes/appointmentroute.js");
 const MedicalHistory = require("./routes/Medicalhistoryroute.js");
+const DrugRoutes = require("./routes/drugroute.js");
 
 //import models
 const adminmodel = require("./models/admin.js");
@@ -39,6 +40,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/Appointments", appointmentroute);
 app.use("/changepassword", passwordchange);
 app.use("/medicalhis", MedicalHistory);
+app.use("/drugs", DrugRoutes);
 
 const PORT = 8080;
 app.get("/", (req, res) => {

@@ -6,12 +6,12 @@ exports.create = (req, res) => {
     return;
   }
 
-  const { regno, pname, email, date, time, condition } = req.body;
+  const { regnum, fullname, email, date, time, condition } = req.body;
 
   // New appointment
   const appointment = new Appointment({
-    regno,
-    pname,
+    regnum,
+    fullname,
     email,
     date,
     time,

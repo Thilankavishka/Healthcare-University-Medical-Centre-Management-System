@@ -13,85 +13,65 @@ const router = express.Router();
 //login Superadmin/admin/patient function............................................................................................................
 router.post("/login", async (req, res) => {
   try {
-    //username password and role request from user
     const { username, password, role } = req.body;
-    //validation part
+
+    // Validate required fields
     if (!username || !password || !role) {
-      res.status(400).json({ message: "Provide all fields" });
+      return res.status(400).json({ message: "Provide all fields" });
     }
+
+    let user;
+    let roleKey;
+    let roleName;
+
+    // Role-based authentication
     if (role === "superadmin") {
-      const admin = await superadminmodel.findOne({ username }); //admin validation by username
-      if (!admin) {
-        return res.json({ message: "admin not registered" });
-      }
-      const validpassword = await bcrypt.compare(password, admin.password);
-      if (!validpassword) {
-        return res.json({ message: "wrong Password" });
-      }
-      //asign token for admin
-      const token = jwt.sign(
-        { username: admin.username, role: "superadmin" },
-        process.env.superadmin_key
-      );
-      res.cookie("token", token, { httpOnly: true, secure: true });
-      return res.json({
-        login: true,
-        role: "superadmin",
-        message: "Admin Login Successfully",
-        token,
-      });
-      //student login part
+      user = await superadminmodel.findOne({ username });
+      roleKey = process.env.superadmin_key;
+      roleName = "superadmin";
     } else if (role === "patient") {
-      const patient = await patientmodel.findOne({ regnum: username });
-      if (!patient) {
-        return res.json({
-          message: "patient registration Number not registered",
-        });
-      }
-      const validpassword = await bcrypt.compare(password, patient.password);
-      if (!validpassword) {
-        return res.json({ message: "wrong Password" });
-      }
-      //asign token for student
-      const token = jwt.sign(
-        { username: patient.regnum, role: "patient" },
-        process.env.Patient_Key
-      );
-      res.cookie("token", token, { httpOnly: true, secure: true });
-      return res.json({
-        login: true,
-        role: "patient",
-        message: "Patient Login Successfully",
-        token,
-        username: patient.regnum,
-      });
+      user = await patientmodel.findOne({ regnum: username });
+      roleKey = process.env.Patient_Key;
+      roleName = "patient";
     } else if (role === "admin") {
-      const admin = await adminmodel.findOne({ username });
-      if (!admin) {
-        return res.json({
-          message: "admin is not registered",
-        });
-      }
-      const validpassword = await bcrypt.compare(password, admin.password);
-      if (!validpassword) {
-        return res.json({ message: "wrong Password" });
-      }
-      //asign token for student
-      const token = jwt.sign(
-        { username: admin.username, role: "admin" },
-        process.env.Admin_key
-      );
-      res.cookie("token", token, { httpOnly: true, secure: true });
-      return res.json({
-        login: true,
-        role: "admin",
-        message: "admin Login Successfully",
-        token,
-        username: admin.username,
-      });
+      user = await adminmodel.findOne({ username });
+      roleKey = process.env.Admin_key;
+      roleName = "admin";
+    } else {
+      return res.status(400).json({ message: "Invalid role" });
     }
+
+    // If no user is found
+    if (!user) {
+      return res.status(401).json({ message: `${roleName} not registered` });
+    }
+
+    // Validate password
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ message: "Wrong password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { username: user.username || user.regnum, role: roleName },
+      roleKey,
+      { expiresIn: "1h" }
+    );
+
+    // Set token in cookie
+    res.cookie("token", token, { httpOnly: true, secure: true });
+
+    return res.json({
+      login: true,
+      role: roleName,
+      message: `${roleName} Login Successfully`,
+      token,
+      username: user.username || user.regnum,
+    });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred" });
+    console.error("Login Error:", error);
+    return res.status(500).json({ error: "An internal error occurred" });
   }
 });
 
