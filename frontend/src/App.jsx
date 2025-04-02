@@ -30,6 +30,7 @@ import UpdateAdmin from "./components/UpdateAdmin";
 import SetPassword from "./components/SetPassword";
 import MedicalHistoryForm from "./components/MedicalHistoryForm";
 import UpdatePatient from "./components/PatientUpdate";
+import AddDrug from "./components/AddDrug";
 
 function App() {
   const [role, setRole] = useState("");
@@ -174,6 +175,10 @@ function App() {
           <Route
             path="/updateapatient"
             element={<UpdatePatient></UpdatePatient>}
+          ></Route>
+          <Route
+            path="/addDrugs"
+            element={<AddDrug></AddDrug>}
           ></Route>
         </Routes>
       </Router>
