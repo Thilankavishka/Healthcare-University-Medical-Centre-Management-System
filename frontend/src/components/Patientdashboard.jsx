@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { jsPDF } from "jspdf";
 
-export default function PatientDashboard() {
+export default function PatientDashboard({ regnum }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const regnum = location.state?.regnum;
 
   const navigatechangepassword = () => {
     navigate("/changepassword");
@@ -14,9 +12,9 @@ export default function PatientDashboard() {
 
   const [patient, setPatientDetails] = useState(null);
   const [patientTemp, setPatientDetailsTemp] = useState(null);
-  const [medicalHistories, setMedicalHistories] = useState([]); // State for medical histories
-  const [loading, setLoading] = useState(true); // State for loading status
-  const [showMedicalHistories, setShowMedicalHistories] = useState(false); // State to toggle medical histories
+  const [medicalHistories, setMedicalHistories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showMedicalHistories, setShowMedicalHistories] = useState(false);
 
   // Fetch patient details
   useEffect(() => {
@@ -34,7 +32,6 @@ export default function PatientDashboard() {
       });
   }, [regnum]);
 
-  
   useEffect(() => {
     const fetchPatientDetails = async () => {
       try {
@@ -49,8 +46,6 @@ export default function PatientDashboard() {
 
     if (regnum) fetchPatientDetails();
   }, [regnum]);
-
-  
 
   const handleAppointmentClick = () => {
     navigate("/AddAppointment", {
@@ -77,17 +72,6 @@ export default function PatientDashboard() {
         });
     }
   }, [regnum]);
-
-  // Handle prescription download
-  // const handleDownloadPrescription = (prescription) => {
-  //   const blob = new Blob([prescription], { type: "text/plain" });
-  //   const url = URL.createObjectURL(blob);
-  //   const link = document.createElement("a");
-  //   link.href = url;
-  //   link.download = "prescription.txt";
-  //   link.click();
-  //   URL.revokeObjectURL(url);
-  // };
 
   const handleDownloadPrescription = (
     regNo,
@@ -127,7 +111,6 @@ export default function PatientDashboard() {
     doc.save(`Prescription_${regNo}_BP-${formattedBP}_${visitDate}.pdf`);
   };
 
-  // Toggle medical histories visibility
   const toggleMedicalHistories = () => {
     setShowMedicalHistories(!showMedicalHistories);
   };
@@ -307,13 +290,13 @@ export default function PatientDashboard() {
                             onClick={() =>
                               handleDownloadPrescription(
                                 history.regNo,
-                                history.prescription,
                                 history.bloodPressure,
                                 history.bloodSugar,
                                 history.weight,
                                 history.temperature,
                                 history.diagnosis,
-                                history.visitDate
+                                history.visitDate,
+                                history.prescription
                               )
                             }
                             className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"

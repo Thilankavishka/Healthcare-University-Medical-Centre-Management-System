@@ -159,7 +159,7 @@ export default function AddAppointment() {
           <div className="flex justify-around">
           <button
               type="button"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/patientdashboard")}
               className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600"
             >
               Cancel
