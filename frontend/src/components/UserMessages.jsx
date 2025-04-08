@@ -3,11 +3,17 @@ import axios from "axios";
 
 export default function UserMessage() {
   const [messages, setMessages] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // State to track search input
+  const [searchTerm, setSearchTerm] = useState("");
   const [numofmessages, setNumofmessages] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Fetch messages from backend when component mounts
   useEffect(() => {
+    fetchMessages();
+    fetchMessageCount();
+  }, []);
+
+  const fetchMessages = () => {
     axios
       .get("http://localhost:8080/message/getusermessages")
       .then((response) => {
@@ -16,9 +22,9 @@ export default function UserMessage() {
       .catch((error) => {
         console.log("Error fetching messages:", error);
       });
-  }, []);
+  };
 
-  useEffect(() => {
+  const fetchMessageCount = () => {
     axios
       .get("http://localhost:8080/message/countmessages")
       .then((response) => {
@@ -27,7 +33,24 @@ export default function UserMessage() {
       .catch((error) => {
         console.log("Error fetching message count:", error);
       });
-  }, []);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this message?")) {
+      setIsDeleting(true);
+      try {
+        await axios.delete(`http://localhost:8080/message/deletemessage/${id}`);
+        // Refresh the messages after deletion
+        fetchMessages();
+        fetchMessageCount();
+      } catch (error) {
+        console.error("Error deleting message:", error);
+        alert("Failed to delete message");
+      } finally {
+        setIsDeleting(false);
+      }
+    }
+  };
 
   // Filter messages based on regnum
   const filteredMessages = messages.filter((message) =>
@@ -43,7 +66,6 @@ export default function UserMessage() {
 
       {/* Search Bar and Total Messages Section */}
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-center bg-white p-6 rounded-lg shadow-md">
-        {/* Left side: Search Bar */}
         <div className="w-full sm:w-2/3 mb-4 sm:mb-0">
           <input
             type="text"
@@ -54,7 +76,6 @@ export default function UserMessage() {
           />
         </div>
 
-        {/* Right side: Total Messages */}
         <div className="flex justify-center items-center">
           <h2 className="text-blue-600 text-2xl sm:text-3xl font-semibold">
             Total Messages:{" "}
@@ -86,6 +107,9 @@ export default function UserMessage() {
               <th className="px-4 py-2 text-white font-semibold text-center">
                 Message
               </th>
+              <th className="px-4 py-2 text-white font-semibold text-center">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -113,12 +137,21 @@ export default function UserMessage() {
                   <td className="border border-gray-300 px-4 py-2 text-center">
                     {message.message}
                   </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    <button
+                      onClick={() => handleDelete(message._id)}
+                      disabled={isDeleting}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition-colors disabled:bg-red-300"
+                    >
+                      {isDeleting ? "Deleting..." : "Delete"}
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td
-                  colSpan="6"
+                  colSpan="7"
                   className="text-center text-gray-500 py-4 font-medium"
                 >
                   No matching records found.

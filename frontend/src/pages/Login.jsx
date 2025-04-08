@@ -91,11 +91,11 @@ export default function Login({ setRole2 }) {
               htmlFor="username"
               className="block text-gray-700 font-semibold mb-2"
             >
-              Username:
+              Username/RegNum:
             </label>
             <input
               type="text"
-              placeholder="Enter username"
+              placeholder="2020ICT30"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"

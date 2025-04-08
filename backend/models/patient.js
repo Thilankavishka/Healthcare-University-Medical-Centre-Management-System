@@ -14,6 +14,14 @@ const patientschema = new mongoose.Schema(
     gender: { type: String, required: true },
     password: { type: String, required: true },
     image: { type: String, required: true },
+    medicalReports: [
+      {
+        filename: String,
+        originalName: String,
+        path: String,
+        uploadedAt: { type: Date, default: Date.now }
+      }
+    ]
   },
   {
     timestamps: true,

@@ -31,6 +31,7 @@ const PasswordRecovery = () => {
         {success && <p className="text-green-500 text-sm mb-3">{success}</p>}
 
         <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* Full Name Input */}
           <div>
             <label htmlFor="fullName" className="text-sm font-medium text-gray-700">Full Name</label>
             <input
@@ -44,6 +45,7 @@ const PasswordRecovery = () => {
             />
           </div>
 
+          {/* Email Input */}
           <div>
             <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
             <input
@@ -57,6 +59,7 @@ const PasswordRecovery = () => {
             />
           </div>
 
+          {/* Reset Button */}
           <button
             type="submit"
             className="w-full py-2 text-sm bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"

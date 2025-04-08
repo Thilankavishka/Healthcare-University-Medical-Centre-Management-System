@@ -289,4 +289,77 @@ router.put("/updatepatient/:regnum", async (req, res) => {
   }
 });
 
+//...................................
+const reportStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/medical-reports/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, req.params.regnum + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const uploadReport = multer({ 
+  storage: reportStorage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'application/pdf') {
+      cb(null, true);
+    } else {
+      cb(new Error('Only PDF files are allowed'), false);
+    }
+  }
+});
+
+// Upload medical report
+router.post('/upload-report/:regnum', uploadReport.single('report'), async (req, res) => {
+  try {
+    const { regnum } = req.params;
+    
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const report = {
+      filename: req.file.filename,
+      originalName: req.file.originalname,
+      path: req.file.path
+    };
+
+    await patientmodel.findOneAndUpdate(
+      { regnum },
+      { $push: { medicalReports: report } }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Report uploaded successfully',
+      filePath: `/uploads/medical-reports/${req.file.filename}`
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get patient's medical reports
+router.get('/medical-reports/:regnum', async (req, res) => {
+  try {
+    const { regnum } = req.params;
+    const patient = await patientmodel.findOne({ regnum }).select('medicalReports');
+    
+    if (!patient) {
+      return res.status(404).json({ message: 'Patient not found' });
+    }
+
+    res.status(200).json({
+      success: true,
+      reports: patient.medicalReports
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
