@@ -17,7 +17,7 @@ router.post("/medical-history", async (req, res) => {
   } = req.body;
 
   try {
-    // Check if the patient exists
+    
     const patient = await PatientModel.findOne({ regnum: regNo });
     if (!patient) {
       return res.status(404).json({ message: "Patient not found" });
