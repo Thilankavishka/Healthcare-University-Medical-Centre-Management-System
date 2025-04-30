@@ -30,33 +30,42 @@ export default function Footer() {
           </li>
           <li className="flex items-center">
             <img src="location.png" alt="" className="w-4 h-4" />
-            <h6 className="text-slate-600">&nbsp;Pampeimadu,Vavuniya</h6>
+            <h6 className="text-slate-600">&nbsp;Pambaimadu,Vavuniya</h6>
           </li>
         </ul>
       </div>
       <div className="">
         <h4 className="text-lg font-semibold">Hours</h4>
-        <ul>
-          <h6 className="text-slate-600">
-            Monday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.0pm
-          </h6>
-          <h6 className="text-slate-600">
-            Tuesday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.0pm
-          </h6>
-          <h6 className="text-slate-600">
-            Wednesday&nbsp;&nbsp;&nbsp;8.30am-4.0pm
-          </h6>
-
-          <h6 className="text-slate-600">
-            Friday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.30am-4.0pm
-          </h6>
-          <h6 className="text-slate-600">
-            Saturday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9pm-12pm
-          </h6>
-          <h6 className="text-slate-600">
-            Sunday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Closed
-          </h6>
-        </ul>
+        <table className="text-slate-600">
+          <tr className="leading-tight">
+            <td className="pr-4">• Monday</td>
+            <td>8.30am-4.00pm</td>
+          </tr>
+          <tr className="leading-tight">
+            <td className="pr-4">• Tuesday</td>
+            <td>8.30am-4.00pm</td>
+          </tr>
+          <tr className="leading-tight">
+            <td className="pr-4">• Wednesday</td>
+            <td>8.30am-4.00pm</td>
+          </tr>
+          <tr className="leading-tight">
+            <td className="pr-4">• Thursday</td>
+            <td>8.30am-4.00pm</td>
+          </tr>
+          <tr className="leading-tight">
+            <td className="pr-4">• Friday</td>
+            <td>8.30am-4.00pm</td>
+          </tr>
+          <tr className="leading-tight">
+            <td className="pr-4">• Saturday</td>
+            <td>9.00am-12.00pm</td>
+          </tr>
+          <tr className="leading-tight">
+            <td className="pr-4">• Sunday</td>
+            <td>Closed</td>
+          </tr>
+        </table>
       </div>
     </div>
   );
